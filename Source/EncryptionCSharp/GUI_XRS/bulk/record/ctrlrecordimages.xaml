@@ -1,0 +1,200 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlRecordImages" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlRecordImages_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToBrushConverter
+				x:Key="boolBrushConverter" />
+			<l:TwoBoolBrushConverter
+				x:Key="twoBoolBrushConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="{Binding Source={StaticResource MWCHeaderHeight}}" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid
+			Margin="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<l:RadioButtonExtended
+				GroupName="rbVibro"
+				Grid.Column="0"
+				Margin="15 0 15 0"
+				Width="133"
+				IsCheckedReal="{Binding VibroViewModel.Vibro.VibroManualModeByGUI}">
+				<Control.Template>
+					<ControlTemplate
+						TargetType="{x:Type l:RadioButtonExtended}">
+						<Grid>
+							<Border
+								Name="BorderUp"
+								CornerRadius="3"
+								BorderThickness="0 0 0 1"
+								BorderBrush="#f7f7f7">
+								<Border
+									CornerRadius="2.5"
+									BorderThickness="1"
+									BorderBrush="#3f3f3f">
+									<Border.Background>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="0,1">
+											<GradientStop
+												Offset="0"
+												Color="#b0b0b0" />
+											<GradientStop
+												Offset="1"
+												Color="#8c8b8b" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+							</Border>
+							<Border
+								Name="BorderDown"
+								CornerRadius="3"
+								BorderThickness="0 0 0 1"
+								BorderBrush="#f7f7f7"
+								Opacity="{Binding VibroViewModel.Vibro.VibroManualModeByGUI}">
+								<Border
+									CornerRadius="2.5"
+									BorderThickness="1"
+									BorderBrush="#3f3f3f">
+									<Border.Background>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="0,1">
+											<GradientStop
+												Offset="0"
+												Color="#8c8b8b" />
+											<GradientStop
+												Offset="1"
+												Color="#b0b0b0" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+							</Border>
+							<Grid
+								Name="Contents"
+								Margin="3">
+								<ContentPresenter
+									VerticalAlignment="Center"
+									Grid.Column="0" />
+							</Grid>
+						</Grid>
+					</ControlTemplate>
+				</Control.Template>
+				<TextBlock
+					Grid.Row="0"
+					FontSize="16"
+					FontFamily="Helvetica"
+					FontWeight="Bold"
+					TextAlignment="Center"
+					TextWrapping="WrapWithOverflow"
+					Text="{Binding Path=StrStartVibro.LocalizedText, FallbackValue=Vibro starten}"
+					Foreground="{Binding VibroViewModel.Vibro.VibroManualModeByGUIInverted, Converter={StaticResource boolBrushConverter}}" />
+			</l:RadioButtonExtended>
+			<l:RadioButtonExtended
+				GroupName="rbVibro"
+				Grid.Column="1"
+				Margin="0 0 15 0"
+				Width="133"
+				IsCheckedReal="{Binding VibroViewModel.Vibro.VibroManualModeByGUIInverted, Mode=OneWay}">
+				<Control.Template>
+					<ControlTemplate
+						TargetType="{x:Type l:RadioButtonExtended}">
+						<Grid>
+							<Border
+								Name="BorderUp"
+								CornerRadius="3"
+								BorderThickness="0 0 0 1"
+								BorderBrush="#f7f7f7">
+								<Border
+									CornerRadius="2.5"
+									BorderThickness="1"
+									BorderBrush="#3f3f3f">
+									<Border.Background>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="0,1">
+											<GradientStop
+												Offset="0"
+												Color="#b0b0b0" />
+											<GradientStop
+												Offset="1"
+												Color="#8c8b8b" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+							</Border>
+							<Border
+								Name="BorderDown"
+								CornerRadius="3"
+								BorderThickness="0 0 0 1"
+								BorderBrush="#f7f7f7"
+								Opacity="{Binding VibroViewModel.Vibro.VibroManualModeByGUIInverted}">
+								<Border
+									CornerRadius="2.5"
+									BorderThickness="1"
+									BorderBrush="#3f3f3f">
+									<Border.Background>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="0,1">
+											<GradientStop
+												Offset="0"
+												Color="#8c8b8b" />
+											<GradientStop
+												Offset="1"
+												Color="#b0b0b0" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+							</Border>
+							<Grid
+								Name="Contents"
+								Margin="3">
+								<ContentPresenter
+									VerticalAlignment="Center"
+									Grid.Column="0" />
+							</Grid>
+						</Grid>
+					</ControlTemplate>
+				</Control.Template>
+				<TextBlock
+					Grid.Row="0"
+					FontSize="16"
+					FontFamily="Helvetica"
+					FontWeight="Bold"
+					TextAlignment="Center"
+					TextWrapping="WrapWithOverflow"
+					Text="{Binding Path=StrStopVibro.LocalizedText, FallbackValue=Vibro stoppen}"
+					Foreground="{Binding VibroViewModel.Vibro.VibroManualModeByGUI, Converter={StaticResource boolBrushConverter}}" />
+			</l:RadioButtonExtended>
+			<TextBlock
+				Grid.Column="2"
+				TextWrapping="Wrap"
+				FontSize="30"
+				FontWeight="Bold"
+				TextAlignment="Center"
+				Text="{Binding RecordText}" />
+		</Grid>
+		<image:XRSImageBox
+			Name="imagebox"
+			Grid.Row="2" />
+	</Grid>
+</UserControl>

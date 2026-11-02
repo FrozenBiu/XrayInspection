@@ -1,0 +1,1889 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{B7969159-4020-4D6B-B48B-6C3F7068E270}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GUI_XRS</RootNamespace>
+    <AssemblyName>GUI_XRS</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>GUI_XRS.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common">
+      <HintPath>..\..\Source\GUI_XRS\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DatabaseConnection">
+      <HintPath>..\..\Source\GUI_XRS\DatabaseConnection.dll</HintPath>
+    </Reference>
+    <Reference Include="Definitions">
+      <HintPath>..\..\Source\GUI_XRS\Definitions.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip">
+      <HintPath>..\..\Source\GUI_XRS\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicDataDisplay">
+      <HintPath>..\..\Source\GUI_XRS\DynamicDataDisplay.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Source\GUI_XRS\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ManagedWifi">
+      <HintPath>..\..\Source\GUI_XRS\ManagedWifi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\Source\GUI_XRS\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Sesoplot">
+      <HintPath>..\..\Source\GUI_XRS\Sesoplot.dll</HintPath>
+    </Reference>
+    <Reference Include="SNRPlotLibrary">
+      <HintPath>..\..\Source\GUI_XRS\SNRPlotLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="SSTEthernet">
+      <HintPath>..\..\Source\GUI_XRS\SSTEthernet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\Source\GUI_XRS\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\..\Source\GUI_XRS\WPFToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="WSFood">
+      <HintPath>..\..\Source\GUI_XRS\WSFood.dll</HintPath>
+    </Reference>
+    <Reference Include="XrsImage">
+      <HintPath>..\..\Source\GUI_XRS\XrsImage.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="mscorlib" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessRight.cs" />
+    <Compile Include="AccessRightsManager.cs" />
+    <Compile Include="Acquisition.cs" />
+    <Compile Include="AcquisitionModesStringConverter.cs" />
+    <Compile Include="AcquisitionModeStringConverter.cs" />
+    <Compile Include="ActivateCMCalculationConverter.cs" />
+    <Compile Include="Activator.cs" />
+    <Compile Include="ActivatorMode.cs" />
+    <Compile Include="ActivatorViewModel.cs" />
+    <Compile Include="AIAutotrainViewModel.cs" />
+    <Compile Include="AIMenuSelectionViewModel.cs" />
+    <Compile Include="AIObjectClass.cs" />
+    <Compile Include="AIObjectSimulationViewModel.cs" />
+    <Compile Include="AIObjectStatusViewModel.cs" />
+    <Compile Include="AIObjectViewModel.cs" />
+    <Compile Include="AIRestoreListBackupsViewModel.cs" />
+    <Compile Include="AIRestoreListProductsViewModel.cs" />
+    <Compile Include="AIRestoreOptionsViewModel.cs" />
+    <Compile Include="AIService.cs" />
+    <Compile Include="AIStatusViewModel.cs" />
+    <Compile Include="AIViewModel.cs" />
+    <Compile Include="AlarmMode.cs" />
+    <Compile Include="AlarmModes.cs" />
+    <Compile Include="AlarmmodesStringConverter.cs" />
+    <Compile Include="AlarmmodeStringConverter.cs" />
+    <Compile Include="APIStructDefinitions.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AuditCheckDocContentViewModel.cs" />
+    <Compile Include="AuditCheckDocOverviewViewModel.cs" />
+    <Compile Include="AuditCheckEntries.cs" />
+    <Compile Include="AuditCheckEntryToBrushConverter.cs" />
+    <Compile Include="AuditCheckNew\SignatureWindow.xaml.cs">
+      <DependentUpon>SignatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AuditCheckProcessViewModel.cs" />
+    <Compile Include="AuditCheckSavedEntries.cs" />
+    <Compile Include="AuditCheckSettings.cs" />
+    <Compile Include="AuditCheckSettingsViewModel.cs" />
+    <Compile Include="AuditCheckTestsamplesViewModel.cs" />
+    <Compile Include="AuditCheck\SignatureWindowViewModel.cs" />
+    <Compile Include="AuditImageType.cs" />
+    <Compile Include="AuditMode.cs" />
+    <Compile Include="AuditRequired.cs" />
+    <Compile Include="AuditRequiredViewModel.cs" />
+    <Compile Include="AutokVSettingsViewModel.cs" />
+    <Compile Include="AutolearnMachineStatesBoolConverter.cs" />
+    <Compile Include="AutolearnMachineStatesBoolConverter2.cs" />
+    <Compile Include="AutolearnMachineStatesBoolConverterWithRefProd.cs" />
+    <Compile Include="AutolearnMachineStatesSliderStyleConverter.cs" />
+    <Compile Include="AutolearnMachineStatesTextBoxStyleConverter.cs" />
+    <Compile Include="AutolearnType.cs" />
+    <Compile Include="Autotrain.cs" />
+    <Compile Include="AutotrainControl.cs" />
+    <Compile Include="BackgroundLiveMonitoringViewModel.cs" />
+    <Compile Include="BackgroundMonitoringViewModel.cs" />
+    <Compile Include="Backup.cs" />
+    <Compile Include="BackupData.cs" />
+    <Compile Include="BackupDataComparer.cs" />
+    <Compile Include="BackupInfo.cs" />
+    <Compile Include="BackupInfoFileParser.cs" />
+    <Compile Include="BackupInfoViewModel.cs" />
+    <Compile Include="BackupListViewModel.cs" />
+    <Compile Include="BackupNamesComparer.cs" />
+    <Compile Include="BackupOptionsViewModel.cs" />
+    <Compile Include="BackupSizeHelper.cs" />
+    <Compile Include="BackupViewModel.cs" />
+    <Compile Include="BarItem.cs" />
+    <Compile Include="BarItemActiveBrushConverter.cs" />
+    <Compile Include="BarItemBorderThicknessConverter.cs" />
+    <Compile Include="BarItemMarkerLengthConverter.cs" />
+    <Compile Include="BarViewModel.cs" />
+    <Compile Include="BatchesViewModel.cs" />
+    <Compile Include="BindableStaticResource.cs" />
+    <Compile Include="BoolBrushBlackGrayConverter.cs" />
+    <Compile Include="BoolFontWeightConverter.cs" />
+    <Compile Include="BoolGridLengthAutoConverter.cs" />
+    <Compile Include="BoolGridLengthDobuleStarConverter.cs" />
+    <Compile Include="BoolGridLengthFixedValueConverter.cs" />
+    <Compile Include="BoolGridLengthHalfStarConverter.cs" />
+    <Compile Include="BoolGridLengthStarConverter.cs" />
+    <Compile Include="BoolGridLengthStarInvertedConverter.cs" />
+    <Compile Include="BoolToBrushConverter.cs" />
+    <Compile Include="BoolToCheckBoxStyleConverter.cs" />
+    <Compile Include="BoolToStringConverter.cs" />
+    <Compile Include="BoolToTextBoxStyleConverter.cs" />
+    <Compile Include="BoolToTextBoxStyleConverter2.cs" />
+    <Compile Include="BoolToTextBoxStyleConverter3.cs" />
+    <Compile Include="BoolToVisibilityCollapsedConverter.cs" />
+    <Compile Include="BoolToVisibilityHiddenConverter.cs" />
+    <Compile Include="BoolToVisibilityInvertedHiddenConverter.cs" />
+    <Compile Include="BoundLocalizedText.cs" />
+    <Compile Include="Branding.cs" />
+    <Compile Include="BrandingViewModel.cs" />
+    <Compile Include="BrowseImagesViewModel.cs" />
+    <Compile Include="BulkAuditCheckProcessViewModel.cs" />
+    <Compile Include="BulkHistoryItem.cs" />
+    <Compile Include="BulkMode.cs" />
+    <Compile Include="ButtonUSB.cs" />
+    <Compile Include="Buzzer.cs" />
+    <Compile Include="BuzzerViewModel.cs" />
+    <Compile Include="CanFilter.cs" />
+    <Compile Include="CanFilterViewModel.cs" />
+    <Compile Include="ChangeToBrushConverter.cs" />
+    <Compile Include="ChangeUserData.cs" />
+    <Compile Include="ChangeUserDataViewModel.cs" />
+    <Compile Include="ChartCustomTicksProvider.cs" />
+    <Compile Include="ChkPointComparer.cs" />
+    <Compile Include="ChkPointInfo.cs" />
+    <Compile Include="ChoseRegionTypeViewModel.cs" />
+    <Compile Include="ComissioningFeaturesViewModel.cs" />
+    <Compile Include="ComissioningMultilaneViewModel.cs" />
+    <Compile Include="ComissioningObjectBasedFlapsViewModel.cs" />
+    <Compile Include="ComissioningOverviewParams.cs" />
+    <Compile Include="ComissioningOverviewViewModel.cs" />
+    <Compile Include="ComissioningViewModel.cs" />
+    <Compile Include="ComplianceBoolToBackgroundColorConverter.cs" />
+    <Compile Include="ComplianceBoolToBrushConverter.cs" />
+    <Compile Include="ComServerClient.cs" />
+    <Compile Include="Conveyor.cs" />
+    <Compile Include="ConveyorOffVisibilityConverter.cs" />
+    <Compile Include="ConveyorOnVisibilityConverter.cs" />
+    <Compile Include="ConveyorParametersViewModel.cs" />
+    <Compile Include="ConveyorViewModel.cs" />
+    <Compile Include="CounterAdaptionViewModel.cs" />
+    <Compile Include="CounterItem.cs" />
+    <Compile Include="Counters.cs" />
+    <Compile Include="CtrlAcquisitionSettings.cs" />
+    <Compile Include="CtrlAcquisitionSettingsViewModel.cs" />
+    <Compile Include="CtrlActivator.cs" />
+    <Compile Include="CtrlAI.cs" />
+    <Compile Include="CtrlAIAutotrain.cs" />
+    <Compile Include="CtrlAIMenuSelection.cs" />
+    <Compile Include="CtrlAIObject.cs" />
+    <Compile Include="CtrlAIObjectSimulation.cs" />
+    <Compile Include="CtrlAIObjectStatus.cs" />
+    <Compile Include="CtrlAIRestoreListBackups.cs" />
+    <Compile Include="CtrlAIRestoreListProducts.cs" />
+    <Compile Include="CtrlAIRestoreOptions.cs" />
+    <Compile Include="CtrlAIStatus.cs" />
+    <Compile Include="CtrlAuditCheck.cs" />
+    <Compile Include="CtrlAuditCheckDocContent.cs" />
+    <Compile Include="CtrlAuditCheckDocOverview.cs" />
+    <Compile Include="CtrlAuditCheckProcess.cs" />
+    <Compile Include="CtrlAuditCheckSavedEntries.cs" />
+    <Compile Include="CtrlAuditCheckSettings.cs" />
+    <Compile Include="CtrlAuditCheckTestsamples.cs" />
+    <Compile Include="CtrlAutokVSettings.cs" />
+    <Compile Include="CtrlAutotrainAdjustments.cs" />
+    <Compile Include="CtrlBackup.cs" />
+    <Compile Include="CtrlBackupInfo.cs" />
+    <Compile Include="CtrlBackupList.cs" />
+    <Compile Include="CtrlBackupOptions.cs" />
+    <Compile Include="CtrlBar.cs" />
+    <Compile Include="CtrlBatches.cs" />
+    <Compile Include="CtrlBranding.cs" />
+    <Compile Include="CtrlBrowseImages.cs" />
+    <Compile Include="CtrlBulkAuditCheckProcess.cs" />
+    <Compile Include="CtrlBuzzer.cs" />
+    <Compile Include="CtrlCanFilter.cs" />
+    <Compile Include="CtrlChangeEdgePixel.cs" />
+    <Compile Include="CtrlChart.cs" />
+    <Compile Include="CtrlChoseRegionType.cs" />
+    <Compile Include="CtrlComissioning.cs" />
+    <Compile Include="CtrlComissioningFeatures.cs" />
+    <Compile Include="CtrlComissioningMultilane.cs" />
+    <Compile Include="CtrlComissioningObjectBasedFlaps.cs" />
+    <Compile Include="CtrlComissioningOverview.cs" />
+    <Compile Include="CtrlConveyor.cs" />
+    <Compile Include="CtrlCounter.cs" />
+    <Compile Include="CtrlCounterAdaption.cs" />
+    <Compile Include="CtrlDataPlots.cs" />
+    <Compile Include="CtrlDetectorPlot.cs" />
+    <Compile Include="CtrlDocumentsManagement.cs" />
+    <Compile Include="CtrlDualEnergy.cs" />
+    <Compile Include="CtrlEdgeSubButtons.cs" />
+    <Compile Include="CtrlErrorContact.cs" />
+    <Compile Include="CtrlFastAuditCheckProcess.cs" />
+    <Compile Include="CtrlFeatureSelection.cs" />
+    <Compile Include="CtrlFlapsOverIOs.cs" />
+    <Compile Include="CtrlFullscreenImage.cs" />
+    <Compile Include="CtrlHardwareFeatures.cs" />
+    <Compile Include="CtrlHistogram.cs" />
+    <Compile Include="CtrlImpurityFinderSettings.cs" />
+    <Compile Include="CtrlIPConfiguration.cs" />
+    <Compile Include="CtrlIVPCertificatesContent.cs" />
+    <Compile Include="CtrlIVPCertificatesManufacturer.cs" />
+    <Compile Include="CtrlIVPCertificatesOverview.cs" />
+    <Compile Include="CtrlIVPMultiChoice.cs" />
+    <Compile Include="CtrlIVPProcess.cs" />
+    <Compile Include="CtrlIVPSettings.cs" />
+    <Compile Include="CtrlIVPTestsamples.cs" />
+    <Compile Include="CtrlLanguage.cs" />
+    <Compile Include="CtrlLearnCanFilter.cs" />
+    <Compile Include="CtrlLearnCounter.cs" />
+    <Compile Include="CtrlLicensesWindow.cs" />
+    <Compile Include="CtrlLiveMode.cs" />
+    <Compile Include="CtrlLogbook.cs" />
+    <Compile Include="CtrlMachineParameter.cs" />
+    <Compile Include="CtrlMemoryTest.xaml.cs">
+      <DependentUpon>CtrlMemoryTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CtrlMoveSource.cs" />
+    <Compile Include="CtrlOverviewBulk.cs" />
+    <Compile Include="CtrlOverviewEntry.cs" />
+    <Compile Include="CtrlOverviewEX2A.cs" />
+    <Compile Include="CtrlOverviewIVPReferenceProduct.cs" />
+    <Compile Include="CtrlOverviewRayconD.cs" />
+    <Compile Include="CtrlOverviewRayconDPlusHyRework.cs" />
+    <Compile Include="CtrlOverviewSsh.cs" />
+    <Compile Include="CtrlOverviewXRS.cs" />
+    <Compile Include="CtrlParameter.cs" />
+    <Compile Include="CtrlPrintReport.cs" />
+    <Compile Include="CtrlProductsToLane.cs" />
+    <Compile Include="CtrlQAParams.cs" />
+    <Compile Include="CtrlRecordImages.cs" />
+    <Compile Include="CtrlRegionProduct.cs" />
+    <Compile Include="CtrlRejecter.cs" />
+    <Compile Include="CtrlRestoreList.cs" />
+    <Compile Include="CtrlRestoreOptions.cs" />
+    <Compile Include="CtrlRetrainRegion.cs" />
+    <Compile Include="CtrlSendImage.cs" />
+    <Compile Include="CtrlSettingMode.cs" />
+    <Compile Include="CtrlSettingsMonitoring.cs" />
+    <Compile Include="CtrlShowImage.xaml.cs">
+      <DependentUpon>CtrlShowImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CtrlSizeFilter.cs" />
+    <Compile Include="CtrlSubProduct.cs" />
+    <Compile Include="CtrlSVT.cs" />
+    <Compile Include="CtrlSWButtons.cs" />
+    <Compile Include="CtrlSWButtonsToggle.cs" />
+    <Compile Include="CtrlTestcardSim.cs" />
+    <Compile Include="CtrlTestcardSimHistogram.cs" />
+    <Compile Include="CtrlTestcardSimMonitoring.cs" />
+    <Compile Include="CtrlTestcardSimMonitoringOverview.cs" />
+    <Compile Include="CtrlTestcardSimSettings.cs" />
+    <Compile Include="CtrlTestcardSimStatistics.cs" />
+    <Compile Include="CtrlTestcardSimStatisticsTable.cs" />
+    <Compile Include="CtrlUserBackupInfo.cs" />
+    <Compile Include="CtrlValveActivity.cs" />
+    <Compile Include="CtrlVibro.cs" />
+    <Compile Include="CtrlVideojetPrinter.cs" />
+    <Compile Include="CtrlWifiAddNetwork.cs" />
+    <Compile Include="CtrlWifiImageTransfer.cs" />
+    <Compile Include="CtrlWifiManage.cs" />
+    <Compile Include="CtrlXRayStart.cs" />
+    <Compile Include="CurrentApplicationName.cs" />
+    <Compile Include="CursorsSettings.cs" />
+    <Compile Include="DataGridAttachedProps.cs" />
+    <Compile Include="Datalogger\CtrlDatalogger.xaml.cs">
+      <DependentUpon>CtrlDatalogger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Datalogger\CtrlDataloggerSelection.xaml.cs">
+      <DependentUpon>CtrlDataloggerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Datalogger\CtrlDatalogsPredMain.xaml.cs">
+      <DependentUpon>CtrlDatalogsPredMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Datalogger\CtrlDatalogsPredMainResets.xaml.cs">
+      <DependentUpon>CtrlDatalogsPredMainResets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Datalogger\DataloggerSelectionViewModel.cs" />
+    <Compile Include="Datalogger\DataloggerViewModel.cs" />
+    <Compile Include="Datalogger\DataLogsListColumns.cs" />
+    <Compile Include="Datalogger\DatalogsPredMainResetsViewModel.cs" />
+    <Compile Include="Datalogger\DatalogsPredMainViewModel.cs" />
+    <Compile Include="Datalogger\Logger.cs" />
+    <Compile Include="Datalogger\LogItem.cs" />
+    <Compile Include="DataModesMonitoring.cs" />
+    <Compile Include="DataPlotsViewModel.cs" />
+    <Compile Include="DateTimeBoolToBrushConverter.cs" />
+    <Compile Include="DateTimeToStringConverter.cs" />
+    <Compile Include="DateTimeVisibilityConverter.cs" />
+    <Compile Include="DayOfWeekStringConverter.cs" />
+    <Compile Include="Days.cs" />
+    <Compile Include="DaysStringConverter.cs" />
+    <Compile Include="DBDataLogsManager.cs" />
+    <Compile Include="DelegateRfidDetected.cs" />
+    <Compile Include="DetectorParametersViewModel.cs" />
+    <Compile Include="DetectorPlotViewModel.cs" />
+    <Compile Include="Dialog.cs" />
+    <Compile Include="DialogButtons.cs" />
+    <Compile Include="DialogStyle.cs" />
+    <Compile Include="DialogViewModel.cs" />
+    <Compile Include="DirectoriesComparer.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="DocumentsComparer.cs" />
+    <Compile Include="DocumentsManagementViewModel.cs" />
+    <Compile Include="DoubleStringConverter.cs" />
+    <Compile Include="DoubleStringConverterPrec1.cs" />
+    <Compile Include="DoubleToVisibilityConverter.cs" />
+    <Compile Include="DTNetNoTdiDefectPixel.cs" />
+    <Compile Include="DTNetTdiDefectPixel.cs" />
+    <Compile Include="DTNetTdiDefectPixelList.cs" />
+    <Compile Include="DualEnergy.cs" />
+    <Compile Include="DualEnergyViewModel.cs" />
+    <Compile Include="EdgeFilterMode.cs" />
+    <Compile Include="EdgeModes.cs" />
+    <Compile Include="EdgeSubButtonsViewModel.cs" />
+    <Compile Include="ErrorContactViewModel.cs" />
+    <Compile Include="ErrorHandling.cs" />
+    <Compile Include="ErrorSurvey.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FactorySettings.cs" />
+    <Compile Include="FakeImage.cs" />
+    <Compile Include="FastAuditCheckProcessViewModel.cs" />
+    <Compile Include="Feature.cs" />
+    <Compile Include="FeatureSelectionViewModel.cs" />
+    <Compile Include="FileCopyHelper.cs" />
+    <Compile Include="FileManagement.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="FilterControl.cs" />
+    <Compile Include="FlapsGraphSelection.cs" />
+    <Compile Include="FlapsOverIOs.cs" />
+    <Compile Include="FlapsOverIOsViewModel.cs" />
+    <Compile Include="Ftp\FTPclient.cs" />
+    <Compile Include="Ftp\FTPdirectory.cs" />
+    <Compile Include="Ftp\FtpDownloadEventArgs.cs" />
+    <Compile Include="Ftp\FTPfileInfo.cs" />
+    <Compile Include="FullscreenViewModel.cs" />
+    <Compile Include="GainCalibrationInfo.cs" />
+    <Compile Include="Graph\CtrlDetectorPlotSVT.xaml.cs">
+      <DependentUpon>CtrlDetectorPlotSVT.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graph\CtrlSnr.xaml.cs">
+      <DependentUpon>CtrlSnr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graph\DetectorPlotSVTViewModel.cs" />
+    <Compile Include="Graph\IImageArrived.cs" />
+    <Compile Include="Graph\IPlotDetailsArrived.cs" />
+    <Compile Include="Graph\RcvImgEventArgs.cs" />
+    <Compile Include="HalfOfIntConverter.cs" />
+    <Compile Include="HardwareFeaturesViewModel.cs" />
+    <Compile Include="HistoryControl.cs" />
+    <Compile Include="HistoryHelper.cs" />
+    <Compile Include="HistoryViewModel.cs" />
+    <Compile Include="HomeManager.cs" />
+    <Compile Include="IBoundLocalizedText.cs" />
+    <Compile Include="ImageButton.cs" />
+    <Compile Include="ImageDataTransfer.cs" />
+    <Compile Include="ImageGroupsStringConverter.cs" />
+    <Compile Include="ImageGroupStringConverter.cs" />
+    <Compile Include="ImageSelectionBoolToBackgroundColorConverter.cs" />
+    <Compile Include="ImageViewer.cs" />
+    <Compile Include="ImpurityFinderSettingsViewModel.cs" />
+    <Compile Include="ImpurityFinderType.cs" />
+    <Compile Include="ImpurityFinderTypes.cs" />
+    <Compile Include="ImpurityFinderTypesStringConverter.cs" />
+    <Compile Include="ImpurityFinderTypeStringConverter.cs" />
+    <Compile Include="Infos.cs" />
+    <Compile Include="InfosTestsamples.cs" />
+    <Compile Include="InOut.cs" />
+    <Compile Include="Integrated_Validation_Process\IVPCertificatesManufacturerViewModel.cs" />
+    <Compile Include="IntGridLengthAutoConverter.cs" />
+    <Compile Include="IntSecondsToHoursMinutesSecondsStringeConverter.cs" />
+    <Compile Include="IntSecondsToMinutesSecondsStringeConverter.cs" />
+    <Compile Include="IntStringToVisibilityConverter.cs" />
+    <Compile Include="IntToCountMessageConverter.cs" />
+    <Compile Include="IntToVisibilityConverter.cs" />
+    <Compile Include="IntToVisibilityConverter1.cs" />
+    <Compile Include="IntWindowStateConverter.cs" />
+    <Compile Include="InverseBooleanConverter.cs" />
+    <Compile Include="IPAddressBox.cs" />
+    <Compile Include="IPConfigRegistry.cs" />
+    <Compile Include="IPConfigurationViewModel.cs" />
+    <Compile Include="IPConfigWMI.cs" />
+    <Compile Include="IPInfo.cs" />
+    <Compile Include="ItemPngToNetworkFolder.cs" />
+    <Compile Include="IVPCertificatesContentViewModel.cs" />
+    <Compile Include="IVPCertificatesOverviewViewModel.cs" />
+    <Compile Include="IVPMaterialStringConverter.cs" />
+    <Compile Include="IVPMultiChoice.cs" />
+    <Compile Include="IVPOneMaterialStringConverter.cs" />
+    <Compile Include="IVPOverviewReferenceProductViewModel.cs" />
+    <Compile Include="IVPProcessViewModel.cs" />
+    <Compile Include="IVPSettingsViewModel.cs" />
+    <Compile Include="IVPSingleTestCardSizeStringConverter.cs" />
+    <Compile Include="IVPTestCardSizeStringConverter.cs" />
+    <Compile Include="IVPTestsamplesViewModel.cs" />
+    <Compile Include="IVPTimer.cs" />
+    <Compile Include="Keyboard.cs" />
+    <Compile Include="KeyboardChar.cs" />
+    <Compile Include="KeyboardHelper.cs" />
+    <Compile Include="KeyboardInputEventArgs.cs" />
+    <Compile Include="KeyboardType.cs" />
+    <Compile Include="KeyboardTypeBoxConverter.cs" />
+    <Compile Include="KeyboardViewModel.cs" />
+    <Compile Include="KeyChecker.cs" />
+    <Compile Include="KeyToLocalizedStringConverter.cs" />
+    <Compile Include="KvAdjustment.cs" />
+    <Compile Include="LanesStringConverter.cs" />
+    <Compile Include="LaneStringConverter.cs" />
+    <Compile Include="LaneXri.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="LanguageViewModel.cs" />
+    <Compile Include="LearnCanFilterViewModel.cs" />
+    <Compile Include="LearnCounterViewModel.cs" />
+    <Compile Include="LengthPrecisionConverter.cs" />
+    <Compile Include="LiveCalibration.cs" />
+    <Compile Include="LiveModeViewModel.cs" />
+    <Compile Include="LocalizationManager.cs" />
+    <Compile Include="Logbook.cs" />
+    <Compile Include="LogbookManager.cs" />
+    <Compile Include="LogbookViewModel.cs" />
+    <Compile Include="LoginToGo.cs" />
+    <Compile Include="LogProgressViewModel.cs" />
+    <Compile Include="Machine.cs" />
+    <Compile Include="MachineErrors.cs" />
+    <Compile Include="MachineParameterViewModel.cs" />
+    <Compile Include="MachineState.cs" />
+    <Compile Include="MachineStates.cs" />
+    <Compile Include="MachineStatesBoolConverterColorMessage.cs" />
+    <Compile Include="MachineStatesSub.cs" />
+    <Compile Include="MachineStatesToVisibilityConverter.cs" />
+    <Compile Include="MachineStatesToVisibilityConverterWithBulk.cs" />
+    <Compile Include="MachineStateXrayStarterVisibilityConverter.cs" />
+    <Compile Include="MachineTypeEntryOrHigherGridLengthAuditCheckFixedValueConver.cs" />
+    <Compile Include="MachineTypeEntryOrHigherGridLengthFixedValueConverter.cs" />
+    <Compile Include="MachineTypeEntryOrHigherVisibilityConverter.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Material.cs" />
+    <Compile Include="MCULogEntry.cs" />
+    <Compile Include="MeanPixelLogger.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageHeightConverter.cs" />
+    <Compile Include="MessageSystem.cs" />
+    <Compile Include="MessageTypeToBrushConverter.cs" />
+    <Compile Include="MessageTypeToButtonStyleConverter.cs" />
+    <Compile Include="MessageTypeToImageConverter.cs" />
+    <Compile Include="Microsoft\Research\DynamicDataDisplay\ViewportRestrictions\DisplayRange.cs" />
+    <Compile Include="Microsoft\Research\DynamicDataDisplay\ViewportRestrictions\ViewportAxesRangeRestriction.cs" />
+    <Compile Include="ModelHeaderOffset.cs" />
+    <Compile Include="ModelTransfer.cs" />
+    <Compile Include="MonitoringItem.cs" />
+    <Compile Include="MonitoringView.cs" />
+    <Compile Include="MonitoringViewModel.cs" />
+    <Compile Include="MoveSourceViewModel.cs" />
+    <Compile Include="MsgBox.cs" />
+    <Compile Include="MsgBoxViewModel.cs" />
+    <Compile Include="MultiBoolVisConverter.cs" />
+    <Compile Include="MultiBoolVisibilityCollapsedConverted.cs" />
+    <Compile Include="Network.cs" />
+    <Compile Include="NIC.cs" />
+    <Compile Include="NotMinDateTimeBoolConverter.cs" />
+    <Compile Include="NumKeyboard.cs" />
+    <Compile Include="NumKeyboardType.cs" />
+    <Compile Include="NumPDefectPixelPerStage.cs" />
+    <Compile Include="ObjectArrayConverter.cs" />
+    <Compile Include="ObjectCounter.cs" />
+    <Compile Include="ObjectCounterViewModel.cs" />
+    <Compile Include="OperationalParametersViewModel.cs" />
+    <Compile Include="OverviewCommon.cs" />
+    <Compile Include="ParameterChangeEventArgs.cs" />
+    <Compile Include="ParameterCommands.cs" />
+    <Compile Include="ParameterDataTransfer.cs" />
+    <Compile Include="ParameterHandling.cs" />
+    <Compile Include="ParameterHeaderOffset.cs" />
+    <Compile Include="ParameterItem.cs" />
+    <Compile Include="ParameterPathComparer.cs" />
+    <Compile Include="ParameterViewModel.cs" />
+    <Compile Include="ParamState.cs" />
+    <Compile Include="ParamStateBrushConverter.cs" />
+    <Compile Include="ParamStateBrushConverterNew.cs" />
+    <Compile Include="PasswordHelper.cs" />
+    <Compile Include="PathsWithAbbreviation.cs" />
+    <Compile Include="PixelCorrection.cs" />
+    <Compile Include="PointCollectionConverter.cs" />
+    <Compile Include="Printing.cs" />
+    <Compile Include="PrintReportViewModel.cs" />
+    <Compile Include="ProductChangeControl.cs" />
+    <Compile Include="ProductChangeMachineStatesBoolConverter.cs" />
+    <Compile Include="ProductChangeViewModel.cs" />
+    <Compile Include="ProductData.cs" />
+    <Compile Include="ProductDataComparer.cs" />
+    <Compile Include="ProductDataComparerGeneric.cs" />
+    <Compile Include="ProductHeightLabelMarginConverter.cs" />
+    <Compile Include="ProductManager.cs" />
+    <Compile Include="ProductSearch.cs" />
+    <Compile Include="ProductsToLaneViewModel.cs" />
+    <Compile Include="Progress.xaml.cs">
+      <DependentUpon>Progress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QAParamsViewModel.cs" />
+    <Compile Include="QualityCntrlDoc.cs" />
+    <Compile Include="QualityParameter.cs" />
+    <Compile Include="RadioButtonExtended.cs" />
+    <Compile Include="ReceiveEventArgs.cs" />
+    <Compile Include="RecordImagesViewModel.cs" />
+    <Compile Include="ReferenceProductConverter.cs" />
+    <Compile Include="RefVisibilityCollapsedConverter.cs" />
+    <Compile Include="RegionImage.cs" />
+    <Compile Include="RegionProductViewModel.cs" />
+    <Compile Include="RegionTypeEllipseVisibleConverter.cs" />
+    <Compile Include="RegionTypePolygonVisibleConverter.cs" />
+    <Compile Include="RegionTypeRectangleVisibleConverter.cs" />
+    <Compile Include="RegionTypesStringConverter.cs" />
+    <Compile Include="RegionTypeStringConverter.cs" />
+    <Compile Include="Rejecter.cs" />
+    <Compile Include="RejecterActivity.cs" />
+    <Compile Include="RejecterItem.cs" />
+    <Compile Include="RejecterViewModel.cs" />
+    <Compile Include="RejectMode.cs" />
+    <Compile Include="RejectModesStringConverter.cs" />
+    <Compile Include="RejectModeStringConverter.cs" />
+    <Compile Include="RejectParametersViewModel.cs" />
+    <Compile Include="RejectPriorities.cs" />
+    <Compile Include="RejectPrioritiesStringConverter.cs" />
+    <Compile Include="RejectPriority.cs" />
+    <Compile Include="RejectPriorityStringConverter.cs" />
+    <Compile Include="RejectType.cs" />
+    <Compile Include="ResetButtonVisibilityConverter.cs" />
+    <Compile Include="Restore.cs" />
+    <Compile Include="RestoreListViewModel.cs" />
+    <Compile Include="RestoreOptionsViewModel.cs" />
+    <Compile Include="RetrainRegionViewModel.cs" />
+    <Compile Include="Rfid.cs" />
+    <Compile Include="RS232\Config.cs" />
+    <Compile Include="RS232\MessageDeleage.cs" />
+    <Compile Include="RS232\RS232.cs" />
+    <Compile Include="SavingPngLocation.cs" />
+    <Compile Include="SavingPngLocations.cs" />
+    <Compile Include="SavingPngMode.cs" />
+    <Compile Include="SavingPngStorageMode.cs" />
+    <Compile Include="SavingPngStorageModes.cs" />
+    <Compile Include="SavingPngToNetworkLocationsToStringConverter.cs" />
+    <Compile Include="SavingPngToNetworkLocationToStringConverter.cs" />
+    <Compile Include="SavingPngToNetworkModes.cs" />
+    <Compile Include="SavingPngToNetworkModesToStringConverter.cs" />
+    <Compile Include="SavingPngToNetworkModeToStringConverter.cs" />
+    <Compile Include="SavingPngToNetworkStorageModesToStringConverter.cs" />
+    <Compile Include="SavingPngToNetworkStorageModeToStringConverter.cs" />
+    <Compile Include="SelectionBindingTextBox.cs" />
+    <Compile Include="Sensitivity.cs" />
+    <Compile Include="SetFooterMainWindow.cs" />
+    <Compile Include="SettingModeViewModel.cs" />
+    <Compile Include="SettingsMonitoringViewModel.cs" />
+    <Compile Include="Sideshooter.cs" />
+    <Compile Include="Signature.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Signature.Designer.cs">
+      <DependentUpon>Signature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimMaterial.cs" />
+    <Compile Include="SimMaterialModeStringConverter.cs" />
+    <Compile Include="SimMode.cs" />
+    <Compile Include="SimModelCreateImage.cs" />
+    <Compile Include="SimModelForeignBody.cs" />
+    <Compile Include="SimModeStringConverter.cs" />
+    <Compile Include="SimulationMaterialStringConverter.cs" />
+    <Compile Include="SimulationModes.cs" />
+    <Compile Include="SimulationModeStringConverter.cs" />
+    <Compile Include="SizeFilterViewModel.cs" />
+    <Compile Include="SpeedInMPerSecLocalizedStringConverter.cs" />
+    <Compile Include="SSTEntryCode.cs" />
+    <Compile Include="SSTLogbookEntry.cs" />
+    <Compile Include="StandBulkModeProductChangeMachineStatesBoolConverter.cs" />
+    <Compile Include="StartMessages.cs" />
+    <Compile Include="StringToDialogStyleConverter.cs" />
+    <Compile Include="StringToVisibilityConverter.cs" />
+    <Compile Include="StringToVisibilityHiddenConverter.cs" />
+    <Compile Include="SubMenu.cs" />
+    <Compile Include="SubMenuAuditcheckViewModel.cs" />
+    <Compile Include="SubMenuCommunicationsViewModel.cs" />
+    <Compile Include="SubMenuItem.cs" />
+    <Compile Include="SubMenuItemWifi.cs" />
+    <Compile Include="SubMenuIVPViewModel.cs" />
+    <Compile Include="SubMenuLearnBulkViewModel.cs" />
+    <Compile Include="SubmenuMachineStatesBoolConverter.cs" />
+    <Compile Include="SubMenuMonitoringViewModel.cs" />
+    <Compile Include="SubMenuNetworkViewModel.cs" />
+    <Compile Include="SubMenuNormalViewModel.cs" />
+    <Compile Include="SubProductIndexToBrushConverter.cs" />
+    <Compile Include="SubProductIndexToStrokeDashConverter.cs" />
+    <Compile Include="SubProductModes.cs" />
+    <Compile Include="SubProductViewModel.cs" />
+    <Compile Include="Subwindow.cs" />
+    <Compile Include="SubwindowButtons.cs" />
+    <Compile Include="SubwindowViewModel.cs" />
+    <Compile Include="SVT.cs" />
+    <Compile Include="SVTViewModel.cs" />
+    <Compile Include="SystemTime.cs" />
+    <Compile Include="SystemTimeManager.cs" />
+    <Compile Include="TemperatureDiffComparer.cs" />
+    <Compile Include="TemperatureDifference.cs" />
+    <Compile Include="TestcardSensitivitiesGlass.cs" />
+    <Compile Include="TestcardSensitivitiesVA.cs" />
+    <Compile Include="TestcardSimHistogramViewModel.cs" />
+    <Compile Include="TestcardSimMonitoringOverviewViewModel.cs" />
+    <Compile Include="TestcardSimMonitoringParams.cs" />
+    <Compile Include="TestcardSimMonitoringViewModel.cs" />
+    <Compile Include="TestcardSimService.cs" />
+    <Compile Include="TestcardSimSettingsViewModel.cs" />
+    <Compile Include="TestcardSimStatisticsTableViewModel.cs" />
+    <Compile Include="TestcardSimStatisticsViewModel.cs" />
+    <Compile Include="TestcardSimViewModel.cs" />
+    <Compile Include="TestCardSize.cs" />
+    <Compile Include="TextSearch.cs" />
+    <Compile Include="TextToPasswordTextConverter.cs" />
+    <Compile Include="TrainMode.cs" />
+    <Compile Include="TrainViewModel.cs" />
+    <Compile Include="TransferType.cs" />
+    <Compile Include="TwoBoolBrushConverter.cs" />
+    <Compile Include="TwoBoolValuesToOneConverter.cs" />
+    <Compile Include="UsbNotification.cs" />
+    <Compile Include="USBSave.cs" />
+    <Compile Include="UserChangeEventArgs.cs" />
+    <Compile Include="UsermanagementControl.cs" />
+    <Compile Include="UsermanagementViewModel.cs" />
+    <Compile Include="UserRightsBoolConverter.cs" />
+    <Compile Include="UserRightsStringConverter.cs" />
+    <Compile Include="UserSearch.cs" />
+    <Compile Include="ValveActivity.cs" />
+    <Compile Include="ValveActivityViewModel.cs" />
+    <Compile Include="ValvePixelAssignment.cs" />
+    <Compile Include="ValvePixelAssignmentViewModel.cs" />
+    <Compile Include="ValveTestVisibleConverter.cs" />
+    <Compile Include="VerifyTestMachineStatesBoolConverter.cs" />
+    <Compile Include="VerifyTestMachineStatesBoolConverter2.cs" />
+    <Compile Include="Vibro.cs" />
+    <Compile Include="VibroViewModel.cs" />
+    <Compile Include="VideojetPrinter.cs" />
+    <Compile Include="VideojetPrinterViewModel.cs" />
+    <Compile Include="WdAuditRequired.cs" />
+    <Compile Include="WdHalfTransparent.xaml.cs">
+      <DependentUpon>WdHalfTransparent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WdLogProgress.xaml.cs">
+      <DependentUpon>WdLogProgress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WdManual.xaml.cs">
+      <DependentUpon>WdManual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WdTrain.cs" />
+    <Compile Include="Weigher.cs" />
+    <Compile Include="WeigherControl.cs" />
+    <Compile Include="WeightInGrammWeightUnitConverter.cs" />
+    <Compile Include="WifiAddNetworkViewModel.cs" />
+    <Compile Include="WifiAuthentication.cs" />
+    <Compile Include="WifiClient.cs" />
+    <Compile Include="WifiConnectIcons.cs" />
+    <Compile Include="WifiEncryption.cs" />
+    <Compile Include="WifiImageTransferViewModel.cs" />
+    <Compile Include="WifiNetwork.cs" />
+    <Compile Include="WifiQuality.cs" />
+    <Compile Include="WifiViewModel.cs" />
+    <Compile Include="WorkingArea.cs" />
+    <Compile Include="WorstMessageTypeToBrushConverter.cs" />
+    <Compile Include="WrappingStream.cs" />
+    <Compile Include="XRayOnProcessing.cs" />
+    <Compile Include="XRayOperatingHours.cs" />
+    <Compile Include="XRayParametersViewModel.cs" />
+    <Compile Include="XrayState.cs" />
+    <Compile Include="XRSParameter.cs" />
+    <Compile Include="ZipBuilder.cs" />
+    <Compile Include="ZipHelper.cs" />
+    <Compile Include="ZipherCom.cs" />
+    <Compile Include="ZipWriteProgressEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resources" />
+    <EmbeddedResource Include="Signature.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="acquisition\ctrlacquisitionsettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlai.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlaiautotrain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlaimenuselection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlaiobject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlaiobjectsimulation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlaiobjectstatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlairestorelistbackups.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlairestorelistproducts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlairestoreoptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ai\ctrlaistatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlauditcheckdoccontent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlauditcheckdocoverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlauditcheckprocess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlauditchecksavedentries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlauditchecksettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlauditchecktestsamples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlbulkauditcheckprocess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\ctrlfastauditcheckprocess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheckNew\SignatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheck\ctrlauditcheck.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuditCheck\wdauditrequired.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="autotrain\autotraincontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="autotrain\ctrlautotrainadjustments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="autotrain\retrainregion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrlbackup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrlbackupinfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrlbackuplist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrlbackupoptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrlrestorelist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrlrestoreoptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="backup\ctrluserbackupinfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="batches\ctrlbatches.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="branding\ctrlbranding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\activator\ctrlactivator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\browse\ctrlbrowseimages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\flapsoverios\ctrlflapsoverios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\livemode\ctrllivemode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\record\ctrlrecordimages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\svt\ctrlsvt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\valveactivity\ctrlvalveactivity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bulk\vibro\ctrlvibro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="comissioning\ctrlcomissioning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="comissioning\ctrlcomissioningfeatures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="comissioning\ctrlcomissioningmultilane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="comissioning\ctrlcomissioningobjectbasedflaps.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="comissioning\ctrlcomissioningoverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="conveyor\ctrlconveyor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CtrlMemoryTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CtrlShowImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Datalogger\CtrlDatalogger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Datalogger\CtrlDataloggerSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Datalogger\CtrlDatalogsPredMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Datalogger\CtrlDatalogsPredMainResets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="dialog\dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="documentsmenu\ctrldocumentsmanagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="dual\ctrldualenergy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="errorhandling\ctrlerrorcontact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="featureselection\ctrlfeatureselection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="featureselection\ctrlhardwarefeatures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\ctrlautokvsettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\ctrlcanfilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\ctrlchangeedgepixel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\ctrledgesubbuttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\ctrlimpurityfindersettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\ctrllearncanfilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="filter\filtercontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph\ctrlchart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph\ctrldetectorplot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph\CtrlDetectorPlotSVT.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph\CtrlSnr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="histogram\ctrlhistogram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="history\ctrlfullscreenimage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="history\historycontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivpcertificatescontent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivpcertificatesmanufacturer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivpcertificatesoverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivpmultichoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivpprocess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivpsettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrlivptestsamples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\ctrloverviewivpreferenceproduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="integrated validation process\imageviewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ipconfiguration\ctrlipconfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ipconfiguration\ipaddressbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="keyboard\keyboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="keyboard\numkeyboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="language\ctrllanguage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="logbook\ctrllogbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="machineparameter\ctrlmachineparameter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mainwindow\ctrlxraystart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mainwindow\mainwindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="masterresources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="monitoring\ctrldataplots.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="monitoring\ctrlsettingsmonitoring.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="monitoring\monitoringview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="msgbox\msgbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="objectcounter\ctrlcounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="objectcounter\ctrlcounteradaption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="objectcounter\ctrllearncounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewbulk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewentry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewex2a.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewraycond.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewraycondplushyrework.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewssh.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="overviews\ctrloverviewxrs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="parameter\ctrllicenseswindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="parameter\ctrlparameter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="printing\ctrlprintreport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="productchange\ctrlchoseregiontype.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="productchange\ctrlregionproduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="productchange\ctrlsubproduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="productchange\productchangecontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="productstolane\ctrlproductstolane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Progress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="qualitycntrldoc\ctrlqaparams.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="rejecter\ctrlbuzzer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="rejecter\ctrlrejecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="rejecter\wdtrain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sendimage\ctrlsendimage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="settingmode\ctrlsettingmode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sideshooter\ctrlbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sideshooter\ctrlmovesource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sizefilter\ctrlsizefilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="submenu\submenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="subwindow\ctrlswbuttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="subwindow\ctrlswbuttonstoggle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="subwindow\subwindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsimhistogram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsimmonitoring.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsimmonitoringoverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsimsettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsimstatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testcardsimulation\ctrltestcardsimstatisticstable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="usermanagement\changeuserdatacontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="usermanagement\usermanagementcontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="videojetprinter\ctrlvideojetprinter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WdHalfTransparent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WdLogProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WdManual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="weigher\weighercontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="wifi\ctrlwifiaddnetwork.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="wifi\ctrlwifiimagetransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="wifi\ctrlwifimanage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="wifi\wifiquality.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="documentation\readme.txt" />
+    <Resource Include="documentation\zustandsdiagramm gui_xrs.png" />
+    <Resource Include="fonts\universlt-condensedlight.ttf" />
+    <Resource Include="icons\accept.png" />
+    <Resource Include="icons\accept_press.png" />
+    <Resource Include="icons\achtung.png" />
+    <Resource Include="icons\alles.png" />
+    <Resource Include="icons\alles_pressed.png" />
+    <Resource Include="icons\autoset.png" />
+    <Resource Include="icons\autoset_press.png" />
+    <Resource Include="icons\back.png" />
+    <Resource Include="icons\back_press.png" />
+    <Resource Include="icons\bottom.png" />
+    <Resource Include="icons\bottom_press.png" />
+    <Resource Include="icons\brightness_minus.jpg" />
+    <Resource Include="icons\brightness_plus.jpg" />
+    <Resource Include="icons\cancel.png" />
+    <Resource Include="icons\cancel_press.png" />
+    <Resource Include="icons\change.png" />
+    <Resource Include="icons\counter.png" />
+    <Resource Include="icons\counter_press.png" />
+    <Resource Include="icons\datamanager.png" />
+    <Resource Include="icons\datamanager_press.png" />
+    <Resource Include="icons\date_time.png" />
+    <Resource Include="icons\date_time_press.png" />
+    <Resource Include="icons\default.jpg" />
+    <Resource Include="icons\delete_logbook.png" />
+    <Resource Include="icons\delete_logbook_press.png" />
+    <Resource Include="icons\device.png" />
+    <Resource Include="icons\device_press.png" />
+    <Resource Include="icons\eeprom.png" />
+    <Resource Include="icons\eeprom_del.png" />
+    <Resource Include="icons\eeprom_del_press.png" />
+    <Resource Include="icons\eeprom_press.png" />
+    <Resource Include="icons\eject.png" />
+    <Resource Include="icons\eject_press.png" />
+    <Resource Include="icons\flapmon.png" />
+    <Resource Include="icons\flapmon_press.png" />
+    <Resource Include="icons\floppy.png" />
+    <Resource Include="icons\floppy_press.png" />
+    <Resource Include="icons\frequency.png" />
+    <Resource Include="icons\frequency_press.png" />
+    <Resource Include="icons\haccp.png" />
+    <Resource Include="icons\haccp_press.png" />
+    <Resource Include="icons\haccp_trigger.png" />
+    <Resource Include="icons\haccp_trigger_press.png" />
+    <Resource Include="icons\interface.png" />
+    <Resource Include="icons\interface_press.png" />
+    <Resource Include="icons\language.png" />
+    <Resource Include="icons\language_press.png" />
+    <Resource Include="icons\learn_choose.png" />
+    <Resource Include="icons\learn_choose_press.png" />
+    <Resource Include="icons\learn_new.png" />
+    <Resource Include="icons\learn_new_press.png" />
+    <Resource Include="icons\lightbarrier.png" />
+    <Resource Include="icons\lightbarrier_press.png" />
+    <Resource Include="icons\logbuch.png" />
+    <Resource Include="icons\logbuch_press.png" />
+    <Resource Include="icons\logo_gross.jpg" />
+    <Resource Include="icons\mr.png" />
+    <Resource Include="icons\mr_press.png" />
+    <Resource Include="icons\mv.png" />
+    <Resource Include="icons\mv_press.png" />
+    <Resource Include="icons\ok.png" />
+    <Resource Include="icons\ok_press.png" />
+    <Resource Include="icons\pd.png" />
+    <Resource Include="icons\pdt_option.png" />
+    <Resource Include="icons\pdt_option_press.png" />
+    <Resource Include="icons\pdt_param.png" />
+    <Resource Include="icons\pdt_param_press.png" />
+    <Resource Include="icons\pd_press.png" />
+    <Resource Include="icons\pressure.png" />
+    <Resource Include="icons\pressure_press.png" />
+    <Resource Include="icons\pw.png" />
+    <Resource Include="icons\pw_grey.png" />
+    <Resource Include="icons\pw_press.png" />
+    <Resource Include="icons\quickteach.png" />
+    <Resource Include="icons\quickteach_grey.png" />
+    <Resource Include="icons\quickteach_press.png" />
+    <Resource Include="icons\refresh.png" />
+    <Resource Include="icons\refresh_press.png" />
+    <Resource Include="icons\return.png" />
+    <Resource Include="icons\return_press.png" />
+    <Resource Include="icons\revision.png" />
+    <Resource Include="icons\revisionpress.png" />
+    <Resource Include="icons\serviceoptions.png" />
+    <Resource Include="icons\serviceoptionspress.png" />
+    <Resource Include="icons\setting.png" />
+    <Resource Include="icons\setting_press.png" />
+    <Resource Include="icons\setup.png" />
+    <Resource Include="icons\setup_grey.png" />
+    <Resource Include="icons\setup_press.png" />
+    <Resource Include="icons\switch.png" />
+    <Resource Include="icons\switch_press.png" />
+    <Resource Include="icons\top.png" />
+    <Resource Include="icons\top_press.png" />
+    <Resource Include="icons\touchcalib.png" />
+    <Resource Include="icons\touchcalib_press.png" />
+    <Resource Include="icons\trash.png" />
+    <Resource Include="icons\trash_press.png" />
+    <Resource Include="icons\user.png" />
+    <Resource Include="icons\userdelete.png" />
+    <Resource Include="icons\userdelete_press.png" />
+    <Resource Include="icons\usernew.png" />
+    <Resource Include="icons\usernew_press.png" />
+    <Resource Include="icons\user_press.png" />
+    <Resource Include="icons\waitcursor.png" />
+    <Resource Include="icons\zoom_in.png" />
+    <Resource Include="icons\zoom_out.png" />
+    <Resource Include="img\actualize.png" />
+    <Resource Include="img\addbulkobjectproducts.png" />
+    <Resource Include="img\adddocument.png" />
+    <Resource Include="img\addmultilaneproduct.png" />
+    <Resource Include="img\addmultiproduct.png" />
+    <Resource Include="img\addmultiregionproduct.png" />
+    <Resource Include="img\addproduct.png" />
+    <Resource Include="img\adduser.png" />
+    <Resource Include="img\add_table.png" />
+    <Resource Include="img\ai_brain.png" />
+    <Resource Include="img\ai_brain_blue.png" />
+    <Resource Include="img\ai_brain_green.png" />
+    <Resource Include="img\ai_brain_small.png" />
+    <Resource Include="img\ai_brain_thinkx.png" />
+    <Resource Include="img\ai_dataset.png" />
+    <Resource Include="img\ai_dataset_disabled.png" />
+    <Resource Include="img\arrow-down.png" />
+    <Resource Include="img\arrow-left.png" />
+    <Resource Include="img\arrow-left_disabled.png" />
+    <Resource Include="img\arrow-left_long.png" />
+    <Resource Include="img\arrow-right.png" />
+    <Resource Include="img\arrow-right_disabled.png" />
+    <Resource Include="img\arrow-right_long.png" />
+    <Resource Include="img\arrow-up.png" />
+    <Resource Include="img\arrow.png" />
+    <Resource Include="img\arrow2-down.png" />
+    <Resource Include="img\arrow2-left.png" />
+    <Resource Include="img\arrow2-right.png" />
+    <Resource Include="img\arrow2-up.png" />
+    <Resource Include="img\arrow90.png" />
+    <Resource Include="img\arrowsupdown.png" />
+    <Resource Include="img\auditcheck.png" />
+    <Resource Include="img\auditcheck_adddoc.png" />
+    <Resource Include="img\auditcheck_content.png" />
+    <Resource Include="img\auditcheck_new.png" />
+    <Resource Include="img\auditcheck_overlay.png" />
+    <Resource Include="img\auditcheck_reset.png" />
+    <Resource Include="img\autobackup.png" />
+    <Resource Include="img\autolearnregion.png" />
+    <Resource Include="img\autolearnregion_disabled.png" />
+    <Resource Include="img\autoretrainoff.png" />
+    <Resource Include="img\autoretrainon.png" />
+    <Resource Include="img\backgroundindex_marked_menu.png" />
+    <Resource Include="img\backgroundindex_menu.png" />
+    <Resource Include="img\backup.png" />
+    <Resource Include="img\backup_disabled.png" />
+    <Resource Include="img\backup_small.png" />
+    <Resource Include="img\backup_small_disabled.png" />
+    <Resource Include="img\balance.png" />
+    <Resource Include="img\batchsettings.png" />
+    <Resource Include="img\belt_contaminant_monitoring.png" />
+    <Resource Include="img\bizerbalogo.png" />
+    <Resource Include="img\bizerbalogo_big.png" />
+    <Resource Include="img\bizerba_powered_by_sesotec.png" />
+    <Resource Include="img\bizerba_powered_by_sesotec2.png" />
+    <Resource Include="img\brazil.png" />
+    <Resource Include="img\bulkobjectproducts.png" />
+    <Resource Include="img\buttoncancel.png" />
+    <Resource Include="img\buttonok.png" />
+    <Resource Include="img\camera.png" />
+    <Resource Include="img\canada.png" />
+    <Resource Include="img\canadaen.png" />
+    <Resource Include="img\canadafr.png" />
+    <Resource Include="img\cancel.png" />
+    <Resource Include="img\cancel_disabled.png" />
+    <Resource Include="img\cancel_saving.png" />
+    <Resource Include="img\caps.png" />
+    <Resource Include="img\caps_active.png" />
+    <Resource Include="img\certificate_color2.png" />
+    <Resource Include="img\certificate_color_disabled2.png" />
+    <Resource Include="img\change.png" />
+    <Resource Include="img\changelanguage.png" />
+    <Resource Include="img\changeproduct.png" />
+    <Resource Include="img\changeproduct_disabled.png" />
+    <Resource Include="img\changeproduct_small.png" />
+    <Resource Include="img\changeproduct_small_disabled.png" />
+    <Resource Include="img\changeuser.png" />
+    <Resource Include="img\changeuser_small.png" />
+    <Resource Include="img\checkmark_disabled.png" />
+    <Resource Include="img\checkmark_disabled_lighter.png" />
+    <Resource Include="img\checkmark_disabled_lighter2.png" />
+    <Resource Include="img\checkmark_enabled.png" />
+    <Resource Include="img\checkmark_enabled_darker.png" />
+    <Resource Include="img\checkmark_enabled_darker_big.png" />
+    <Resource Include="img\checkmark_enabled_darker_big_disabled.png" />
+    <Resource Include="img\china.png" />
+    <Resource Include="img\chinesesimplified.png" />
+    <Resource Include="img\chinesetraditional.png" />
+    <Resource Include="img\comissioning.png" />
+    <Resource Include="img\comissioning_disabled.png" />
+    <Resource Include="img\commentxri_small.png" />
+    <Resource Include="img\compareparams.png" />
+    <Resource Include="img\connections.png" />
+    <Resource Include="img\contrast2.png" />
+    <Resource Include="img\conveyorstart.png" />
+    <Resource Include="img\conveyorstop.png" />
+    <Resource Include="img\conveyor_monitoring.png" />
+    <Resource Include="img\copy.png" />
+    <Resource Include="img\copyproduct.png" />
+    <Resource Include="img\copyproduct_disabled.png" />
+    <Resource Include="img\copyuser.png" />
+    <Resource Include="img\counter2.png" />
+    <Resource Include="img\counterarrow.png" />
+    <Resource Include="img\crossdotted.png" />
+    <Resource Include="img\czech.png" />
+    <Resource Include="img\danish.png" />
+    <Resource Include="img\dataplotter.png" />
+    <Resource Include="img\default.png" />
+    <Resource Include="img\defaultproduct.png" />
+    <Resource Include="img\defaultproductclear.png" />
+    <Resource Include="img\delete.png" />
+    <Resource Include="img\deleteai.png" />
+    <Resource Include="img\deleteai_disabled.png" />
+    <Resource Include="img\deletedocument.png" />
+    <Resource Include="img\deletedocument_disabled.png" />
+    <Resource Include="img\deletedocument_small.png" />
+    <Resource Include="img\deleteimage_small.png" />
+    <Resource Include="img\deleteproduct.png" />
+    <Resource Include="img\deleteuser.png" />
+    <Resource Include="img\deletexriimagelist_small.png" />
+    <Resource Include="img\deletexriimagelist_small_disabled.png" />
+    <Resource Include="img\delete_keyboard.png" />
+    <Resource Include="img\detector_monitoring.png" />
+    <Resource Include="img\disabled.png" />
+    <Resource Include="img\editproduct.png" />
+    <Resource Include="img\editproduct_bw.png" />
+    <Resource Include="img\editproduct_disabled.png" />
+    <Resource Include="img\edituser.png" />
+    <Resource Include="img\edituserservice_big.png" />
+    <Resource Include="img\edituserservice_big_disabled.png" />
+    <Resource Include="img\edituser_big.png" />
+    <Resource Include="img\edituser_big_disabled.png" />
+    <Resource Include="img\enter_keyboard.png" />
+    <Resource Include="img\error.png" />
+    <Resource Include="img\errorarrow.png" />
+    <Resource Include="img\errorbtn.png" />
+    <Resource Include="img\errorcontacts.png" />
+    <Resource Include="img\errorlog.png" />
+    <Resource Include="img\errorlog_disabled.png" />
+    <Resource Include="img\errorlog_small.png" />
+    <Resource Include="img\errormessage.png" />
+    <Resource Include="img\expanddownarrow.png" />
+    <Resource Include="img\features.png" />
+    <Resource Include="img\filmcamera.png" />
+    <Resource Include="img\filter.png" />
+    <Resource Include="img\filter_aktiv.png" />
+    <Resource Include="img\filter_inaktiv.png" />
+    <Resource Include="img\finland.png" />
+    <Resource Include="img\french.png" />
+    <Resource Include="img\germany.png" />
+    <Resource Include="img\graphplot.png" />
+    <Resource Include="img\graphplot_disabled.png" />
+    <Resource Include="img\graphplot_small.png" />
+    <Resource Include="img\greatbritain.png" />
+    <Resource Include="img\harddisk.png" />
+    <Resource Include="img\hardwarefeatures.png" />
+    <Resource Include="img\help.png" />
+    <Resource Include="img\histogram.png" />
+    <Resource Include="img\histogram_small.png" />
+    <Resource Include="img\history.png" />
+    <Resource Include="img\home.png" />
+    <Resource Include="img\hongkong.png" />
+    <Resource Include="img\hungary.png" />
+    <Resource Include="img\iconxri64.png" />
+    <Resource Include="img\importtestballsauditcheck.png" />
+    <Resource Include="img\importtestballsivp.png" />
+    <Resource Include="img\importusers.png" />
+    <Resource Include="img\info.png" />
+    <Resource Include="img\infolog.png" />
+    <Resource Include="img\infomessage.png" />
+    <Resource Include="img\interpack.jpg" />
+    <Resource Include="img\italy.png" />
+    <Resource Include="img\ivpreferenz.png" />
+    <Resource Include="img\japan.png" />
+    <Resource Include="img\learn.png" />
+    <Resource Include="img\learnweigher.png" />
+    <Resource Include="img\learnweigher_disabled.png" />
+    <Resource Include="img\learn_disabled 55x55.png" />
+    <Resource Include="img\learn_disabled.png" />
+    <Resource Include="img\learn_enabled.png" />
+    <Resource Include="img\listsettings_big.png" />
+    <Resource Include="img\list_big.png" />
+    <Resource Include="img\livexriimage.png" />
+    <Resource Include="img\livexriimage_disabled.png" />
+    <Resource Include="img\logbook.png" />
+    <Resource Include="img\logbookdelete_small.png" />
+    <Resource Include="img\logogracida.png" />
+    <Resource Include="img\logohoefelmeyer.png" />
+    <Resource Include="img\managedocuments.png" />
+    <Resource Include="img\manual.png" />
+    <Resource Include="img\mark_all.png" />
+    <Resource Include="img\minus2.png" />
+    <Resource Include="img\minus_small.png" />
+    <Resource Include="img\monitoring.png" />
+    <Resource Include="img\monitoring_predictive_maint.png" />
+    <Resource Include="img\motor.png" />
+    <Resource Include="img\moveimage.png" />
+    <Resource Include="img\multilaneproduct.png" />
+    <Resource Include="img\multilaneproductsettings.png" />
+    <Resource Include="img\multiproduct.png" />
+    <Resource Include="img\multiregionproduct.png" />
+    <Resource Include="img\multiregionproductsettings.png" />
+    <Resource Include="img\mus.png" />
+    <Resource Include="img\netherlands.png" />
+    <Resource Include="img\network.png" />
+    <Resource Include="img\networksettings.png" />
+    <Resource Include="img\networkwired.png" />
+    <Resource Include="img\new.png" />
+    <Resource Include="img\objectxriimage.png" />
+    <Resource Include="img\objectxriimage_disabled.png" />
+    <Resource Include="img\ok.png" />
+    <Resource Include="img\operating_parameters_monitoring.png" />
+    <Resource Include="img\overview.png" />
+    <Resource Include="img\overview_disabled.png" />
+    <Resource Include="img\parameter.png" />
+    <Resource Include="img\pause.png" />
+    <Resource Include="img\pdfdoc.png" />
+    <Resource Include="img\play.png" />
+    <Resource Include="img\play_big.png" />
+    <Resource Include="img\play_big_disabled.png" />
+    <Resource Include="img\play_big_left.png" />
+    <Resource Include="img\play_bright.png" />
+    <Resource Include="img\play_bright_small.png" />
+    <Resource Include="img\play_bright_small_disabled.png" />
+    <Resource Include="img\play_usb.png" />
+    <Resource Include="img\play_usb_disabled.png" />
+    <Resource Include="img\plus2.png" />
+    <Resource Include="img\plusminus.png" />
+    <Resource Include="img\poland.png" />
+    <Resource Include="img\portugal.png" />
+    <Resource Include="img\powersupply.png" />
+    <Resource Include="img\printer.png" />
+    <Resource Include="img\producer_settings.png" />
+    <Resource Include="img\productparameter.png" />
+    <Resource Include="img\productparameter_disabled.png" />
+    <Resource Include="img\productparameter_small.png" />
+    <Resource Include="img\product_xray.png" />
+    <Resource Include="img\pusher_monitoring.png" />
+    <Resource Include="img\radioactivity.png" />
+    <Resource Include="img\raycon ii.png" />
+    <Resource Include="img\raycon.jpg" />
+    <Resource Include="img\raycond.png" />
+    <Resource Include="img\raycondplusbulk.png" />
+    <Resource Include="img\raycondplushyrework.png" />
+    <Resource Include="img\rayconentry.jpg" />
+    <Resource Include="img\rayconex2a.png" />
+    <Resource Include="img\rectangledotted.png" />
+    <Resource Include="img\rectanglesignal.png" />
+    <Resource Include="img\referenceplot.png" />
+    <Resource Include="img\rejecter.png" />
+    <Resource Include="img\rejectoff.png" />
+    <Resource Include="img\rejectoff_disabled.png" />
+    <Resource Include="img\rejecton.png" />
+    <Resource Include="img\rejecton_disabled.png" />
+    <Resource Include="img\reject_orange.png" />
+    <Resource Include="img\reject_orange_disabled.png" />
+    <Resource Include="img\remote.png" />
+    <Resource Include="img\remote2.png" />
+    <Resource Include="img\rename.png" />
+    <Resource Include="img\renamedocument.png" />
+    <Resource Include="img\renamedocument_disabled.png" />
+    <Resource Include="img\resetlimits.png" />
+    <Resource Include="img\restore.png" />
+    <Resource Include="img\restoreai.png" />
+    <Resource Include="img\restoreai_disabled.png" />
+    <Resource Include="img\restorecheckpoint.png" />
+    <Resource Include="img\retrain.png" />
+    <Resource Include="img\retraingroup.png" />
+    <Resource Include="img\retrainregion.png" />
+    <Resource Include="img\retrainregionminus.png" />
+    <Resource Include="img\retrainregionplus.png" />
+    <Resource Include="img\retrainregion_disabled.png" />
+    <Resource Include="img\retrainregion_small.png" />
+    <Resource Include="img\retrainundo.png" />
+    <Resource Include="img\retrainundo_disabled.png" />
+    <Resource Include="img\retrain_disabled.png" />
+    <Resource Include="img\return.png" />
+    <Resource Include="img\return2.png" />
+    <Resource Include="img\rfid.png" />
+    <Resource Include="img\rfid_add.png" />
+    <Resource Include="img\rfid_add_disabled.png" />
+    <Resource Include="img\rfid_disabled.png" />
+    <Resource Include="img\rfid_info.png" />
+    <Resource Include="img\rfid_info_disabled.png" />
+    <Resource Include="img\rfid_remove.png" />
+    <Resource Include="img\rfid_remove_disabled.png" />
+    <Resource Include="img\russland.png" />
+    <Resource Include="img\safetyswitch.png" />
+    <Resource Include="img\save.png" />
+    <Resource Include="img\saveallonusb.png" />
+    <Resource Include="img\saveallonusb_nousb.png" />
+    <Resource Include="img\savecsv.png" />
+    <Resource Include="img\savecsvall.png" />
+    <Resource Include="img\savecsvall_disabled.png" />
+    <Resource Include="img\savecsvselection.png" />
+    <Resource Include="img\savecsvselection_disabled.png" />
+    <Resource Include="img\savedb.png" />
+    <Resource Include="img\saveonusb.png" />
+    <Resource Include="img\saveonusbsmall_nousb.png" />
+    <Resource Include="img\saveonusb_small.png" />
+    <Resource Include="img\saveparams.png" />
+    <Resource Include="img\savepng.png" />
+    <Resource Include="img\savepng_disabled.png" />
+    <Resource Include="img\saving_directory.png" />
+    <Resource Include="img\saving_directory_disabled.png" />
+    <Resource Include="img\sensorred_bottom.png" />
+    <Resource Include="img\sensorred_top.png" />
+    <Resource Include="img\sensorwhite_bottom.png" />
+    <Resource Include="img\sensorwhite_top.png" />
+    <Resource Include="img\sesotecsubmenu.png" />
+    <Resource Include="img\sesotec_certificate_raycon_de_2023.jpg" />
+    <Resource Include="img\sesotec_certificate_raycon_en_2023.jpg" />
+    <Resource Include="img\settingmode.png" />
+    <Resource Include="img\settings.png" />
+    <Resource Include="img\settings_delete.png" />
+    <Resource Include="img\settings_small.png" />
+    <Resource Include="img\sideshooter.png" />
+    <Resource Include="img\simulateimage.png" />
+    <Resource Include="img\simulateimagebreak.png" />
+    <Resource Include="img\simulateimages_small.png" />
+    <Resource Include="img\simulateimage_disabled.png" />
+    <Resource Include="img\simulateimage_small.png" />
+    <Resource Include="img\simulatetestcard.png" />
+    <Resource Include="img\simulatetestcard_disabled.png" />
+    <Resource Include="img\size.png" />
+    <Resource Include="img\slovak.png" />
+    <Resource Include="img\snrplot.png" />
+    <Resource Include="img\southkorea.png" />
+    <Resource Include="img\spain.png" />
+    <Resource Include="img\subproductsettings.png" />
+    <Resource Include="img\susaddress.png" />
+    <Resource Include="img\suslogo.png" />
+    <Resource Include="img\sus_logo.png" />
+    <Resource Include="img\svtplot.png" />
+    <Resource Include="img\sweden.png" />
+    <Resource Include="img\table.png" />
+    <Resource Include="img\tablesettings.png" />
+    <Resource Include="img\taiwan.png" />
+    <Resource Include="img\temperature.png" />
+    <Resource Include="img\testballs.png" />
+    <Resource Include="img\testballs_disabled.png" />
+    <Resource Include="img\thailand.png" />
+    <Resource Include="img\transparent.png" />
+    <Resource Include="img\treeview.png" />
+    <Resource Include="img\turkey.png" />
+    <Resource Include="img\unlock.png" />
+    <Resource Include="img\usa.png" />
+    <Resource Include="img\usb.png" />
+    <Resource Include="img\usblist.png" />
+    <Resource Include="img\usblist_disabled.png" />
+    <Resource Include="img\usbuser.png" />
+    <Resource Include="img\usbuser_nousb.png" />
+    <Resource Include="img\usb_disabled.png" />
+    <Resource Include="img\usericon.png" />
+    <Resource Include="img\videojet-logo.png" />
+    <Resource Include="img\viewimage.png" />
+    <Resource Include="img\viewimage_small.png" />
+    <Resource Include="img\warning.png" />
+    <Resource Include="img\warningicon.png" />
+    <Resource Include="img\warningmessage.png" />
+    <Resource Include="img\warning_disabled.png" />
+    <Resource Include="img\warning_yellow.png" />
+    <Resource Include="img\wifiadd.png" />
+    <Resource Include="img\wificonnect.png" />
+    <Resource Include="img\wifidisconnect.png" />
+    <Resource Include="img\wifidisconnected.png" />
+    <Resource Include="img\wifimanage.png" />
+    <Resource Include="img\wifiqualityhigh.png" />
+    <Resource Include="img\wifiqualitylow.png" />
+    <Resource Include="img\wifiqualitymedium.png" />
+    <Resource Include="img\wifiqualitymediumhigh.png" />
+    <Resource Include="img\wifiqualitymediumlow.png" />
+    <Resource Include="img\wifiqualitynone.png" />
+    <Resource Include="img\wifisettings.png" />
+    <Resource Include="img\wiredwireless.png" />
+    <Resource Include="img\xray.png" />
+    <Resource Include="img\xraycanada.png" />
+    <Resource Include="img\xrayssh.png" />
+    <Resource Include="img\xrayusa.png" />
+    <Resource Include="img\xray_monitoring.png" />
+    <Resource Include="img\xriimage.png" />
+    <Resource Include="img\xriimagebulk.png" />
+    <Resource Include="img\xriimagebulkcont.png" />
+    <Resource Include="img\xriimagebulkcont_disabled.png" />
+    <Resource Include="img\xriimagebulkcont_pause.png" />
+    <Resource Include="img\xriimagebulkjustcont.png" />
+    <Resource Include="img\xriimagebulkjustcont_pause.png" />
+    <Resource Include="img\xriimagebulk_disabled.png" />
+    <Resource Include="img\xriimagebulk_pause.png" />
+    <Resource Include="img\xriimagelist.png" />
+    <Resource Include="img\xriimagelist_small.png" />
+    <Resource Include="img\xriimagelist_small_disabled.png" />
+    <Resource Include="img\xriimage_big.png" />
+    <Resource Include="img\zoom2.png" />
+    <Resource Include="img\zoomin.png" />
+    <Resource Include="img\zoomout.png" />
+    <Resource Include="overview.ico" />
+    <Resource Include="pdaconf.xml" />
+    <Resource Include="videojetprinter\test\simpletcpserver.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

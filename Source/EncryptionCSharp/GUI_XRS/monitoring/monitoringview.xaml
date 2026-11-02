@@ -1,0 +1,389 @@
+<UserControl
+	x:Class="GUI_XRS.MonitoringView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Unloaded="Monitoring_Unloaded"
+	Loaded="Monitoring_Loaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:DoubleStringConverterPrec1
+				x:Key="doubleStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="TextBlockStyle">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackgroundEnabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#cfcfcf" />
+							<GradientStop
+								Offset="0.02"
+								Color="#e9e9e9" />
+							<GradientStop
+								Offset="0.03"
+								Color="#f1f1f1" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorderEnabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#bebebe" />
+							<GradientStop
+								Offset="0.10"
+								Color="#d8d8d8" />
+							<GradientStop
+								Offset="0.9"
+								Color="#d8d8d8" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBackgroundDisabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorderDisabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type TextBox}">
+							<Border
+								CornerRadius="3"
+								BorderThickness="1"
+								Padding="{TemplateBinding Padding}">
+								<FrameworkElement.Style>
+									<Style
+										TargetType="{x:Type Border}">
+										<Style.Triggers>
+											<DataTrigger
+												Value="True"
+												Binding="{Binding Path=Changeable}">
+												<Setter
+													Property="Background"
+													Value="{DynamicResource textBoxBackgroundEnabled}" />
+												<Setter
+													Property="BorderBrush"
+													Value="{DynamicResource textBoxBorderEnabled}" />
+											</DataTrigger>
+											<DataTrigger
+												Value="False"
+												Binding="{Binding Path=Changeable}">
+												<Setter
+													Property="Background"
+													Value="{DynamicResource textBoxBackgroundDisabled}" />
+												<Setter
+													Property="BorderBrush"
+													Value="{DynamicResource textBoxBorderDisabled}" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</FrameworkElement.Style>
+								<ScrollViewer
+									Name="PART_ContentHost"
+									Margin="0" />
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Style.Triggers>
+					<Trigger
+						Property="Text"
+						Value="n.a.">
+						<Trigger.Setters>
+							<Setter
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger.Setters>
+					</Trigger>
+					<DataTrigger
+						Value="False"
+						Binding="{Binding Path=Changeable}">
+						<Setter
+							Property="IsEnabled"
+							Value="False" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Style.Triggers>
+					<Trigger
+						Property="Text"
+						Value="n.a.">
+						<Trigger.Setters>
+							<Setter
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger.Setters>
+					</Trigger>
+				</Style.Triggers>
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type GridViewColumnHeader}"
+				x:Key="headerStyle">
+				<Setter
+					Property="Visibility"
+					Value="Collapsed" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12 24 12 24">
+		<ScrollViewer
+			Grid.Row="1">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="80" />
+					<RowDefinition
+						Height="*" />
+				</Grid.RowDefinitions>
+				<Grid
+					Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="1.5*" />
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="*" />
+					</Grid.ColumnDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="1"
+						Grid.ColumnSpan="3"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="1 1 1 1" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="1"
+						Grid.ColumnSpan="1"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="1" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderBrush="#b6b6b6"
+						BorderThickness="1 0 0 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="2"
+						BorderBrush="#b6b6b6"
+						BorderThickness="1 0 0 0" />
+					<TextBlock
+						Grid.Column="0"
+						FontFamily="Arial"
+						FontWeight="Bold"
+						FontSize="24"
+						Foreground="#272727"
+						VerticalAlignment="Center"
+						TextAlignment="Right"
+						Margin="20 0 20 0"
+						Text="{Binding Path=StrTitle.LocalizedText, FallbackValue=Title}" />
+					<TextBlock
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						Style="{StaticResource TextBlockStyle}"
+						Text="{Binding Path=StrCurrentVal.LocalizedText, FallbackValue=Material}" />
+					<TextBlock
+						Grid.Column="2"
+						HorizontalAlignment="Center"
+						Style="{StaticResource TextBlockStyle}"
+						Text="{Binding Path=StrLimits.LocalizedText, FallbackValue=Material}" />
+				</Grid>
+				<ItemsControl
+					Grid.Row="1"
+					BorderBrush="#b6b6b6"
+					BorderThickness="1"
+					ItemsSource="{Binding Path=Items}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition
+										Width="1.5*" />
+									<ColumnDefinition
+										Width="*" />
+									<ColumnDefinition
+										Width="*" />
+								</Grid.ColumnDefinitions>
+								<Border
+									Grid.Row="0"
+									Grid.Column="0"
+									Grid.RowSpan="1"
+									Background="#e7efc5"
+									BorderBrush="#b6b6b6"
+									BorderThickness="0 0 1 1" />
+								<Border
+									Grid.Row="0"
+									Grid.Column="1"
+									Grid.ColumnSpan="3"
+									BorderBrush="#b6b6b6"
+									BorderThickness="1 0 0 1" />
+								<Border
+									Grid.Row="0"
+									Grid.Column="2"
+									Grid.ColumnSpan="3"
+									BorderBrush="#b6b6b6"
+									BorderThickness="1 0 0 0" />
+								<TextBlock
+									Grid.Column="0"
+									HorizontalAlignment="Right"
+									Style="{StaticResource TextBlockStyle}"
+									Text="{Binding Path=Name}" />
+								<TextBox
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Style="{StaticResource disabledTextBox}"
+									Margin="20 10 20 10"
+									Text="{Binding Path=CurrentValue}" />
+								<StackPanel
+									Grid.Column="2"
+									Orientation="Vertical"
+									VerticalAlignment="Center">
+									<!--Unknown connection ID: 2-->
+									<TextBox
+										HorizontalAlignment="Stretch"
+										Margin="20 10 20 10"
+										Style="{StaticResource TextBoxStyle}"
+										Text="{Binding Path=Limit}" />
+								</StackPanel>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid
+								Columns="1" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

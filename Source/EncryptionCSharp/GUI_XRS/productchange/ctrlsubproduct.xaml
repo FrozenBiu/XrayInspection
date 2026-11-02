@@ -1,0 +1,115 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlSubProduct" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlSubProduct_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:LaneStringConverter
+				x:Key="laneStringConverter" />
+			<l:MultiBoolVisConverter
+				x:Key="multiBoolVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Border
+			Margin="20,0,20,0">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="3*" />
+					<RowDefinition
+						Height="20*" />
+				</Grid.RowDefinitions>
+				<TextBlock
+					Name="tbCurrentAppl"
+					Grid.Row="0"
+					VerticalAlignment="Center"
+					FontSize="25"
+					FontWeight="Bold"
+					FontFamily="Helvetica"
+					Text="{Binding Path=ProductManager.SelectedProduct.ProductName}" />
+				<ListBox
+					Name="lstSubProducts"
+					Grid.Row="1"
+					Background="#00FFFFFF"
+					SelectionMode="Single"
+					Grid.IsSharedSizeScope="True"
+					IsSynchronizedWithCurrentItem="True"
+					SelectedItem="{Binding Path=ProductManager.SelectedSubProduct}"
+					ItemsSource="{Binding Path=ProductManager.SelectedProduct.SubProducts}">
+					<ItemsControl.ItemContainerStyle>
+						<!--Unknown connection ID: 4-->
+						<Style
+							TargetType="{x:Type ListBoxItem}" />
+					</ItemsControl.ItemContainerStyle>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid
+								MinHeight="50">
+								<UIElement.Visibility>
+									<MultiBinding
+										Converter="{StaticResource multiBoolVisConverter}">
+										<MultiBinding.Bindings>
+											<Binding
+												Path="LaneActive" />
+											<Binding
+												Path="ProductAssigned" />
+										</MultiBinding.Bindings>
+									</MultiBinding>
+								</UIElement.Visibility>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition
+										Width="Auto" />
+									<ColumnDefinition
+										Width="Auto"
+										SharedSizeGroup="groupNumber" />
+									<ColumnDefinition
+										Width="Auto"
+										SharedSizeGroup="groupIsDefaultProduct" />
+									<ColumnDefinition
+										Width="*" />
+								</Grid.ColumnDefinitions>
+								<TextBlock
+									FontSize="18"
+									FontFamily="Helvetica"
+									FontWeight="Bold"
+									VerticalAlignment="Center"
+									Margin="0 0 10 0"
+									Visibility="{Binding Path=DataContext.ProductManager.SelectedProduct.IsLaneProduct, Converter={StaticResource bVisConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+									<TextBlock
+										Text="{Binding Lane, Converter={StaticResource laneStringConverter}}" />:</TextBlock>
+								<TextBlock
+									Grid.Column="1"
+									FontWeight="Bold"
+									FontSize="20"
+									FontFamily="Helvetica"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Left"
+									Margin="0 0 15 0"
+									Text="{Binding Path=ProductNumber}" />
+								<Image
+									Grid.Column="2"
+									Source="/img/defaultProduct.png"
+									Margin="0 0 15 0"
+									Width="40"
+									Height="40"
+									Stretch="Uniform"
+									Visibility="{Binding IsDefaultSubProduct, Converter={StaticResource bVisConverter}}" />
+								<TextBlock
+									Grid.Column="3"
+									FontSize="20"
+									FontFamily="Helvetica"
+									VerticalAlignment="Center"
+									Text="{Binding Path=ProductName}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

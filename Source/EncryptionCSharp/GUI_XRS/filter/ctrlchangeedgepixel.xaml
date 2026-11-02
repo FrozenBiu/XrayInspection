@@ -1,0 +1,731 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlChangeEdgePixel" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlChangeEdgePixel_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="NormalBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#CCC"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="1,0"
+				x:Key="HorizontalNormalBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#CCC"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="LightBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#EEE"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="1,0"
+				x:Key="HorizontalLightBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#EEE"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="DarkBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#AAA"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="PressedBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#BBB"
+							Offset="0.0" />
+						<GradientStop
+							Color="#EEE"
+							Offset="0.1" />
+						<GradientStop
+							Color="#EEE"
+							Offset="0.9" />
+						<GradientStop
+							Color="#FFF"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<SolidColorBrush
+				Color="#888"
+				x:Key="DisabledForegroundBrush" />
+			<SolidColorBrush
+				Color="#EEE"
+				x:Key="DisabledBackgroundBrush" />
+			<SolidColorBrush
+				Color="#FFF"
+				x:Key="WindowBackgroundBrush" />
+			<SolidColorBrush
+				Color="#DDD"
+				x:Key="SelectedBackgroundBrush" />
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="NormalBorderBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#CCC"
+							Offset="0.0" />
+						<GradientStop
+							Color="#444"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="1,0"
+				x:Key="HorizontalNormalBorderBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#CCC"
+							Offset="0.0" />
+						<GradientStop
+							Color="#444"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="DefaultedBorderBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#777"
+							Offset="0.0" />
+						<GradientStop
+							Color="#000"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="PressedBorderBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#444"
+							Offset="0.0" />
+						<GradientStop
+							Color="#888"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<SolidColorBrush
+				Color="#AAA"
+				x:Key="DisabledBorderBrush" />
+			<SolidColorBrush
+				Color="#888"
+				x:Key="SolidBorderBrush" />
+			<SolidColorBrush
+				Color="#AAA"
+				x:Key="LightBorderBrush" />
+			<SolidColorBrush
+				Color="#444"
+				x:Key="GlyphBrush" />
+			<SolidColorBrush
+				Color="#DDD"
+				x:Key="LightColorBrush" />
+			<Style
+				TargetType="{x:Type RepeatButton}"
+				x:Key="SliderButtonStyle">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Setter
+					Property="IsTabStop"
+					Value="False" />
+				<Setter
+					Property="Focusable"
+					Value="False" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type RepeatButton}">
+							<Border
+								Background="#00FFFFFF" />
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style
+				TargetType="{x:Type Thumb}"
+				x:Key="SliderThumbStyle">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Setter
+					Property="Height"
+					Value="50" />
+				<Setter
+					Property="Width"
+					Value="50" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type Thumb}">
+							<Ellipse
+								Name="Ellipse"
+								StrokeThickness="1"
+								Fill="{StaticResource NormalBrush}"
+								Stroke="{StaticResource NormalBorderBrush}" />
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="UIElement.IsMouseOver"
+									Value="True">
+									<Setter
+										TargetName="Ellipse"
+										Property="Fill"
+										Value="{StaticResource DarkBrush}" />
+								</Trigger>
+								<Trigger
+									Property="IsEnabled"
+									Value="False">
+									<Setter
+										TargetName="Ellipse"
+										Property="Fill"
+										Value="{StaticResource DisabledBackgroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<ControlTemplate
+				TargetType="{x:Type Slider}"
+				x:Key="HorizontalSlider">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="Auto" />
+						<RowDefinition
+							Height="Auto"
+							MinHeight="{TemplateBinding MinHeight}" />
+						<RowDefinition
+							Height="Auto" />
+					</Grid.RowDefinitions>
+					<TickBar
+						Name="TopTick"
+						SnapsToDevicePixels="True"
+						Placement="Top"
+						Height="4"
+						Visibility="Collapsed"
+						Fill="{StaticResource GlyphBrush}" />
+					<Border
+						Name="TrackBackground"
+						Margin="0"
+						CornerRadius="2"
+						Height="10"
+						Grid.Row="1"
+						BorderThickness="1"
+						Background="{StaticResource LightBrush}"
+						BorderBrush="{StaticResource NormalBorderBrush}" />
+					<Track
+						Name="PART_Track"
+						Grid.Row="1">
+						<Track.DecreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.DecreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.DecreaseRepeatButton>
+						<Track.Thumb>
+							<Thumb
+								Style="{StaticResource SliderThumbStyle}" />
+						</Track.Thumb>
+						<Track.IncreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.IncreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.IncreaseRepeatButton>
+					</Track>
+					<TickBar
+						Name="BottomTick"
+						SnapsToDevicePixels="True"
+						Grid.Row="2"
+						Fill="{TemplateBinding Foreground}"
+						Placement="Bottom"
+						Height="4"
+						Visibility="Collapsed" />
+				</Grid>
+				<ControlTemplate.Triggers>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="TopLeft">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="BottomRight">
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="Both">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+			<ControlTemplate
+				TargetType="{x:Type Slider}"
+				x:Key="VerticalSlider">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto"
+							MinWidth="{TemplateBinding MinWidth}" />
+						<ColumnDefinition
+							Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TickBar
+						Name="TopTick"
+						SnapsToDevicePixels="True"
+						Placement="Left"
+						Width="4"
+						Visibility="Collapsed"
+						Fill="{StaticResource GlyphBrush}" />
+					<Border
+						Name="TrackBackground"
+						Margin="0"
+						CornerRadius="2"
+						Width="10"
+						Grid.Column="1"
+						BorderThickness="1"
+						Background="{StaticResource HorizontalLightBrush}"
+						BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+					<Track
+						Name="PART_Track"
+						Grid.Column="1">
+						<Track.DecreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.DecreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.DecreaseRepeatButton>
+						<Track.Thumb>
+							<Thumb
+								Style="{StaticResource SliderThumbStyle}" />
+						</Track.Thumb>
+						<Track.IncreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.IncreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.IncreaseRepeatButton>
+					</Track>
+					<TickBar
+						Name="BottomTick"
+						SnapsToDevicePixels="True"
+						Grid.Column="2"
+						Fill="{TemplateBinding Foreground}"
+						Placement="Right"
+						Width="4"
+						Visibility="Collapsed" />
+				</Grid>
+				<ControlTemplate.Triggers>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="TopLeft">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="BottomRight">
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="Both">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+			<Style
+				TargetType="{x:Type Slider}"
+				x:Key="{x:Type Slider}">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Style.Triggers>
+					<Trigger
+						Property="Slider.Orientation"
+						Value="Horizontal">
+						<Setter
+							Property="MinWidth"
+							Value="104" />
+						<Setter
+							Property="MinHeight"
+							Value="21" />
+						<Setter
+							Property="Template"
+							Value="{StaticResource HorizontalSlider}" />
+					</Trigger>
+					<Trigger
+						Property="Slider.Orientation"
+						Value="Vertical">
+						<Setter
+							Property="MinWidth"
+							Value="21" />
+						<Setter
+							Property="MinHeight"
+							Value="104" />
+						<Setter
+							Property="Template"
+							Value="{StaticResource VerticalSlider}" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="textBlock">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="HorizontalAlignment"
+					Value="Left" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="14" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="Margin"
+					Value="2 0 0 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid>
+			<image:XRSImageBox
+				Name="imagebox" />
+		</Grid>
+		<Grid
+			Name="grdNoElliptic"
+			Opacity="0.85"
+			Margin="80 2 80 2">
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="*" />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition
+					Height="*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition
+					Width="85" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid
+				Row="0"
+				Column="0"
+				RowSpan="4">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition
+						Width="80" />
+				</Grid.ColumnDefinitions>
+				<TextBox
+					Grid.Column="1"
+					Background="#d1d1d1"
+					TextAlignment="Center"
+					Height="50"
+					Text="{Binding Path=NLeftPixel, Mode=TwoWay}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNLeftPixelCommand}" />
+				<Slider
+					Grid.Column="0"
+					Minimum="0"
+					Maximum="100"
+					Margin="0 0 5 0"
+					VerticalAlignment="Center"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1"
+					AutoToolTipPlacement="TopLeft"
+					Value="{Binding Path=NLeftPixel, Mode=TwoWay}"
+					PreviewMouseUp="Slider_PreviewMouseUp" />
+			</Grid>
+			<Grid
+				Row="0"
+				Column="2"
+				RowSpan="4">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="80" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<TextBox
+					Grid.Column="0"
+					Background="#d1d1d1"
+					TextAlignment="Center"
+					Height="50"
+					Text="{Binding Path=NRightPixel, Mode=TwoWay}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNRightPixelCommand}" />
+				<Slider
+					Grid.Column="1"
+					Minimum="0"
+					Maximum="100"
+					Margin="5 0 0 0"
+					VerticalAlignment="Center"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1"
+					AutoToolTipPlacement="TopLeft"
+					RenderTransformOrigin="0.5, 0.5"
+					Value="{Binding Path=NRightPixel, Mode=TwoWay}"
+					PreviewMouseUp="Slider_PreviewMouseUp">
+					<UIElement.RenderTransform>
+						<ScaleTransform
+							ScaleX="-1" />
+					</UIElement.RenderTransform>
+				</Slider>
+			</Grid>
+			<Grid
+				Row="0"
+				Column="1"
+				RowSpan="2"
+				Margin="3 0 3 0">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition
+						Height="50" />
+				</Grid.RowDefinitions>
+				<TextBox
+					Grid.Row="1"
+					Grid.Column="0"
+					Background="#d1d1d1"
+					TextAlignment="Center"
+					HorizontalAlignment="Stretch"
+					Text="{Binding Path=NTopPixel, Mode=TwoWay}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNTopPixelCommand}" />
+				<Slider
+					Grid.Row="0"
+					Orientation="Vertical"
+					Minimum="0"
+					Maximum="100"
+					Margin="0 0 0 5"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Center"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1"
+					AutoToolTipPlacement="TopLeft"
+					RenderTransformOrigin="0.5, 0.5"
+					Value="{Binding Path=NTopPixel, Mode=TwoWay}"
+					PreviewMouseUp="Slider_PreviewMouseUp">
+					<UIElement.RenderTransform>
+						<ScaleTransform
+							ScaleY="-1" />
+					</UIElement.RenderTransform>
+				</Slider>
+			</Grid>
+			<Grid
+				Row="2"
+				Column="1"
+				RowSpan="2"
+				Margin="3 3 3 0">
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="50" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBox
+					Grid.Row="0"
+					Grid.Column="0"
+					Background="#d1d1d1"
+					TextAlignment="Center"
+					HorizontalAlignment="Stretch"
+					Text="{Binding Path=NBottomPixel, Mode=TwoWay}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNBottomPixelCommand}" />
+				<Slider
+					Grid.Row="1"
+					Orientation="Vertical"
+					Minimum="0"
+					Maximum="100"
+					Margin="0 5 0 0"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Center"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1"
+					AutoToolTipPlacement="TopLeft"
+					Value="{Binding Path=NBottomPixel, Mode=TwoWay}"
+					PreviewMouseUp="Slider_PreviewMouseUp" />
+			</Grid>
+		</Grid>
+		<Grid
+			Name="grdElliptic"
+			Opacity="0.85"
+			Margin="80 2 80 2">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition
+					Height="52" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<TextBox
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				Background="#d1d1d1"
+				TextAlignment="Center"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Bottom"
+				Width="80"
+				Height="50"
+				Margin="0 0 0 3"
+				Text="{Binding Path=NTopPixel, Mode=TwoWay}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNTopPixelCommand}" />
+			<Slider
+				Grid.Row="1"
+				Grid.ColumnSpan="2"
+				Minimum="0"
+				Maximum="100"
+				Margin="55 0 55 0"
+				VerticalAlignment="Bottom"
+				IsSnapToTickEnabled="True"
+				TickFrequency="1"
+				AutoToolTipPlacement="TopLeft"
+				Value="{Binding Path=NTopPixel, Mode=TwoWay}"
+				PreviewMouseUp="Slider_PreviewMouseUp" />
+			<TextBox
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				Background="#d1d1d1"
+				TextAlignment="Center"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Width="80"
+				Height="50"
+				Margin="55 86 0 0"
+				Text="{Binding Path=NLeftPixel, Mode=TwoWay}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNLeftPixelCommand}" />
+			<Slider
+				Grid.Row="0"
+				Grid.RowSpan="2"
+				Minimum="0"
+				Maximum="100"
+				VerticalAlignment="Stretch"
+				IsSnapToTickEnabled="True"
+				TickFrequency="1"
+				AutoToolTipPlacement="TopLeft"
+				Orientation="Vertical"
+				Margin="0 63 50 30"
+				Value="{Binding Path=NLeftPixel, Mode=TwoWay}"
+				PreviewMouseUp="Slider_PreviewMouseUp" />
+		</Grid>
+	</Grid>
+</UserControl>

@@ -1,0 +1,114 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlRestoreList" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.LoadedCommand="{Binding CreateBackupListCommand}"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<l:BoolToVisibilityHiddenConverter
+				x:Key="bVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Border
+			Margin="20,0,20,0">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="1*" />
+					<RowDefinition
+						Height="Auto" />
+					<RowDefinition
+						Height="1*" />
+					<RowDefinition
+						Height="20*" />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="1"
+					Visibility="{Binding ShowOnlyValidBackups, Converter={StaticResource bVisConverter}}">
+					<Border.Background>
+						<LinearGradientBrush
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Color="#f2e998"
+								Offset="0" />
+							<GradientStop
+								Color="#f4e21d"
+								Offset="1" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel
+						Orientation="Horizontal">
+						<Border>
+							<Image
+								Source="/img/info.png"
+								Height="25"
+								Margin="2" />
+						</Border>
+						<Label
+							Grid.Row="0"
+							Background="#00FFFFFF"
+							FontFamily="Helvetica"
+							FontSize="15"
+							VerticalAlignment="Center"
+							Content="{Binding Path=StrShowOnlyValidBackups.LocalizedText, FallbackValue=Inkompatible Backups werden nicht angezeigt.}" />
+					</StackPanel>
+				</Border>
+				<ListBox
+					Name="lstBackups"
+					Grid.Row="3"
+					Background="#00FFFFFF"
+					SelectionMode="Single"
+					IsSynchronizedWithCurrentItem="True"
+					ScrollViewer.PanningMode="None"
+					SelectedItem="{Binding Path=SelectedBackup}"
+					ItemsSource="{Binding Path=BackupList}"
+					common:MouseCommandBehavior.MouseDoubleClickCommand="{Binding DoRestoreCommand}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid
+								MinHeight="50">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition
+										Width="5*" />
+									<ColumnDefinition
+										Width="*" />
+									<ColumnDefinition
+										Width="*" />
+									<ColumnDefinition
+										Width="*" />
+								</Grid.ColumnDefinitions>
+								<TextBlock
+									Name="backupName"
+									Width="500"
+									Grid.Column="0"
+									FontSize="20"
+									FontFamily="Helvetica"
+									VerticalAlignment="Center"
+									Text="{Binding Path=BackupName}" />
+								<Image
+									Margin="20 0 0 20"
+									Grid.Column="1"
+									Source="../img/harddisk.png"
+									Visibility="{Binding Path=FromHarddisk, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Margin="20 10 0 20"
+									Grid.Column="2"
+									Source="../img/usb.png"
+									Visibility="{Binding Path=FromUSB, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Margin="20 0 0 10"
+									Grid.Column="3"
+									Source="../img/autobackup.png"
+									Visibility="{Binding Path=AutoBackup, Converter={StaticResource bVisConverter}}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

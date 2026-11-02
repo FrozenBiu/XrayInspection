@@ -1,0 +1,128 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlWifiAddNetwork" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="txtStyle">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<ObjectDataProvider
+				MethodName="GetValues"
+				ObjectType="{x:Type l:WifiAuthentication}"
+				MethodParameters="{x:Type TypeName=l:WifiAuthentication}"
+				x:Key="WifiAuthenticationDataProvider" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<l:TextToPasswordTextConverter
+				x:Key="textToPasswordTextConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1"
+		Margin="0 0 0 12">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition
+					Height="{Binding SecurityKeyNeeded, Converter={StaticResource boolGridLengthStarConverter}}" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Border
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.RowSpan="7"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Style="{StaticResource txtStyle}"
+				Text="{Binding StrSSID.LocalizedText}" />
+			<TextBox
+				Grid.Row="0"
+				Grid.Column="1"
+				Margin="65 0 65 0"
+				FontSize="20"
+				Text="{Binding SSID}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding SetSSIDCommand}" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				Style="{StaticResource txtStyle}"
+				Text="{Binding StrSecurityType.LocalizedText}" />
+			<ComboBox
+				Grid.Row="1"
+				Grid.Column="1"
+				Margin="65 0 65 0"
+				FontSize="20"
+				ScrollViewer.PanningMode="None"
+				ItemsSource="{Binding Source={StaticResource WifiAuthenticationDataProvider}}"
+				SelectedItem="{Binding WifiAuthentication}" />
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				Style="{StaticResource txtStyle}"
+				Text="{Binding StrEncryptionType.LocalizedText}" />
+			<ComboBox
+				Grid.Row="2"
+				Grid.Column="1"
+				Margin="65 0 65 0"
+				FontSize="20"
+				ScrollViewer.PanningMode="None"
+				ItemsSource="{Binding AvailableEncryptions}"
+				SelectedItem="{Binding WifiEncryption}" />
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="0"
+				Style="{StaticResource txtStyle}"
+				Text="{Binding StrSecurityKey.LocalizedText}" />
+			<TextBox
+				Grid.Row="3"
+				Grid.Column="1"
+				Margin="65 0 65 0"
+				FontSize="20"
+				Text="{Binding SecurityKey, Converter={StaticResource textToPasswordTextConverter}}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding SetSecurityKeyCommand}" />
+		</Grid>
+	</Border>
+</UserControl>

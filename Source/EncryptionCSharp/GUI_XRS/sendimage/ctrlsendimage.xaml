@@ -1,0 +1,546 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlSendImage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlSendImage_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisCollapsedConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Style.Setters>
+					<Setter
+						Property="FontSize"
+						Value="18" />
+					<Setter
+						Property="FontWeight"
+						Value="Bold" />
+				</Style.Setters>
+			</Style>
+			<Style
+				x:Key="okButtonStyle">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="EllipseDarkStroke"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#4a4a4a" />
+							<GradientStop
+								Offset="0.30"
+								Color="#4d4d4d" />
+							<GradientStop
+								Offset="0.70"
+								Color="#2a2a2a" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseStroke"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#98e781" />
+							<GradientStop
+								Offset="0.60"
+								Color="#358a06" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseUpFill"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#b8e409" />
+							<GradientStop
+								Offset="1.00"
+								Color="#98bd08" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseDownFill"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="1.00"
+								Color="#b8e409" />
+							<GradientStop
+								Offset="0.00"
+								Color="#98bd08" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Height"
+					Value="55" />
+				<Setter
+					Property="Width"
+					Value="55" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type ToggleButton}">
+							<Grid>
+								<Ellipse
+									StrokeThickness="3"
+									Fill="{StaticResource EllipseDarkStroke}" />
+								<Ellipse
+									Name="BorderUp"
+									Height="50"
+									Width="50"
+									StrokeThickness="1"
+									Stroke="{DynamicResource EllipseStroke}"
+									Fill="{DynamicResource EllipseUpFill}" />
+								<Ellipse
+									Name="BorderDown"
+									Height="50"
+									Width="50"
+									StrokeThickness="1"
+									Opacity="0"
+									Stroke="{DynamicResource EllipseStroke}"
+									Fill="{DynamicResource EllipseDownFill}" />
+								<ContentPresenter
+									Name="Contents" />
+								<Ellipse
+									Fill="#ffffff"
+									Opacity="0.07"
+									Margin="0 0 0 25" />
+							</Grid>
+							<FrameworkTemplate.Resources>
+								<ResourceDictionary>
+									<Storyboard
+										x:Key="ButtonDownTimeLine">
+										<DoubleAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="BorderDown"
+											Storyboard.TargetProperty="Opacity">
+											<SplineDoubleKeyFrame
+												KeyTime="00:00:00.05"
+												Value="1" />
+										</DoubleAnimationUsingKeyFrames>
+										<ThicknessAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame
+												KeyTime="00:00:00.025"
+												Value="4,4,2,2" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+									<Storyboard
+										x:Key="ButtonUpTimeLine">
+										<DoubleAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="BorderDown"
+											Storyboard.TargetProperty="Opacity">
+											<SplineDoubleKeyFrame
+												KeyTime="00:00:00.25"
+												Value="0" />
+										</DoubleAnimationUsingKeyFrames>
+										<ThicknessAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame
+												KeyTime="00:00:00.25"
+												Value="3,3,3,3" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+								</ResourceDictionary>
+							</FrameworkTemplate.Resources>
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="IsPressed"
+									Value="True">
+									<Setter
+										TargetName="BorderDown"
+										Property="UIElement.Opacity"
+										Value="1" />
+									<Setter
+										TargetName="Contents"
+										Property="Margin"
+										Value="4,4,2,2" />
+									<TriggerBase.EnterActions>
+										<BeginStoryboard
+											Storyboard="{StaticResource ButtonDownTimeLine}" />
+									</TriggerBase.EnterActions>
+									<TriggerBase.ExitActions>
+										<BeginStoryboard
+											Storyboard="{StaticResource ButtonUpTimeLine}" />
+									</TriggerBase.ExitActions>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Name="GMain">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="70" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid
+			Name="gridTimes"
+			Row="0"
+			Column="1"
+			Visibility="Collapsed"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Center"
+			Margin="0 0 0 5">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Grid.Column="0"
+				TextAlignment="Right"
+				Text="Processing time: " />
+			<TextBlock
+				Name="txtProcessingTime"
+				Grid.Column="1"
+				TextAlignment="Right" />
+			<TextBlock
+				Grid.Column="2"
+				Text=" ms" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				TextAlignment="Right"
+				Text="Create rect time: " />
+			<TextBlock
+				Name="txtPaintRectanglesTime"
+				Grid.Row="1"
+				Grid.Column="1"
+				TextAlignment="Right" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="2"
+				Text=" ms" />
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				TextAlignment="Right"
+				Text="Send time: " />
+			<TextBlock
+				Name="txtSendTime"
+				Grid.Row="2"
+				Grid.Column="1"
+				TextAlignment="Right" />
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="2"
+				Text=" ms" />
+			<TextBlock
+				Name="txtProdPerMinute"
+				Margin="20 0 0 0"
+				Grid.Row="0"
+				Grid.RowSpan="2"
+				VerticalAlignment="Top"
+				Grid.Column="3"
+				FontSize="22"
+				TextAlignment="Right"
+				Text="Prod. / min: " />
+			<TextBlock
+				Name="txtProdPerMinuteValue"
+				Grid.Row="0"
+				Grid.RowSpan="2"
+				VerticalAlignment="Top"
+				Grid.Column="4"
+				TextAlignment="Right"
+				FontSize="22" />
+			<TextBlock
+				Margin="20 0 0 0"
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				VerticalAlignment="Bottom"
+				Grid.Column="3"
+				FontSize="22"
+				TextAlignment="Right"
+				Text="Total time: " />
+			<TextBlock
+				Name="txtTotalTime"
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				VerticalAlignment="Bottom"
+				Grid.Column="4"
+				TextAlignment="Right"
+				FontSize="22" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				VerticalAlignment="Bottom"
+				Grid.Column="5"
+				FontSize="22"
+				Text=" ms" />
+		</Grid>
+		<Grid
+			Row="1"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left">
+			<ToggleButton
+				Name="toggleBtn"
+				Style="{StaticResource okButtonStyle}"
+				IsChecked="False"
+				Margin="4,0,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Click="toggleBtn_Click">
+				<ContentControl.ContentTemplate>
+					<DataTemplate>
+						<Image
+							Name="rotateMe"
+							Source="..\img\arrow.png"
+							Stretch="None"
+							RenderTransformOrigin="0.5,0.5">
+							<UIElement.RenderTransform>
+								<RotateTransform />
+							</UIElement.RenderTransform>
+						</Image>
+						<DataTemplate.Triggers>
+							<DataTrigger
+								Value="True"
+								Binding="{Binding ElementName=toggleBtn, Path=IsChecked}">
+								<TriggerBase.EnterActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation
+												Storyboard.TargetName="rotateMe"
+												Storyboard.TargetProperty="RenderTransform.Angle"
+												To="180"
+												Duration="0:0:0.0" />
+										</Storyboard>
+									</BeginStoryboard>
+								</TriggerBase.EnterActions>
+								<TriggerBase.ExitActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation
+												Storyboard.TargetName="rotateMe"
+												Storyboard.TargetProperty="RenderTransform.Angle"
+												To="0"
+												Duration="0:0:0.0" />
+										</Storyboard>
+									</BeginStoryboard>
+								</TriggerBase.ExitActions>
+							</DataTrigger>
+						</DataTemplate.Triggers>
+					</DataTemplate>
+				</ContentControl.ContentTemplate>
+			</ToggleButton>
+			<StackPanel
+				HorizontalAlignment="Left"
+				Margin="70,0,0,0"
+				Width="250">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="Auto" />
+						<RowDefinition
+							Height="Auto" />
+					</Grid.RowDefinitions>
+					<Label
+						Grid.Column="0"
+						Grid.Row="0"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol1}" />
+					<TextBlock
+						Name="txtFilter"
+						Grid.Column="0"
+						Grid.Row="1"
+						HorizontalAlignment="Left"
+						FontSize="11.5" />
+					<Label
+						Grid.Column="1"
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol2}" />
+					<TextBlock
+						Name="txtEnable"
+						Grid.Column="1"
+						Grid.Row="1"
+						FontSize="11.5" />
+					<Label
+						Grid.Column="2"
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol3}" />
+					<TextBlock
+						Name="txtMatches"
+						Grid.Column="2"
+						Grid.Row="1"
+						FontSize="11.5" />
+					<Label
+						Grid.Column="3"
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol4}" />
+					<TextBlock
+						Name="txtRadius"
+						Grid.Column="3"
+						Grid.Row="1"
+						FontSize="11.5" />
+					<Label
+						Grid.Column="4"
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol5}" />
+					<TextBlock
+						Name="txtMinSize"
+						Grid.Column="4"
+						Grid.Row="1"
+						FontSize="11.5" />
+					<Label
+						Grid.Column="5"
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol6}" />
+					<TextBlock
+						Name="txtContrast"
+						Grid.Column="5"
+						Grid.Row="1"
+						FontSize="11.5" />
+					<Label
+						Grid.Column="6"
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontWeight="Bold"
+						FontSize="13"
+						Margin="-6,0,0,0"
+						Content="{Binding HeaderCol7}" />
+					<TextBlock
+						Name="txtTriggered"
+						Grid.Column="6"
+						Grid.Row="1"
+						FontSize="11.5" />
+				</Grid>
+			</StackPanel>
+			<ToggleButton
+				Name="toggleBtnAIFilters"
+				Style="{StaticResource okButtonStyle}"
+				IsChecked="False"
+				Margin="295,0,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Visibility="{Binding Path=ShowBtnToggleAIFilters, Converter={StaticResource bVisCollapsedConverter}}"
+				Click="toggleBtnAIFilters_Click">
+				<ContentControl.ContentTemplate>
+					<DataTemplate>
+						<Image
+							Name="rotateMeFilter"
+							Source="..\img\arrow.png"
+							Stretch="None"
+							RenderTransformOrigin="0.5,0.5">
+							<UIElement.RenderTransform>
+								<RotateTransform
+									Angle="90" />
+							</UIElement.RenderTransform>
+						</Image>
+						<DataTemplate.Triggers>
+							<DataTrigger
+								Value="True"
+								Binding="{Binding ElementName=toggleBtnAIFilters, Path=IsChecked}">
+								<TriggerBase.EnterActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation
+												Storyboard.TargetName="rotateMeFilter"
+												Storyboard.TargetProperty="RenderTransform.Angle"
+												To="270"
+												Duration="0:0:0.0" />
+										</Storyboard>
+									</BeginStoryboard>
+								</TriggerBase.EnterActions>
+								<TriggerBase.ExitActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation
+												Storyboard.TargetName="rotateMeFilter"
+												Storyboard.TargetProperty="RenderTransform.Angle"
+												To="90"
+												Duration="0:0:0.0" />
+										</Storyboard>
+									</BeginStoryboard>
+								</TriggerBase.ExitActions>
+							</DataTrigger>
+						</DataTemplate.Triggers>
+					</DataTemplate>
+				</ContentControl.ContentTemplate>
+			</ToggleButton>
+		</Grid>
+		<image:XRSImageBox
+			Name="imagebox"
+			Grid.Row="1"
+			Grid.Column="1" />
+	</Grid>
+</UserControl>

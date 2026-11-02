@@ -1,0 +1,37 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlLearnCanFilter" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	common:ControlCommandBehavior.LoadedCommand="{Binding SetupCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<TextBlock
+			Grid.Row="0"
+			TextWrapping="Wrap"
+			FontSize="30"
+			FontWeight="Bold"
+			TextAlignment="Center"
+			Margin="10"
+			Text="{Binding AutotrainText}" />
+		<image:XRSImageBox
+			Name="imagebox"
+			Grid.Row="1"
+			UserLoggedIn="True"
+			BoxSelectionMode="DrawCrosses"
+			Image="{Binding DataContext.CurrentImage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=l:CtrlLearnCanFilter}}" />
+	</Grid>
+</UserControl>

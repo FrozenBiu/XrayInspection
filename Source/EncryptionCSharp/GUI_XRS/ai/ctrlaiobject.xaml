@@ -1,0 +1,651 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAIObject" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlAIObject_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<Style
+				TargetType="{x:Type TextBox}"
+				x:Key="{x:Type TextBox}">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#cfcfcf" />
+							<GradientStop
+								Offset="0.02"
+								Color="#e9e9e9" />
+							<GradientStop
+								Offset="0.03"
+								Color="#f1f1f1" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#bebebe" />
+							<GradientStop
+								Offset="0.10"
+								Color="#d8d8d8" />
+							<GradientStop
+								Offset="0.9"
+								Color="#d8d8d8" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="Margin"
+					Value="1 1 1 1" />
+				<Setter
+					Property="Padding"
+					Value="10 0 10 0" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontSize"
+					Value="28" />
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="TextBox.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Foreground"
+					Value="#5e5e5e" />
+				<Setter
+					Property="Focusable"
+					Value="False" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type TextBox}">
+							<Border
+								CornerRadius="3"
+								BorderThickness="2"
+								Padding="{TemplateBinding Padding}"
+								BorderBrush="{DynamicResource textBoxBorder}"
+								Background="{DynamicResource textBoxBackground}">
+								<ScrollViewer
+									Name="PART_ContentHost"
+									Margin="0" />
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Style.Triggers>
+					<Trigger
+						Property="IsEnabled"
+						Value="False">
+						<Setter
+							Property="Foreground"
+							Value="#888888" />
+						<Setter
+							Property="UIElement.Opacity"
+							Value="0.7" />
+						<Setter
+							Property="FrameworkElement.Cursor"
+							Value="Arrow" />
+						<Setter
+							Property="Template">
+							<Setter.Value>
+								<ControlTemplate
+									TargetType="{x:Type TextBox}">
+									<Border
+										CornerRadius="3"
+										BorderThickness="2"
+										Padding="{TemplateBinding Padding}">
+										<Border.Background>
+											<LinearGradientBrush
+												StartPoint="0,0"
+												EndPoint="0,1">
+												<GradientStop
+													Offset="0.00"
+													Color="#adadad" />
+												<GradientStop
+													Offset="0.02"
+													Color="#bababa" />
+												<GradientStop
+													Offset="0.03"
+													Color="#c7c7c7" />
+											</LinearGradientBrush>
+										</Border.Background>
+										<Border.BorderBrush>
+											<LinearGradientBrush
+												StartPoint="0,0"
+												EndPoint="0,1">
+												<GradientStop
+													Offset="0.01"
+													Color="#9f9f9f" />
+												<GradientStop
+													Offset="0.10"
+													Color="#bababa" />
+												<GradientStop
+													Offset="0.9"
+													Color="#bababa" />
+												<GradientStop
+													Offset="1.00"
+													Color="#e6e6e6" />
+											</LinearGradientBrush>
+										</Border.BorderBrush>
+										<ScrollViewer
+											Name="PART_ContentHost"
+											Margin="0" />
+									</Border>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12">
+		<TabControl
+			SelectedIndex="0"
+			Margin="0 0 0 10"
+			ItemsSource="{Binding ObjectDetectionClasses}">
+			<FrameworkElement.Resources>
+				<ResourceDictionary>
+					<Style
+						TargetType="{x:Type TabItem}"
+						BasedOn="{StaticResource {x:Type TabItem}}"
+						x:Key="{x:Type TabItem}">
+						<Setter
+							Property="Visibility"
+							Value="Collapsed" />
+						<Style.Triggers>
+							<DataTrigger
+								Value="True"
+								Binding="{Binding IsClassAvailable}">
+								<Setter
+									Property="Visibility"
+									Value="Visible" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</ResourceDictionary>
+			</FrameworkElement.Resources>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Label
+						FontSize="14"
+						Content="{Binding TabName}" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+			<TabControl.ContentTemplate>
+				<DataTemplate>
+					<ScrollViewer
+						VerticalScrollBarVisibility="Auto"
+						HorizontalScrollBarVisibility="Disabled">
+						<Grid
+							Margin="0 5 0 0">
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Border
+								Grid.Row="0"
+								BorderBrush="#a8a8a8"
+								BorderThickness="1"
+								Background="#d1d1d1"
+								Margin="0 0 0 12">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition
+											Width="2*" />
+										<ColumnDefinition
+											Width="3*" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+									</Grid.RowDefinitions>
+									<Border
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.RowSpan="10"
+										Background="#e7efc5"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 1 0" />
+									<Border
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="1"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="2"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="3"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="4"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="5"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrClassName.LocalizedText, FallbackValue=Objekt}" />
+									<TextBox
+										Grid.Row="0"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										IsEnabled="False"
+										Text="{Binding Path=ClassName, Mode=TwoWay}" />
+									<TextBlock
+										Grid.Row="1"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrClassEnabled.LocalizedText, FallbackValue=Klasse aktivieren}" />
+									<CheckBox
+										Grid.Row="1"
+										Grid.Column="1"
+										HorizontalAlignment="Center"
+										IsChecked="{Binding Path=ClassEnabled}" />
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrDetectionType.LocalizedText, FallbackValue=Detektionstyp}" />
+									<ComboBox
+										Grid.Row="2"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										HorizontalContentAlignment="Right"
+										FontSize="28"
+										FontFamily="Arial"
+										ItemsSource="{Binding DetectionTypeOptions}"
+										SelectedItem="{Binding DetectionType, Mode=TwoWay}" />
+									<TextBlock
+										Grid.Row="3"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrGroupId.LocalizedText, FallbackValue=Auswertungsgruppe}" />
+									<!--Unknown connection ID: 2-->
+									<TextBox
+										Grid.Row="3"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=GroupId, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="4"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrMinCount.LocalizedText, FallbackValue=Minimale Anzahl}" />
+									<!--Unknown connection ID: 3-->
+									<TextBox
+										Grid.Row="4"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=MinCount, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="5"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrMaxCount.LocalizedText, FallbackValue=Maximale Anzahl}" />
+									<!--Unknown connection ID: 4-->
+									<TextBox
+										Grid.Row="5"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=MaxCount, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="6"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrConfThreshold.LocalizedText, FallbackValue=Erkennungssicherheit}" />
+									<!--Unknown connection ID: 5-->
+									<TextBox
+										Grid.Row="6"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=ConfThreshold, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+								</Grid>
+							</Border>
+							<Border
+								Grid.Row="1"
+								BorderBrush="#a8a8a8"
+								BorderThickness="1"
+								Background="#d1d1d1"
+								Margin="0 0 0 12">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition
+											Width="2*" />
+										<ColumnDefinition
+											Width="3*" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+									</Grid.RowDefinitions>
+									<Border
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.RowSpan="10"
+										Background="#e7efc5"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 1 0" />
+									<Border
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="1"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="2"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="3"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="4"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="5"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrUnmaskForConEnabled.LocalizedText, FallbackValue=Objekt für weitere Filter ausblenden}" />
+									<CheckBox
+										Grid.Row="0"
+										Grid.Column="1"
+										HorizontalAlignment="Center"
+										IsChecked="{Binding Path=UnmaskForConEnabled}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="1"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrUnmaskForConMethod.LocalizedText, FallbackValue=Methode zum Ausblenden}" />
+									<ComboBox
+										Grid.Row="1"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										HorizontalContentAlignment="Right"
+										FontSize="28"
+										FontFamily="Arial"
+										ItemsSource="{Binding UnmaskForConMethodOptions}"
+										SelectedItem="{Binding UnmaskForConMethod, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrFilterSize.LocalizedText, FallbackValue=Glättung}" />
+									<!--Unknown connection ID: 6-->
+									<TextBox
+										Grid.Row="2"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=FilterSize, Mode=TwoWay}"
+										IsEnabled="{Binding IsThresholding}" />
+									<TextBlock
+										Grid.Row="3"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrMinGroupSize.LocalizedText, FallbackValue=Minimale Größe eines Objects}" />
+									<!--Unknown connection ID: 7-->
+									<TextBox
+										Grid.Row="3"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=MinGroupSize, Mode=TwoWay}"
+										IsEnabled="{Binding IsThresholding}" />
+									<TextBlock
+										Grid.Row="4"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrLowThresholdMinMax.LocalizedText, FallbackValue=Schwellwert - Minimum}" />
+									<!--Unknown connection ID: 8-->
+									<TextBox
+										Grid.Row="4"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=LowThresholdMinMax, Mode=TwoWay}"
+										IsEnabled="{Binding IsMinMaxAdaptiveThresholding}" />
+									<TextBlock
+										Grid.Row="5"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrHighThresholdMinMax.LocalizedText, FallbackValue=Schwellwerte - Maximum}" />
+									<!--Unknown connection ID: 9-->
+									<TextBox
+										Grid.Row="5"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=HighThresholdMinMax, Mode=TwoWay}"
+										IsEnabled="{Binding IsMinMaxAdaptiveThresholding}" />
+									<TextBlock
+										Grid.Row="6"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrPercentileThreshold.LocalizedText, FallbackValue=Schwellwert - Percentil}" />
+									<!--Unknown connection ID: 10-->
+									<TextBox
+										Grid.Row="6"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=PercentileThreshold, Mode=TwoWay}"
+										IsEnabled="{Binding IsPercentileThresholding}" />
+								</Grid>
+							</Border>
+							<Border
+								Grid.Row="2"
+								BorderBrush="#a8a8a8"
+								BorderThickness="1"
+								Background="#d1d1d1">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition
+											Width="2*" />
+										<ColumnDefinition
+											Width="3*" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+										<RowDefinition
+											MinHeight="70" />
+									</Grid.RowDefinitions>
+									<Border
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.RowSpan="10"
+										Background="#e7efc5"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 1 0" />
+									<Border
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="1"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<Border
+										Grid.Row="2"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										BorderBrush="#b6b6b6"
+										BorderThickness="0 0 0 1" />
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrTTAEnabled.LocalizedText, FallbackValue=Test-time Augmentation}" />
+									<CheckBox
+										Grid.Row="0"
+										Grid.Column="1"
+										HorizontalAlignment="Center"
+										IsChecked="{Binding Path=TTAEnabled}" />
+									<TextBlock
+										Grid.Row="1"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrConfThresholdTTA1.LocalizedText, FallbackValue=Erkennungssicherheit TTA 1}" />
+									<!--Unknown connection ID: 11-->
+									<TextBox
+										Grid.Row="1"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=ConfThresholdTTA1, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrConfThresholdTTA2.LocalizedText, FallbackValue=Erkennungssicherheit TTA 2}" />
+									<!--Unknown connection ID: 12-->
+									<TextBox
+										Grid.Row="2"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=ConfThresholdTTA2, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+									<TextBlock
+										Grid.Row="3"
+										Grid.Column="0"
+										Style="{StaticResource TextBlock}"
+										Text="{Binding Path=StrConfThresholdTTA3.LocalizedText, FallbackValue=Erkennungssicherheit TTA 3}" />
+									<!--Unknown connection ID: 13-->
+									<TextBox
+										Grid.Row="3"
+										Grid.Column="1"
+										Margin="65 0 65 0"
+										Text="{Binding Path=ConfThresholdTTA3, Mode=TwoWay}"
+										IsEnabled="{Binding IsCountType}" />
+								</Grid>
+							</Border>
+						</Grid>
+					</ScrollViewer>
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
+	</Grid>
+</UserControl>

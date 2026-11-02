@@ -1,0 +1,702 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAuditCheckSettings" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:system="clr-namespace:System;assembly=mscorlib"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding DeregisterLocalizedTextCommand}"
+	Unloaded="UserControl_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:DoubleStringConverterPrec1
+				x:Key="doubleStringConverter" />
+			<l:AlarmmodeStringConverter
+				x:Key="alarmmodeStringConverter" />
+			<l:AlarmmodesStringConverter
+				x:Key="alarmmodesStringConverter" />
+			<l:DayOfWeekStringConverter
+				x:Key="dayStringConverter" />
+			<l:DaysStringConverter
+				x:Key="daysStringConverter" />
+			<l:IntSecondsToHoursMinutesSecondsStringeConverter
+				x:Key="intSecondsToHoursMinutesSecondsStringeConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<l:BoolBrushBlackGrayConverter
+				x:Key="boolBrushBlackGrayConverter" />
+			<l:AlarmModes
+				x:Key="Modes">
+				<l:AlarmMode>PerHour</l:AlarmMode>
+				<l:AlarmMode>PerDay</l:AlarmMode>
+				<l:AlarmMode>PerWeek</l:AlarmMode>
+				<l:AlarmMode>PerInterval</l:AlarmMode>
+			</l:AlarmModes>
+			<l:Days
+				x:Key="Days">
+				<system:DayOfWeek>Monday</system:DayOfWeek>
+				<system:DayOfWeek>Tuesday</system:DayOfWeek>
+				<system:DayOfWeek>Wednesday</system:DayOfWeek>
+				<system:DayOfWeek>Thursday</system:DayOfWeek>
+				<system:DayOfWeek>Friday</system:DayOfWeek>
+				<system:DayOfWeek>Saturday</system:DayOfWeek>
+				<system:DayOfWeek>Sunday</system:DayOfWeek>
+			</l:Days>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 5 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="TextBlockStyle">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="20" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<ScrollViewer>
+		<Grid
+			Margin="12 24 12 24">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Margin="20 20 20 0"
+				HorizontalAlignment="Left"
+				Style="{StaticResource TextBlockStyle}"
+				Text="{Binding Path=StrProductSpecific.LocalizedText, FallbackValue=Produktspezifische Einstellungen}" />
+			<Border
+				Grid.Row="3"
+				BorderBrush="#a8a8a8"
+				BorderThickness="1"
+				Background="#d1d1d1"
+				Margin="0 12 0 12">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition
+							MinHeight="80"
+							Height="*" />
+						<RowDefinition
+							MinHeight="80"
+							Height="*" />
+						<RowDefinition
+							MinHeight="80"
+							Height="*" />
+						<RowDefinition>
+							<FrameworkContentElement.Style>
+								<Style
+									TargetType="{x:Type RowDefinition}">
+									<Setter
+										Property="Height"
+										Value="Auto" />
+									<Setter
+										Property="MinHeight"
+										Value="80" />
+									<Style.Triggers>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding IsNotBulk}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkContentElement.Style>
+						</RowDefinition>
+						<RowDefinition
+							MinHeight="80"
+							Height="*" />
+					</Grid.RowDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="14"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 1 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.ColumnSpan="10"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Text="{Binding Path=StrAuditFailedError.LocalizedText, FallbackValue=Fehler bei erfolglosem Test}" />
+					<CheckBox
+						Grid.Row="1"
+						Grid.Column="1"
+						Grid.ColumnSpan="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=AuditSettings.AuditRequired.AuditFailedError}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						Margin="20 0 20 0"
+						Text="{Binding Path=StrDocumentation.LocalizedText, FallbackValue=Dokumentation}" />
+					<CheckBox
+						Grid.Row="2"
+						Grid.Column="1"
+						IsChecked="{Binding Path=DocumentationEnabled, Mode=TwoWay}" />
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="{Binding Path=StrRejectAll.LocalizedText, FallbackValue=Alle Produkte ausscheiden}" />
+					<CheckBox
+						Grid.Row="3"
+						Grid.Column="1"
+						Grid.ColumnSpan="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=RejectAll}" />
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="0"
+						Margin="20 0 20 0"
+						Text="{Binding Path=StrAuditCheckProductChange.LocalizedText, FallbackValue=Audit Check bei Produktwechsel}" />
+					<CheckBox
+						Grid.Row="4"
+						Grid.Column="1"
+						IsChecked="{Binding Path=AuditCheckProductChange, Mode=TwoWay}" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="{Binding StrTimeToStartAudit.LocalizedText, FallbackValue=Zeit zum Aktivieren, StringFormat= {0} (min) }" />
+					<TextBox
+						Margin="65 0 65 0"
+						Grid.Row="0"
+						Grid.Column="1"
+						Text="{Binding Path=AuditSettings.AuditRequired.TimeToStartAudit, Mode=TwoWay}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeTimeToStartAuditCommand}" />
+				</Grid>
+			</Border>
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				Margin="20 20 20 0"
+				HorizontalAlignment="Left"
+				Style="{StaticResource TextBlockStyle}"
+				Text="{Binding Path=StrCommonSettings.LocalizedText, FallbackValue=Allgemeine Einstellungen}" />
+			<Border
+				Grid.Row="1"
+				BorderBrush="#a8a8a8"
+				BorderThickness="1"
+				Background="#d1d1d1"
+				Margin="0 12 0 12">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="{Binding AuditCheckForContaminationsAccessible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							MinHeight="0"
+							Height="*" />
+						<RowDefinition
+							MinHeight="0"
+							Height="*" />
+						<RowDefinition>
+							<FrameworkContentElement.Style>
+								<Style
+									TargetType="{x:Type RowDefinition}">
+									<Setter
+										Property="Height"
+										Value="Auto" />
+									<Setter
+										Property="MinHeight"
+										Value="80" />
+									<Style.Triggers>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding IsNotBulk}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkContentElement.Style>
+						</RowDefinition>
+						<RowDefinition
+							MinHeight="80"
+							Height="*" />
+						<RowDefinition
+							MinHeight="80"
+							Height="*" />
+						<RowDefinition>
+							<FrameworkContentElement.Style>
+								<Style
+									TargetType="{x:Type RowDefinition}">
+									<Setter
+										Property="Height"
+										Value="Auto" />
+									<Setter
+										Property="MinHeight"
+										Value="80" />
+									<Style.Triggers>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding AuditSettings.DayVisible}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkContentElement.Style>
+						</RowDefinition>
+						<RowDefinition>
+							<FrameworkContentElement.Style>
+								<Style
+									TargetType="{x:Type RowDefinition}">
+									<Setter
+										Property="Height"
+										Value="Auto" />
+									<Setter
+										Property="MinHeight"
+										Value="80" />
+									<Style.Triggers>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding AuditSettings.StartTimeVisible}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkContentElement.Style>
+						</RowDefinition>
+						<RowDefinition>
+							<FrameworkContentElement.Style>
+								<Style
+									TargetType="{x:Type RowDefinition}">
+									<Setter
+										Property="Height"
+										Value="Auto" />
+									<Setter
+										Property="MinHeight"
+										Value="80" />
+									<Style.Triggers>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding AuditSettings.IntervalTimeVisible}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkContentElement.Style>
+						</RowDefinition>
+						<RowDefinition>
+							<FrameworkContentElement.Style>
+								<Style
+									TargetType="{x:Type RowDefinition}">
+									<Setter
+										Property="Height"
+										Value="Auto" />
+									<Setter
+										Property="MinHeight"
+										Value="80" />
+									<Style.Triggers>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding IsNotBulk}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding AuditSettings.ContaminationEnabled}">
+											<Setter
+												Property="Height"
+												Value="0" />
+											<Setter
+												Property="MinHeight"
+												Value="0" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkContentElement.Style>
+						</RowDefinition>
+					</Grid.RowDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="14"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 1 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.ColumnSpan="10"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 0" />
+					<Border
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 0" />
+					<Border
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="4"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="5"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="6"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 0" />
+					<Border
+						Grid.Row="7"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 0" />
+					<Border
+						Grid.Row="8"
+						Grid.Column="0"
+						Grid.ColumnSpan="5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 0" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="{Binding Path=StrAuditContaminationActive.LocalizedText, FallbackValue=Audit Check ein (Verunreinigung)}" />
+					<CheckBox
+						Grid.Row="0"
+						Grid.Column="1"
+						Grid.ColumnSpan="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=AuditSettings.ContaminationEnabled}" />
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Visibility="{Binding IsWeight, Converter={StaticResource bVisConverter}}"
+						Text="{Binding Path=StrAuditWeightActive.LocalizedText, FallbackValue=Audit Check ein (Gewicht)}" />
+					<CheckBox
+						Grid.Row="1"
+						Grid.Column="1"
+						Grid.ColumnSpan="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Visibility="{Binding IsWeight, Converter={StaticResource bVisConverter}}"
+						IsChecked="{Binding Path=AuditSettings.WeightEnabled}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						Visibility="{Binding IsCount, Converter={StaticResource bVisConverter}}"
+						Text="{Binding Path=StrAuditCountActive.LocalizedText, FallbackValue=Audit Check ein (Zählen)}" />
+					<CheckBox
+						Grid.Row="2"
+						Grid.Column="1"
+						Grid.ColumnSpan="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Visibility="{Binding IsCount, Converter={StaticResource bVisConverter}}"
+						IsChecked="{Binding Path=AuditSettings.CountEnabled}" />
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="{Binding Path=StrNumberOfProducts.LocalizedText, FallbackValue=Anzahl an Produktmustern}" />
+					<TextBox
+						Grid.Row="3"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						Margin="65 0 65 0"
+						Text="{Binding Path=AuditSettings.AuditRequired.NProducts, Mode=TwoWay}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeNProductsCommand}" />
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="0"
+						Text="{Binding Path=StrTimeToNextAudit.LocalizedText, FallbackValue=Zeit bis zum nächsten Audit Check}" />
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						TextAlignment="Center"
+						FontSize="26"
+						Text="{Binding Path=AuditSettings.AuditRequired.TimeToNextAudit, Converter={StaticResource intSecondsToHoursMinutesSecondsStringeConverter}}" />
+					<TextBlock
+						Grid.Row="5"
+						Grid.Column="0"
+						Text="{Binding Path=StrMode.LocalizedText, FallbackValue=Alarmmodus}" />
+					<ComboBox
+						Grid.Row="5"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						Margin="65 0 65 0"
+						FontSize="22"
+						ScrollViewer.PanningMode="None"
+						ItemsSource="{Binding Source={StaticResource Modes}, Converter={StaticResource alarmmodesStringConverter}}"
+						SelectedItem="{Binding Path=AuditSettings.SelectedMode, Mode=TwoWay, Converter={StaticResource alarmmodeStringConverter}}" />
+					<TextBlock
+						Grid.Row="6"
+						Grid.Column="0"
+						Text="{Binding Path=StrDay.LocalizedText, FallbackValue=Alarmtag}"
+						Visibility="{Binding Path=AuditSettings.DayVisible, Converter={StaticResource bVisConverter}}" />
+					<ComboBox
+						Grid.Row="6"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						Margin="65 0 65 0"
+						FontSize="22"
+						ScrollViewer.PanningMode="None"
+						ItemsSource="{Binding Source={StaticResource Days}, Converter={StaticResource daysStringConverter}}"
+						SelectedItem="{Binding Path=AuditSettings.AlarmDay, Mode=TwoWay, Converter={StaticResource dayStringConverter}}"
+						Visibility="{Binding Path=AuditSettings.DayVisible, Converter={StaticResource bVisConverter}}" />
+					<TextBlock
+						Grid.Row="7"
+						Grid.Column="0"
+						Text="{Binding Path=StrTimeOfDay.LocalizedText, FallbackValue=Uhrzeit}"
+						Visibility="{Binding Path=AuditSettings.StartTimeVisible, Converter={StaticResource bVisConverter}}" />
+					<Grid
+						Row="7"
+						Column="1"
+						Margin="65 0 65 0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="2*" />
+							<ColumnDefinition
+								Width="*" />
+							<ColumnDefinition
+								Width="2*" />
+							<ColumnDefinition
+								Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<TextBox
+							Grid.Column="0"
+							Margin="0 0 0 0"
+							FontSize="24"
+							Text="{Binding Path=AuditSettings.StartTimeHour, Mode=TwoWay}"
+							Visibility="{Binding Path=AuditSettings.StartTimeVisible, Converter={StaticResource bVisConverter}}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeStartTimeHourCommand}" />
+						<TextBlock
+							Grid.Column="1"
+							Margin="5"
+							Text="h"
+							TextAlignment="Left"
+							Visibility="{Binding Path=AuditSettings.StartTimeVisible, Converter={StaticResource bVisConverter}}" />
+						<TextBox
+							Grid.Column="2"
+							Margin="5"
+							FontSize="24"
+							Text="{Binding Path=AuditSettings.StartTimeMinute, Mode=TwoWay}"
+							Visibility="{Binding Path=AuditSettings.StartTimeVisible, Converter={StaticResource bVisConverter}}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeStartTimeMinuteCommand}" />
+						<TextBlock
+							Grid.Column="3"
+							Text="min"
+							Margin="0 0 0 0"
+							TextAlignment="Left"
+							Visibility="{Binding Path=AuditSettings.StartTimeVisible, Converter={StaticResource bVisConverter}}" />
+					</Grid>
+					<TextBlock
+						Grid.Row="9"
+						Grid.Column="0"
+						Text="{Binding Path=StrFastMode.LocalizedText, FallbackValue=Fast Mode für Verunreinigungen}" />
+					<CheckBox
+						Grid.Row="9"
+						Grid.Column="1"
+						Grid.ColumnSpan="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=AuditSettings.FastAuditCheck}" />
+					<TextBlock
+						Grid.Row="8"
+						Grid.Column="0"
+						Text="{Binding Path=StrInterval.LocalizedText, FallbackValue=Intervall}"
+						Visibility="{Binding Path=AuditSettings.IntervalTimeVisible, Converter={StaticResource bVisConverter}}" />
+					<Grid
+						Row="8"
+						Column="1"
+						Margin="65 0 65 0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="2*" />
+							<ColumnDefinition
+								Width="*" />
+							<ColumnDefinition
+								Width="2*" />
+							<ColumnDefinition
+								Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<TextBox
+							Grid.Column="0"
+							Margin="0 0 0 0"
+							FontSize="24"
+							Text="{Binding Path=AuditSettings.IntervalHour, Mode=TwoWay}"
+							Visibility="{Binding Path=AuditSettings.IntervalTimeVisible, Converter={StaticResource bVisConverter}}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeIntervalTimeHourCommand}" />
+						<TextBlock
+							Grid.Column="1"
+							Margin="5"
+							Text="h"
+							TextAlignment="Left"
+							Visibility="{Binding Path=AuditSettings.IntervalTimeVisible, Converter={StaticResource bVisConverter}}" />
+						<TextBox
+							Grid.Column="2"
+							Margin="5"
+							FontSize="24"
+							Text="{Binding Path=AuditSettings.IntervalMinute, Mode=TwoWay}"
+							Visibility="{Binding Path=AuditSettings.IntervalTimeVisible, Converter={StaticResource bVisConverter}}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeIntervalTimeMinuteCommand}" />
+						<TextBlock
+							Grid.Column="3"
+							Text="min"
+							Margin="0 0 0 0"
+							TextAlignment="Left"
+							Visibility="{Binding Path=AuditSettings.IntervalTimeVisible, Converter={StaticResource bVisConverter}}" />
+					</Grid>
+				</Grid>
+			</Border>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

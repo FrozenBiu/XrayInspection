@@ -1,0 +1,618 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlDetectorPlot" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:seso="clr-namespace:SesoPlot;assembly=Sesoplot"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<Style
+				x:Key="okButtonStyle">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="EllipseDarkStroke"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#4a4a4a" />
+							<GradientStop
+								Offset="0.30"
+								Color="#4d4d4d" />
+							<GradientStop
+								Offset="0.70"
+								Color="#2a2a2a" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseStroke"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#98e781" />
+							<GradientStop
+								Offset="0.60"
+								Color="#358a06" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseUpFill"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#b8e409" />
+							<GradientStop
+								Offset="1.00"
+								Color="#98bd08" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseDownFill"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="1.00"
+								Color="#b8e409" />
+							<GradientStop
+								Offset="0.00"
+								Color="#98bd08" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Height"
+					Value="55" />
+				<Setter
+					Property="Width"
+					Value="55" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type ToggleButton}">
+							<Grid>
+								<Ellipse
+									StrokeThickness="3"
+									Fill="{StaticResource EllipseDarkStroke}" />
+								<Ellipse
+									Name="BorderUp"
+									Height="50"
+									Width="50"
+									StrokeThickness="1"
+									Stroke="{DynamicResource EllipseStroke}"
+									Fill="{DynamicResource EllipseUpFill}" />
+								<Ellipse
+									Name="BorderDown"
+									Height="50"
+									Width="50"
+									StrokeThickness="1"
+									Opacity="0"
+									Stroke="{DynamicResource EllipseStroke}"
+									Fill="{DynamicResource EllipseDownFill}" />
+								<ContentPresenter
+									Name="Contents" />
+								<Ellipse
+									Fill="#ffffff"
+									Opacity="0.07"
+									Margin="0 0 0 25" />
+							</Grid>
+							<FrameworkTemplate.Resources>
+								<ResourceDictionary>
+									<Storyboard
+										x:Key="ButtonDownTimeLine">
+										<DoubleAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="BorderDown"
+											Storyboard.TargetProperty="Opacity">
+											<SplineDoubleKeyFrame
+												KeyTime="00:00:00.05"
+												Value="1" />
+										</DoubleAnimationUsingKeyFrames>
+										<ThicknessAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame
+												KeyTime="00:00:00.025"
+												Value="4,4,2,2" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+									<Storyboard
+										x:Key="ButtonUpTimeLine">
+										<DoubleAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="BorderDown"
+											Storyboard.TargetProperty="Opacity">
+											<SplineDoubleKeyFrame
+												KeyTime="00:00:00.25"
+												Value="0" />
+										</DoubleAnimationUsingKeyFrames>
+										<ThicknessAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame
+												KeyTime="00:00:00.25"
+												Value="3,3,3,3" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+								</ResourceDictionary>
+							</FrameworkTemplate.Resources>
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="IsPressed"
+									Value="True">
+									<Setter
+										TargetName="BorderDown"
+										Property="UIElement.Opacity"
+										Value="1" />
+									<Setter
+										TargetName="Contents"
+										Property="Margin"
+										Value="4,4,2,2" />
+									<TriggerBase.EnterActions>
+										<BeginStoryboard
+											Storyboard="{StaticResource ButtonDownTimeLine}" />
+									</TriggerBase.EnterActions>
+									<TriggerBase.ExitActions>
+										<BeginStoryboard
+											Storyboard="{StaticResource ButtonUpTimeLine}" />
+									</TriggerBase.ExitActions>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<l:BoolToStringConverter
+				x:Key="boolToStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisibilityCollapsedConverter" />
+			<l:BoolToVisibilityInvertedHiddenConverter
+				x:Key="bVisibilityInvertedHiddenConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid
+			Visibility="{Binding ParameterAccessible, Converter={StaticResource bVisibilityCollapsedConverter}}">
+			<Expander
+				ExpandDirection="Right"
+				Margin="4 2 2 2">
+				<FrameworkElement.Resources>
+					<ResourceDictionary>
+						<Style
+							TargetType="{x:Type Expander}"
+							x:Key="{x:Type Expander}">
+							<Setter
+								Property="Template">
+								<Setter.Value>
+									<ControlTemplate
+										TargetType="{x:Type Expander}">
+										<Grid
+											MaxWidth="300">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition
+													Width="Auto" />
+												<ColumnDefinition />
+											</Grid.ColumnDefinitions>
+											<ToggleButton
+												Name="toggleBtn"
+												Style="{StaticResource okButtonStyle}"
+												IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+												<ContentControl.ContentTemplate>
+													<DataTemplate>
+														<Image
+															Name="rotateMe"
+															Source="../img/arrow.png"
+															Stretch="None"
+															RenderTransformOrigin="0.5,0.5">
+															<UIElement.RenderTransform>
+																<RotateTransform />
+															</UIElement.RenderTransform>
+														</Image>
+														<DataTemplate.Triggers>
+															<DataTrigger
+																Value="True"
+																Binding="{Binding ElementName=toggleBtn, Path=IsChecked}">
+																<TriggerBase.EnterActions>
+																	<BeginStoryboard>
+																		<Storyboard>
+																			<DoubleAnimation
+																				Storyboard.TargetName="rotateMe"
+																				Storyboard.TargetProperty="RenderTransform.Angle"
+																				To="180"
+																				Duration="0:0:0.0" />
+																		</Storyboard>
+																	</BeginStoryboard>
+																</TriggerBase.EnterActions>
+																<TriggerBase.ExitActions>
+																	<BeginStoryboard>
+																		<Storyboard>
+																			<DoubleAnimation
+																				Storyboard.TargetName="rotateMe"
+																				Storyboard.TargetProperty="RenderTransform.Angle"
+																				To="0"
+																				Duration="0:0:0.0" />
+																		</Storyboard>
+																	</BeginStoryboard>
+																</TriggerBase.ExitActions>
+															</DataTrigger>
+														</DataTemplate.Triggers>
+													</DataTemplate>
+												</ContentControl.ContentTemplate>
+											</ToggleButton>
+											<ContentPresenter
+												Name="contentExpander"
+												Visibility="Collapsed"
+												Grid.Column="1" />
+										</Grid>
+										<ControlTemplate.Triggers>
+											<Trigger
+												Property="Expander.IsExpanded"
+												Value="True">
+												<Setter
+													TargetName="contentExpander"
+													Property="Visibility"
+													Value="Visible" />
+											</Trigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ResourceDictionary>
+				</FrameworkElement.Resources>
+				<ScrollViewer
+					HorizontalScrollBarVisibility="Auto"
+					VerticalScrollBarVisibility="Auto">
+					<l:CtrlParameter
+						Name="parameterControl"
+						Margin="0,0,0,40" />
+				</ScrollViewer>
+			</Expander>
+		</Grid>
+		<Grid
+			Name="chartGrid"
+			Column="1"
+			Background="#FFFFFFFF"
+			Margin="5">
+			<seso:SesoPlot
+				Name="plot"
+				Margin="5"
+				DrawMinorGridLinesHorizontal="False"
+				DrawMinorGridLinesVertical="False"
+				MinimumX="-10"
+				MaximumYLimit="20000"
+				MajorTicksX="{Binding MajorTicksX}"
+				MaximumX="{Binding NPixel}"
+				MaximumY="{Binding MaxY, Mode=TwoWay}"
+				MajorTicksY="{Binding TicksY}"
+				MinorTicksX="{Binding TicksX}"
+				ZoomFactorX="{Binding ZoomFactorX, Mode=TwoWay}"
+				MaximumXLimit="{Binding NPixel}"
+				MinimumY="{Binding MinY, Mode=TwoWay}">
+				<seso:SesoPlot.Graphs>
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF008000"
+						StrokeThickness="2"
+						Points="{Binding PlotPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF8B0000"
+						StrokeDashArray="0 2"
+						StrokeThickness="2"
+						Points="{Binding ReferencePlotPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF808080"
+						StrokeDashArray="2 4"
+						StrokeThickness="2"
+						Points="{Binding IgnoreLeftPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF808080"
+						StrokeDashArray="2 4"
+						StrokeThickness="2"
+						Points="{Binding IgnoreRightPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF0000FF"
+						StrokeThickness="2"
+						Points="{Binding PlotHEPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF008B8B"
+						StrokeDashArray="0 2"
+						StrokeThickness="2"
+						Points="{Binding ReferencePlotHEPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF5F9EA0"
+						StrokeThickness="2"
+						Points="{Binding PlotNoTdiPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FFDAA520"
+						StrokeDashArray="0 2"
+						StrokeThickness="2"
+						Points="{Binding ReferencePlotNoTdiPoints}" />
+				</seso:SesoPlot.Graphs>
+			</seso:SesoPlot>
+			<Grid
+				Name="gridDtParameters"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Stretch"
+				Height="110"
+				Margin="70 5 0 0"
+				Background="#00FFFFFF">
+				<FrameworkElement.Resources>
+					<ResourceDictionary>
+						<Style
+							TargetType="{x:Type TextBlock}"
+							x:Key="{x:Type TextBlock}">
+							<Setter
+								Property="FontSize"
+								Value="{Binding MachineParametersFontSize}" />
+						</Style>
+					</ResourceDictionary>
+				</FrameworkElement.Resources>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+				</Grid.ColumnDefinitions>
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="Voltage = " />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="1"
+					Foreground="#FF000000"
+					Text="{Binding Path=Voltage}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="Current = " />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="1"
+					Foreground="#FF000000"
+					Text="{Binding Path=Current}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="XRayEnable = " />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="1"
+					Foreground="#FF000000"
+					Text="{Binding Path=XRayEnable, Converter={StaticResource boolToStringConverter}}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="S/N X-Ray Source = "
+					Visibility="{Binding SerialNumberXRayVisible, Converter={StaticResource bVisibilityCollapsedConverter}}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="1"
+					Foreground="#FF000000"
+					Text="{Binding Path=SerialNumberXRaySource}"
+					Visibility="{Binding SerialNumberXRayVisible, Converter={StaticResource bVisibilityCollapsedConverter}}" />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="0"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="XRayOnTime = " />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="1"
+					Foreground="#FF000000"
+					Text="{Binding Path=XRayOnTimeInternal}" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="Temperature = " />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=DetectorTemperature}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="Scanrate = " />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=Scanrate}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="GainEnable = " />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=GainEnable, Converter={StaticResource boolToStringConverter}}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="OffsetEnable = " />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=OffsetEnable, Converter={StaticResource boolToStringConverter}}" />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="S/N detector = " />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=SerialNumberDetector}" />
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="DetectorType = " />
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=DetectorTypeString}" />
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="2"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="PixelSize = " />
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="3"
+					Foreground="#FF000000"
+					Text="{Binding Path=PixelSize}" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="4"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="IgnoredLeftPixel = " />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="5"
+					Foreground="#FF000000"
+					Text="{Binding Path=IgnoredLeftPixelDB}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="4"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="IgnoredRightPixel = " />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="5"
+					Foreground="#FF000000"
+					Text="{Binding Path=IgnoredRightPixelDB}" />
+				<Grid
+					Row="2"
+					Column="3"
+					ColumnSpan="2"
+					HorizontalAlignment="Right"
+					Visibility="{Binding LowHighGainAvailable, Converter={StaticResource bVisibilityCollapsedConverter}}">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="5" />
+						<ColumnDefinition
+							Width="*" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						TextAlignment="Right"
+						Foreground="#FF000000"
+						Text="LowGain = " />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="1"
+						Foreground="#FF000000"
+						TextAlignment="Left"
+						Text="{Binding Path=LowGainDualEnergy}" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="3"
+						TextAlignment="Right"
+						Foreground="#FF000000"
+						Text="HighGain = " />
+				</Grid>
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="5"
+					Foreground="#FF000000"
+					Margin="0,0,10,0"
+					Text="{Binding Path=HighGainDualEnergy}"
+					Visibility="{Binding LowHighGainAvailable, Converter={StaticResource bVisibilityCollapsedConverter}}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="4"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="Gain = "
+					Visibility="{Binding LowHighGainAvailable, Converter={StaticResource bVisibilityInvertedHiddenConverter}}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="5"
+					Grid.ColumnSpan="2"
+					Foreground="#FF000000"
+					Text="{Binding Path=GainSingleEnergy}"
+					Visibility="{Binding LowHighGainAvailable, Converter={StaticResource bVisibilityInvertedHiddenConverter}}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="4"
+					TextAlignment="Right"
+					Foreground="#FF000000"
+					Text="S/N machine = " />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="5"
+					Grid.ColumnSpan="2"
+					Foreground="#FF000000"
+					Text="{Binding Path=SerialNumberMachine}" />
+			</Grid>
+		</Grid>
+	</Grid>
+</UserControl>

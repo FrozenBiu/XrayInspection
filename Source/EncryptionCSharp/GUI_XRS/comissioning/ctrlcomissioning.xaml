@@ -1,0 +1,326 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlComissioning" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="30 0 30 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Margin"
+					Value="30 0 30 0" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		Grid.Row="0"
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1"
+		Margin="0 0 0 12">
+		<ScrollViewer>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="2*" />
+					<ColumnDefinition
+						Width="3*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="{Binding IsSubTypeVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="{Binding IsDetectorVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding IsIOModuleCountVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding IsFlapsCountVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding IsFlapsCountVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding IsSensorsVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding ObjectBasedFlapsVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="11"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="3"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="4"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="5"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="6"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="7"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Text="{Binding Path=StrMachineType.LocalizedText, FallbackValue=Maschinentyp}" />
+				<ComboBox
+					Grid.Row="0"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding MachineTypeList}"
+					SelectedItem="{Binding SelectedMachineType, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Text="{Binding Path=StrMachineSubType.LocalizedText, FallbackValue=Maschinensubtyp}" />
+				<ComboBox
+					Grid.Row="1"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding SubMachineTypeList}"
+					SelectedItem="{Binding SelectedSubMachineType, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Text="{Binding Path=StrTunnel.LocalizedText, FallbackValue=Tunnel}" />
+				<ComboBox
+					Grid.Row="2"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding TunnelSizeList}"
+					SelectedItem="{Binding SelectedTunnelSize, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Text="{Binding Path=StrDetector.LocalizedText, FallbackValue=Detektor}" />
+				<ComboBox
+					Grid.Row="3"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding DetectorList}"
+					SelectedItem="{Binding SelectedDetector, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="0"
+					Text="{Binding Path=StrIOsCount.LocalizedText, FallbackValue=Anzahl IO Module}" />
+				<ComboBox
+					Grid.Row="4"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding IOModuleCountList}"
+					SelectedItem="{Binding SelectedIOsCount, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="0"
+					Text="{Binding Path=StrSVT.LocalizedText, FallbackValue=SVT}" />
+				<CheckBox
+					Grid.Row="5"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					IsChecked="{Binding Path=SVTEnabled}" />
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="0"
+					Text="{Binding Path=StrFlapsCount.LocalizedText, FallbackValue=Klappenanzahl}" />
+				<ComboBox
+					Grid.Row="6"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding FlapsCountList}"
+					SelectedItem="{Binding SelectedFlapsCount, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="7"
+					Grid.Column="0"
+					Text="{Binding Path=StrHardware.LocalizedText, FallbackValue=Sensoren}" />
+				<ComboBox
+					Grid.Row="7"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 0 65 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding SensorList}"
+					SelectedItem="{Binding SelectedSensors, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="8"
+					Grid.Column="0"
+					Text="{Binding Path=StrObjectBasedReject.LocalizedText, FallbackValue=Object based reject}" />
+				<Grid
+					Row="8"
+					Column="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="*" />
+					</Grid.ColumnDefinitions>
+					<CheckBox
+						Grid.Row="0"
+						Grid.Column="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=ObjectBasedFlapsEnabled}" />
+					<Button
+						Style="{StaticResource defaultButtonStyle}"
+						Grid.Row="0"
+						Grid.Column="1"
+						Margin="5"
+						Command="{Binding ShowObjectBasedFlapsCommand}"
+						Visibility="{Binding ObjectBasedFlapsEnabled, Converter={StaticResource bVisConverter}}">
+						<Image
+							Source="../img/settings.png"
+							Height="40" />
+					</Button>
+				</Grid>
+			</Grid>
+		</ScrollViewer>
+	</Border>
+</UserControl>

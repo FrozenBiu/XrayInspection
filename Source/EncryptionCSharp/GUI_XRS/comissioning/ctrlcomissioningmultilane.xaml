@@ -1,0 +1,365 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlComissioningMultilane" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS" xmlns:tk="http://schemas.microsoft.com/wpf/2008/toolkit"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:ComplianceBoolToBackgroundColorConverter
+				x:Key="complianceBoolToBackgroundColorConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type tk:DataGridColumnHeader}"
+				x:Key="{x:Type tk:DataGridColumnHeader}">
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="HorizontalContentAlignment"
+					Value="Center" />
+				<Setter
+					Property="Foreground"
+					Value="#FFFFFFFF" />
+				<Setter
+					Property="Background"
+					Value="#FF9ACD32" />
+				<Setter
+					Property="Padding"
+					Value="1 1 1 1" />
+			</Style>
+			<Style
+				TargetType="{x:Type tk:DataGridCell}"
+				x:Key="{x:Type tk:DataGridCell}">
+				<Setter
+					Property="FontSize"
+					Value="16" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type tk:DataGridCell}">
+							<Grid
+								Background="{TemplateBinding Background}">
+								<ContentPresenter
+									VerticalAlignment="Center"
+									HorizontalAlignment="Center" />
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="HorizontalContentAlignment"
+					Value="Center" />
+				<Style.Triggers>
+					<Trigger
+						Property="tk:DataGridCell.IsSelected"
+						Value="True">
+						<Setter
+							Property="Foreground"
+							Value="#FF000000" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		Grid.Row="0"
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1"
+		Margin="0 0 0 12">
+		<ScrollViewer>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="2*" />
+					<ColumnDefinition
+						Width="3*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="11"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="3"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="4"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="5"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="6"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="7"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="8"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Text="Number of Lanes" />
+				<ComboBox
+					Grid.Row="0"
+					Grid.Column="1"
+					Grid.ColumnSpan="4"
+					Margin="65 10 65 10"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding LaneCountList}"
+					SelectedItem="{Binding SelectedLane, Mode=TwoWay}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Text="Ignore Pixel left" />
+				<TextBox
+					Grid.Row="1"
+					Grid.Column="1"
+					Margin="65 10 65 10"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=IgnoreLeft}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Text="Ignore Pixel right" />
+				<TextBox
+					Grid.Row="2"
+					Grid.Column="1"
+					Margin="65 10 65 10"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=IgnoreRight}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Text="Number of Pixel" />
+				<TextBox
+					Grid.Row="3"
+					Grid.Column="1"
+					Margin="65 10 65 10"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=PixelCount}" />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="0"
+					Text="Pixel per Lane" />
+				<TextBox
+					Grid.Row="4"
+					Grid.Column="1"
+					Margin="65 10 65 10"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=PixelPerLane}" />
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="0"
+					Text="Lane 1" />
+				<Grid
+					Row="5"
+					Column="1"
+					Margin="0 -10 0 -10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="6*" />
+						<ColumnDefinition />
+						<ColumnDefinition
+							Width="6*" />
+					</Grid.ColumnDefinitions>
+					<TextBox
+						Grid.Column="0"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MinPixelLane1}" />
+					<TextBlock
+						Grid.Column="1"
+						Text="---"
+						TextAlignment="Center" />
+					<TextBox
+						Grid.Column="2"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MaxPixelLane1}" />
+				</Grid>
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="0"
+					Text="Lane 2" />
+				<Grid
+					Row="6"
+					Column="1"
+					Margin="0 -10 0 -10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="6*" />
+						<ColumnDefinition />
+						<ColumnDefinition
+							Width="6*" />
+					</Grid.ColumnDefinitions>
+					<TextBox
+						Grid.Column="0"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MinPixelLane2}" />
+					<TextBlock
+						Grid.Column="1"
+						Text="---"
+						TextAlignment="Center" />
+					<TextBox
+						Grid.Column="2"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MaxPixelLane2}" />
+				</Grid>
+				<TextBlock
+					Grid.Row="7"
+					Grid.Column="0"
+					Text="Lane 3" />
+				<Grid
+					Row="7"
+					Column="1"
+					Margin="0 -10 0 -10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="6*" />
+						<ColumnDefinition />
+						<ColumnDefinition
+							Width="6*" />
+					</Grid.ColumnDefinitions>
+					<TextBox
+						Grid.Column="0"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MinPixelLane3}" />
+					<TextBlock
+						Grid.Column="1"
+						Text="---"
+						TextAlignment="Center" />
+					<TextBox
+						Grid.Column="2"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MaxPixelLane3}" />
+				</Grid>
+				<TextBlock
+					Grid.Row="8"
+					Grid.Column="0"
+					Text="Lane 4" />
+				<Grid
+					Row="8"
+					Column="1"
+					Margin="0 -10 0 -10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="6*" />
+						<ColumnDefinition />
+						<ColumnDefinition
+							Width="6*" />
+					</Grid.ColumnDefinitions>
+					<TextBox
+						Grid.Column="0"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MinPixelLane4}" />
+					<TextBlock
+						Grid.Column="1"
+						Text="---"
+						TextAlignment="Center" />
+					<TextBox
+						Grid.Column="2"
+						Style="{StaticResource disabledTextBox}"
+						TextAlignment="Right"
+						Text="{Binding Path=MaxPixelLane4}" />
+				</Grid>
+			</Grid>
+		</ScrollViewer>
+	</Border>
+</UserControl>

@@ -1,0 +1,43 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlBackup" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="*" />
+			<ColumnDefinition
+				Width="*" />
+			<ColumnDefinition
+				Width="*" />
+		</Grid.ColumnDefinitions>
+		<Border
+			Name="testIt"
+			Grid.Column="0"
+			Width="200"
+			Height="100"
+			BorderBrush="#FF000000"
+			BorderThickness="1"
+			CornerRadius="3"
+			Background="#00FFFFFF"
+			common:MouseCommandBehavior.MouseUpCommand="{Binding ShowBackupOptionsCommand}">
+			<Image
+				Source="../img/backup.png"
+				Stretch="None" />
+		</Border>
+		<Border
+			Grid.Column="2"
+			Width="200"
+			Height="100"
+			BorderBrush="#FF000000"
+			BorderThickness="1"
+			CornerRadius="3"
+			Background="#00FFFFFF"
+			common:MouseCommandBehavior.MouseUpCommand="{Binding ShowRestoreOptionsCommand}">
+			<Image
+				Source="../img/restore.png"
+				Stretch="None" />
+		</Border>
+	</Grid>
+</UserControl>

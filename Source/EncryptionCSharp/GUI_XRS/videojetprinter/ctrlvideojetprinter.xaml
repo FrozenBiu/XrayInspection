@@ -1,0 +1,262 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlVideojetPrinter" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToCheckBoxStyleConverter
+				x:Key="bCheckBoxStyleConverter" />
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12 24 12 24">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1"
+			Margin="0 0 0 12">
+			<ScrollViewer>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="2*" />
+						<ColumnDefinition
+							Width="5*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="5"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 1 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="4"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="Drucken Ein"
+						TextAlignment="Right" />
+					<CheckBox
+						Grid.Row="0"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=Enabled}"
+						IsEnabled="{Binding Path=OP1Mode}">
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource bCheckBoxStyleConverter}">
+								<MultiBinding.Bindings>
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+									<Binding
+										Path="OP1Mode" />
+								</MultiBinding.Bindings>
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</CheckBox>
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Text="IP Adresse"
+						TextAlignment="Right" />
+					<l:IPAddressBox
+						Grid.Row="1"
+						Grid.Column="2"
+						MaxHeight="50"
+						Margin="25"
+						FontSize="30"
+						Width="400"
+						IPAddress="{Binding IPAddress}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetIPAddressCmd}"
+						IsEnabled="{Binding Path=AdminMode}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						Text="Port"
+						TextAlignment="Right" />
+					<TextBox
+						Grid.Row="2"
+						Grid.Column="1"
+						Margin="25"
+						Background="#FFFFFFFF"
+						Width="400"
+						Text="{Binding Path=Port}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetPortCmd}"
+						IsEnabled="{Binding Path=AdminMode}">
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource bTextBoxStyleConverter}">
+								<MultiBinding.Bindings>
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+									<Binding
+										Path="AdminMode" />
+								</MultiBinding.Bindings>
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</TextBox>
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="Timeout Kommunikation"
+						TextAlignment="Right" />
+					<TextBox
+						Grid.Row="3"
+						Grid.Column="1"
+						Margin="25"
+						Width="400"
+						Text="{Binding Path=Timeout}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetTimeoutCmd}"
+						IsEnabled="{Binding Path=AdminMode}">
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource bTextBoxStyleConverter}">
+								<MultiBinding.Bindings>
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+									<Binding
+										Path="AdminMode" />
+								</MultiBinding.Bindings>
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</TextBox>
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="0"
+						Text="Förderband Stop bei Fehler"
+						TextAlignment="Right" />
+					<CheckBox
+						Grid.Row="4"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=StopConveyorOnError}"
+						IsEnabled="{Binding Path=OP1Mode}">
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource bCheckBoxStyleConverter}">
+								<MultiBinding.Bindings>
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+									<Binding
+										Path="OP1Mode" />
+								</MultiBinding.Bindings>
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</CheckBox>
+					<Grid
+						Row="5"
+						ColumnSpan="2">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Border
+							Grid.Row="0"
+							Grid.Column="0"
+							Background="#e7efc5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<TextBlock
+							Text="Gesendete Zeitstempel"
+							TextAlignment="Left"
+							Margin="20" />
+						<TextBox
+							Grid.Row="1"
+							Style="{StaticResource disabledTextBox}"
+							Margin="25 25 30 25"
+							FontSize="18"
+							FontFamily="Courier new"
+							Height="300"
+							VerticalScrollBarVisibility="Visible"
+							TextAlignment="Left"
+							Text="{Binding Path=SentTimestamps, Mode=OneWay}" />
+					</Grid>
+				</Grid>
+			</ScrollViewer>
+		</Border>
+	</Grid>
+</UserControl>

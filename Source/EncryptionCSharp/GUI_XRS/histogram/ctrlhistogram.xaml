@@ -1,0 +1,11 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlHistogram" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlHistogram_Unloaded">
+	<Grid>
+		<l:CtrlChart
+			Name="chart" />
+	</Grid>
+</UserControl>

@@ -1,0 +1,324 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlTestcardSimSettings" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS" xmlns:image="clr-namespace:XrsImage;assembly=XrsImage" xmlns:seso="clr-namespace:SesoPlot;assembly=Sesoplot"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:DoubleStringConverterPrec1
+				x:Key="doubleStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:SimulationModeStringConverter
+				x:Key="simmodesStringConverter" />
+			<l:SimModeStringConverter
+				x:Key="simmodeStringConverter" />
+			<l:SimulationMaterialStringConverter
+				x:Key="simmaterialsStringConverter" />
+			<l:SimMaterialModeStringConverter
+				x:Key="simmaterialStringConverter" />
+			<l:SimulationModes
+				x:Key="SIMMode">
+				<l:SimMode>AllCards</l:SimMode>
+				<l:SimMode>SingleCard</l:SimMode>
+			</l:SimulationModes>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Margin"
+					Value="65 0 65 0" />
+			</Style>
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12 24 12 24">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1"
+			Margin="0 0 0 12">
+			<ScrollViewer>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition
+							Height="{Binding IsMaterialVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding IsBallSizeVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding IsTestPatternVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding IsTestPatternVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="11"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 1 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="4"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="5"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="{Binding Path=StrSimulationMode.LocalizedText, FallbackValue=Modus}" />
+					<ComboBox
+						Grid.Row="0"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						Margin="65 0 65 0"
+						FontSize="22"
+						ScrollViewer.PanningMode="None"
+						ItemsSource="{Binding Source={StaticResource SIMMode}, Converter={StaticResource simmodesStringConverter}}"
+						SelectedItem="{Binding SelectedSimMode, Mode=TwoWay, Converter={StaticResource simmodeStringConverter}}" />
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Text="{Binding Path=StrSimulationMaterial.LocalizedText, FallbackValue=Material}" />
+					<ComboBox
+						Grid.Row="1"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						Margin="65 0 65 0"
+						FontSize="22"
+						ScrollViewer.PanningMode="None"
+						ItemsSource="{Binding SimMaterialList, Converter={StaticResource simmaterialsStringConverter}}"
+						SelectedItem="{Binding SelectedSimMaterial, Mode=TwoWay, Converter={StaticResource simmaterialStringConverter}}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						Text="{Binding Path=StrBallSize.LocalizedText, FallbackValue=Kugeldurchmesser}" />
+					<ComboBox
+						Grid.Row="2"
+						Grid.Column="1"
+						Grid.ColumnSpan="4"
+						Margin="65 0 65 0"
+						FontSize="22"
+						ScrollViewer.PanningMode="None"
+						ItemsSource="{Binding Path=BallDiameterList}"
+						SelectedItem="{Binding Path=SelectedBallDiameter, Mode=TwoWay}" />
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="{Binding Path=StrSimulationPattern.LocalizedText, FallbackValue=Testkartenraster}" />
+					<Grid
+						Row="3"
+						Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="65" />
+							<ColumnDefinition
+								Width=" 2*" />
+							<ColumnDefinition />
+							<ColumnDefinition
+								Width=" 2*" />
+							<ColumnDefinition />
+							<ColumnDefinition
+								Width=" 2*" />
+							<ColumnDefinition
+								Width="65" />
+						</Grid.ColumnDefinitions>
+						<TextBox
+							Grid.Row="0"
+							Grid.Column="1"
+							Margin="0 20 0 20"
+							Text="{Binding Path=PatternXDirection}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangePatternXDirectionCmd}" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="2"
+							Margin="0 20 0 20"
+							Text="X"
+							FontSize="25"
+							HorizontalAlignment="Center" />
+						<TextBox
+							Grid.Row="0"
+							Grid.Column="3"
+							Margin="0 20 0 20"
+							Text="{Binding Path=PatternYDirection}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangePatternYDirectionCmd}" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="4"
+							Margin="0 20 0 20"
+							Text="="
+							FontSize="40"
+							HorizontalAlignment="Center" />
+						<TextBox
+							Grid.Row="0"
+							Grid.Column="5"
+							Margin="0 20 0 20"
+							Style="{StaticResource disabledTextBox}"
+							Text="{Binding Path=PatternTotalCounts}" />
+					</Grid>
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="0"
+						Text="{Binding Path=StrSaveSimulatedImg.LocalizedText, FallbackValue=Speichern der simulierten Bilder}" />
+					<CheckBox
+						Grid.Row="4"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=SaveSimulatedImages}" />
+					<TextBlock
+						Grid.Row="5"
+						Grid.Column="0"
+						Text="{Binding Path=StrSimuAfterLearn.LocalizedText, FallbackValue=Simulation nach Einlernen}" />
+					<CheckBox
+						Grid.Row="5"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=SimulationAfterAutolearn}" />
+					<Grid
+						Row="5"
+						Column="0"
+						Background="#5f000000"
+						Visibility="{Binding DeactivateSimAfterLearnAndICM, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+					<Grid
+						Row="6"
+						Column="0"
+						Background="#5f000000"
+						Visibility="{Binding DeactivateSimAfterLearnAndICM, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+					<Grid
+						Row="5"
+						Column="1"
+						Background="#5f000000"
+						Visibility="{Binding DeactivateSimAfterLearnAndICM, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+				</Grid>
+			</ScrollViewer>
+		</Border>
+	</Grid>
+</UserControl>

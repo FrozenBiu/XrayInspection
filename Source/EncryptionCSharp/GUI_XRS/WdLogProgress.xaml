@@ -1,0 +1,383 @@
+<Window
+	x:Class="GUI_XRS.WdLogProgress" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	WindowStyle="None"
+	AllowsTransparency="True"
+	Background="#00FFFFFF"
+	WindowStartupLocation="Manual"
+	Topmost="True"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	WindowState="{Binding WState}"
+	Width="{Binding WindowWidth, Mode=TwoWay}"
+	Height="{Binding WindowHeight, Mode=TwoWay}"
+	Left="{Binding WLeft, Mode=TwoWay}"
+	Top="{Binding WTop, Mode=TwoWay}"
+	common:ControlCommandBehavior.ClosingCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style
+				x:Key="DefaultStyle">
+				<Setter
+					Property="Background">
+					<Setter.Value>
+						<LinearGradientBrush
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#d2d2d2" />
+							<GradientStop
+								Offset="1.00"
+								Color="#b8b8b8" />
+						</LinearGradientBrush>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="BorderBrush"
+					Value="#505050" />
+				<Setter
+					Property="BorderThickness"
+					Value="0 0 0 1" />
+				<Setter
+					Property="Border.CornerRadius"
+					Value="7 7 0 0" />
+				<Setter
+					Property="Foreground"
+					Value="#505050" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="21" />
+				<Setter
+					Property="TextBlock.Padding"
+					Value="10 0 0 0" />
+			</Style>
+			<l:DateTimeToStringConverter
+				x:Key="dateTimeToStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Name="overlay">
+		<Panel.Background>
+			<LinearGradientBrush
+				MappingMode="Absolute"
+				StartPoint="0,0"
+				EndPoint="1,1"
+				SpreadMethod="Repeat">
+				<GradientStop
+					Offset="0"
+					Color="#191919" />
+				<GradientStop
+					Offset="0.3"
+					Color="#191919" />
+				<GradientStop
+					Offset="0.3"
+					Color="Transparent" />
+				<GradientStop
+					Offset="1"
+					Color="Transparent" />
+				<Brush.Transform>
+					<ScaleTransform
+						ScaleX="2"
+						ScaleY="2" />
+				</Brush.Transform>
+			</LinearGradientBrush>
+		</Panel.Background>
+		<Grid
+			Name="mainGrid">
+			<FrameworkElement.Triggers>
+				<EventTrigger
+					RoutedEvent="Grid.Loaded">
+					<BeginStoryboard>
+						<Storyboard
+							Name="FormFadeIn">
+							<ParallelTimeline
+								AutoReverse="False"
+								RepeatBehavior="1x"
+								BeginTime="0:0:0.0">
+								<DoubleAnimation
+									Name="MaximizeWidthAnimation"
+									Storyboard.TargetName="mainGrid"
+									Storyboard.TargetProperty="Width"
+									From="250"
+									To="500"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="MaximizeHeightAnimation"
+									Storyboard.TargetName="mainGrid"
+									Storyboard.TargetProperty="Height"
+									From="250"
+									To="500"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="FadeInAnimation"
+									Storyboard.TargetName="mainGrid"
+									Storyboard.TargetProperty="Opacity"
+									From="0.0"
+									To="1.0"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="FadeInContentAnimation"
+									BeginTime="0:0:0.3"
+									Storyboard.TargetName="mainContent"
+									Storyboard.TargetProperty="Opacity"
+									From="0"
+									To="1.0"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="FadeInBackgroundAnimation"
+									Storyboard.TargetName="overlay"
+									Storyboard.TargetProperty="Background.Opacity"
+									From="0.0"
+									To="1.0"
+									Duration="0:0:0.3" />
+							</ParallelTimeline>
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+				<EventTrigger
+					RoutedEvent="Grid.Unloaded">
+					<BeginStoryboard>
+						<Storyboard
+							Name="FormFadeOut"
+							Completed="FormFadeOut_Completed">
+							<ParallelTimeline
+								AutoReverse="False"
+								RepeatBehavior="1x">
+								<DoubleAnimation
+									Name="MinimizeWidthAnimation"
+									Storyboard.TargetName="mainGrid"
+									Storyboard.TargetProperty="Width"
+									From="500"
+									To="80"
+									BeginTime="0:0:0.4"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="MinimizeAnimation"
+									Storyboard.TargetName="mainGrid"
+									Storyboard.TargetProperty="Height"
+									From="500"
+									To="40"
+									BeginTime="0:0:0.4"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="FadeOutAnimation"
+									Storyboard.TargetName="mainGrid"
+									Storyboard.TargetProperty="Opacity"
+									From="1.0"
+									To="0.0"
+									BeginTime="0:0:0.4"
+									Duration="0:0:0.3" />
+								<DoubleAnimation
+									Name="FadeOutContentAnimation"
+									Storyboard.TargetName="mainContent"
+									Storyboard.TargetProperty="Opacity"
+									From="1.0"
+									To="0.0"
+									BeginTime="0:0:0.3"
+									Duration="0:0:0.1" />
+								<DoubleAnimation
+									Name="FadeOutBackgroundAnimation"
+									Storyboard.TargetName="overlay"
+									Storyboard.TargetProperty="Background.Opacity"
+									From="1.0"
+									To="0"
+									BeginTime="0:0:0.4"
+									Duration="0:0:0.3" />
+							</ParallelTimeline>
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+			</FrameworkElement.Triggers>
+			<Border
+				BorderThickness="15px"
+				CornerRadius="8">
+				<Border.BorderBrush>
+					<SolidColorBrush
+						Color="#efefef"
+						Opacity="0.5" />
+				</Border.BorderBrush>
+				<Grid>
+					<Panel.Background>
+						<SolidColorBrush
+							Color="#efefef"
+							Opacity="0.5" />
+					</Panel.Background>
+					<Border
+						BorderThickness="1"
+						CornerRadius="8"
+						BorderBrush="#8e9192">
+						<Border.Background>
+							<LinearGradientBrush
+								StartPoint="0,0"
+								EndPoint="0,1">
+								<GradientStop
+									Offset="0.00"
+									Color="#dedede" />
+								<GradientStop
+									Offset="1.00"
+									Color="#eceaea" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<DockPanel
+							Name="mainContent"
+							LastChildFill="True"
+							Opacity="0">
+							<Border
+								Name="Header"
+								DockPanel.Dock="Top"
+								Height="35"
+								Style="{StaticResource DefaultStyle}">
+								<TextBlock
+									VerticalAlignment="Center"
+									Style="{StaticResource DefaultStyle}"
+									Text="{Binding Title}" />
+							</Border>
+							<Border
+								Name="Footer"
+								DockPanel.Dock="Bottom"
+								Height="85"
+								Margin="15 0 15 0"
+								BorderBrush="#7e7e7e"
+								BorderThickness="0 0 0 0">
+								<Border
+									BorderBrush="#ffffff"
+									BorderThickness="0 1 0 0">
+									<Grid>
+										<Button
+											Name="btnOK"
+											Style="{StaticResource okButtonStyle}"
+											Grid.Column="1"
+											Click="btnOk_Click">
+											<Image
+												Source="img\ok.png"
+												Stretch="None" />
+										</Button>
+									</Grid>
+								</Border>
+							</Border>
+							<Border
+								BorderBrush="#ffffff"
+								BorderThickness="0 1 0 0">
+								<ScrollViewer
+									HorizontalScrollBarVisibility="Auto">
+									<Grid>
+										<ItemsControl
+											ItemsSource="{Binding Path=LogEntries}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition
+																Width="Auto" />
+															<ColumnDefinition
+																Width="Auto" />
+															<ColumnDefinition
+																Width="Auto" />
+															<ColumnDefinition
+																Width="Auto" />
+															<ColumnDefinition
+																Width="Auto" />
+														</Grid.ColumnDefinitions>
+														<Border
+															Grid.Column="0"
+															BorderBrush="#7e7e7e"
+															BorderThickness="0 0 1 0">
+															<TextBlock
+																FontSize="14"
+																Margin="5 5 10 5"
+																Text="{Binding Path=Time, Converter={StaticResource dateTimeToStringConverter}}" />
+														</Border>
+														<Border
+															Grid.Column="1"
+															BorderBrush="#7e7e7e"
+															BorderThickness="0 0 1 0">
+															<StackPanel
+																Margin="10 5 10 5"
+																HorizontalAlignment="Left"
+																Orientation="Horizontal">
+																<TextBlock
+																	FontSize="14"
+																	Text="MCU Temperature: " />
+																<TextBlock
+																	FontSize="14"
+																	Text="{Binding Path=Temperature}" />
+															</StackPanel>
+														</Border>
+														<Border
+															Grid.Column="2"
+															BorderBrush="#7e7e7e"
+															BorderThickness="0 0 1 0"
+															Visibility="{Binding Path=GainMode, Converter={StaticResource bVisConverter}}">
+															<StackPanel
+																Margin="10 5 10 5"
+																HorizontalAlignment="Left"
+																Orientation="Horizontal">
+																<TextBlock
+																	FontSize="14"
+																	Text="Scanrate: " />
+																<TextBlock
+																	FontSize="14"
+																	Text="{Binding Path=Scanrate}" />
+															</StackPanel>
+														</Border>
+														<Border
+															Grid.Column="3"
+															BorderBrush="#7e7e7e"
+															BorderThickness="0 0 1 0"
+															Visibility="{Binding Path=GainMode, Converter={StaticResource bVisConverter}}">
+															<StackPanel
+																Margin="10 5 10 5"
+																HorizontalAlignment="Left"
+																Orientation="Horizontal">
+																<TextBlock
+																	FontSize="14"
+																	Text="VoltageSetpoint: " />
+																<TextBlock
+																	FontSize="14"
+																	Text="{Binding Path=VoltageSetpoint}" />
+															</StackPanel>
+														</Border>
+														<Border
+															Grid.Column="4"
+															BorderBrush="#7e7e7e"
+															BorderThickness="0 0 0 0"
+															Visibility="{Binding Path=GainMode, Converter={StaticResource bVisConverter}}">
+															<StackPanel
+																Margin="10 5 5 5"
+																HorizontalAlignment="Left"
+																Orientation="Horizontal">
+																<TextBlock
+																	FontSize="14"
+																	Text="CurrentSetpoint: " />
+																<TextBlock
+																	FontSize="14"
+																	Text="{Binding Path=CurrentSetpoint}" />
+															</StackPanel>
+														</Border>
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</Grid>
+								</ScrollViewer>
+							</Border>
+						</DockPanel>
+					</Border>
+				</Grid>
+			</Border>
+		</Grid>
+	</Grid>
+</Window>

@@ -1,0 +1,189 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlVibro" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlVibro_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="5 20 5 20" />
+				<Setter
+					Property="TextBox.TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxDisabledStyle">
+				<Setter
+					Property="Margin"
+					Value="5 20 5 20" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type TextBox}">
+							<Border
+								CornerRadius="5"
+								BorderThickness="1"
+								Background="#00FFFFFF">
+								<ScrollViewer
+									Name="PART_ContentHost"
+									Margin="0"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center" />
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="TextBox.TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		Grid.Row="0"
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1"
+		Margin="0 0 0 12">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="5*" />
+				<ColumnDefinition
+					Width="4*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition
+					Height="{Binding ManualModeVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+			</Grid.RowDefinitions>
+			<Border
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.RowSpan="2"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.ColumnSpan="3"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="1"
+				Grid.Column="1"
+				Grid.ColumnSpan="2"
+				BorderBrush="#e1e1e1"
+				BorderThickness="0 1 0 0" />
+			<Border
+				Grid.Row="1"
+				Grid.Column="0" />
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Text="{Binding Path=StrVibroSpeed.LocalizedText, FallbackValue=Geschwindigkeit (in %)}" />
+			<Grid
+				Row="0"
+				Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Button
+					Name="btnLowerSpeed"
+					Grid.Column="0"
+					Margin="5 20 5 20"
+					Width="50"
+					Height="{Binding ElementName=txtSpeed, Path=ActualHeight}"
+					Command="{Binding LowerSpeedCommand}">
+					<Image
+						Source="/img/minus2.png" />
+				</Button>
+				<TextBox
+					Name="txtSpeed"
+					Grid.Row="0"
+					Grid.Column="1"
+					Margin="0 20 0 20"
+					IsEnabled="{Binding SpeedEnabled}"
+					Text="{Binding Path=Vibro.Speed, Mode=TwoWay}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeSpeedCommand}">
+					<FrameworkElement.Style>
+						<MultiBinding
+							Converter="{StaticResource bTextBoxStyleConverter}">
+							<MultiBinding.Bindings>
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="SpeedEnabled" />
+							</MultiBinding.Bindings>
+						</MultiBinding>
+					</FrameworkElement.Style>
+				</TextBox>
+				<Button
+					Name="btnHigherSpeed"
+					Grid.Column="2"
+					Margin="5 20 5 20"
+					Width="50"
+					Height="{Binding ElementName=txtSpeed, Path=ActualHeight}"
+					Command="{Binding HigherSpeedCommand}">
+					<Image
+						Source="/img/plus2.png" />
+				</Button>
+			</Grid>
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				Text="{Binding Path=StrVibroInManualMode.LocalizedText, FallbackValue=Vibro in manuellem Modus}" />
+			<CheckBox
+				Grid.Row="2"
+				Grid.Column="1"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				IsChecked="{Binding Path=Vibro.VibroManualModeByGUI}" />
+		</Grid>
+	</Border>
+</UserControl>

@@ -1,0 +1,14 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAIObjectSimulation" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False" xmlns:gui_xrs="clr-namespace:GUI_XRS"
+	Unloaded="UserControl_Unloaded">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<image:XRSImageBox
+			Name="imagebox" />
+	</Grid>
+</UserControl>

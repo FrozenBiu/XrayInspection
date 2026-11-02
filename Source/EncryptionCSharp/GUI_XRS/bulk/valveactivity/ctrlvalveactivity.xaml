@@ -1,0 +1,224 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlValveActivity" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:seso="clr-namespace:SesoPlot;assembly=Sesoplot"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="70" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition
+				Height="20" />
+		</Grid.RowDefinitions>
+		<StackPanel
+			VerticalAlignment="Center"
+			Grid.Column="0"
+			Grid.Row="0">
+			<Button
+				Style="{StaticResource defaultButtonStyle}"
+				Margin="0 0 0 10"
+				Command="{Binding ZoomInYCommand}">
+				<ContentControl.Content>
+					<Image
+						Source="/img/zoomIn.png"
+						Stretch="None" />
+				</ContentControl.Content>
+			</Button>
+			<Button
+				Style="{StaticResource defaultButtonStyle}"
+				Command="{Binding ZoomOutYCommand}">
+				<ContentControl.Content>
+					<Image
+						Source="/img/zoomOut.png"
+						Stretch="None" />
+				</ContentControl.Content>
+			</Button>
+		</StackPanel>
+		<Grid
+			Name="graphesValveActivity"
+			Column="1"
+			Row="0"
+			Background="#FFFFFFFF"
+			Margin="2,0,5,0">
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="30" />
+				<RowDefinition
+					Height="*" />
+			</Grid.RowDefinitions>
+			<TextBlock
+				Grid.Row="0"
+				Text="[pulse/min]"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Bottom"
+				Margin="25,0,0,0"
+				FontWeight="Bold" />
+			<TextBlock
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Bottom"
+				FontWeight="Bold"
+				FontSize="22"
+				Text="{Binding Path=StrValveActivity .LocalizedText, FallbackValue=Ventilaktivität}" />
+			<seso:SesoPlot
+				Name="valveactplot"
+				Grid.Row="1"
+				Margin="5,-40,-20,5"
+				MaximumX="20000"
+				MinimumX="0"
+				MajorTicksX="1000"
+				MaximumXLimit="20000"
+				ZoomModeX="ToZero"
+				MinimumY="0"
+				MaximumYLimit="10000"
+				ZoomModeY="ToZero"
+				DrawMinorGridLinesHorizontal="False"
+				DrawMinorGridLinesVertical="False"
+				XAxisType="ValveActivity"
+				ZoomFactorX="{Binding ZoomFactorX, Mode=TwoWay}"
+				MaximumY="{Binding MaxY, Mode=TwoWay}"
+				MajorTicksY="{Binding TicksY}"
+				ZoomFactorY="{Binding ZoomFactorY, Mode=TwoWay}">
+				<seso:SesoPlot.Graphs>
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF000000"
+						StrokeThickness="2"
+						Points="{Binding Flap1Activity}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF0000FF"
+						StrokeThickness="2"
+						Points="{Binding Flap2Activity}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF8B0000"
+						StrokeThickness="2"
+						Points="{Binding Flap3Activity}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FFFF8C00"
+						StrokeThickness="2"
+						Points="{Binding Flap4Activity}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF008000"
+						StrokeThickness="2"
+						Points="{Binding SumOfActivities}" />
+				</seso:SesoPlot.Graphs>
+			</seso:SesoPlot>
+		</Grid>
+		<Grid
+			Name="legendValveActivity"
+			Column="1"
+			Row="1"
+			Background="#FFFFFFFF"
+			Margin="2,0,5,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Line
+				X1="0"
+				Y1="0"
+				X2="20"
+				Y2="0"
+				Stroke="#FF008000"
+				StrokeThickness="4"
+				Margin="15,4,0,0"
+				VerticalAlignment="Center"
+				Grid.Row="0"
+				Grid.Column="0" />
+			<TextBlock
+				Text="Sum"
+				VerticalAlignment="Center"
+				Margin="40,0,0,0"
+				Grid.Column="0" />
+			<Line
+				X1="0"
+				Y1="0"
+				X2="20"
+				Y2="0"
+				Stroke="#FF000000"
+				StrokeThickness="4"
+				Margin="15,4,0,0"
+				VerticalAlignment="Center"
+				Grid.Row="0"
+				Grid.Column="1" />
+			<TextBlock
+				Text="Flap1"
+				VerticalAlignment="Center"
+				Margin="40,0,0,0"
+				Grid.Column="1" />
+			<Line
+				X1="0"
+				Y1="0"
+				X2="20"
+				Y2="0"
+				Stroke="#FF0000FF"
+				StrokeThickness="4"
+				Margin="15,4,0,0"
+				VerticalAlignment="Center"
+				Grid.Row="0"
+				Grid.Column="2" />
+			<TextBlock
+				Text="Flap2"
+				VerticalAlignment="Center"
+				Margin="40,0,0,0"
+				Grid.Column="2" />
+			<Line
+				X1="0"
+				Y1="0"
+				X2="20"
+				Y2="0"
+				Stroke="#FF8B0000"
+				StrokeThickness="4"
+				Margin="15,4,0,0"
+				VerticalAlignment="Center"
+				Grid.Row="0"
+				Grid.Column="3" />
+			<TextBlock
+				Text="Flap3"
+				VerticalAlignment="Center"
+				Margin="40,0,0,0"
+				Grid.Column="3" />
+			<Line
+				X1="0"
+				Y1="0"
+				X2="20"
+				Y2="0"
+				Stroke="#FFFF8C00"
+				StrokeThickness="4"
+				Margin="15,4,0,0"
+				VerticalAlignment="Center"
+				Grid.Row="0"
+				Grid.Column="4" />
+			<TextBlock
+				Text="Flap4"
+				VerticalAlignment="Center"
+				Margin="40,0,0,0"
+				Grid.Column="4" />
+		</Grid>
+	</Grid>
+</UserControl>

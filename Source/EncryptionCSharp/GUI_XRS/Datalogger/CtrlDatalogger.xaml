@@ -1,0 +1,110 @@
+<UserControl
+	x:Class="GUI_XRS.Datalogger.CtrlDatalogger" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	MinHeight="300"
+	MinWidth="300"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False" xmlns:datalogger="clr-namespace:GUI_XRS.Datalogger"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="{x:Type TextBox}" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition
+				Height="100" />
+			<RowDefinition
+				Height="70" />
+		</Grid.RowDefinitions>
+		<l:CtrlParameter
+			Name="parameterControl"
+			Grid.Row="0" />
+		<Border
+			Background="#5f000000"
+			Grid.Row="0"
+			Visibility="{Binding DeactivateParamTree, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+		<ListBox
+			Name="lbCurrentPaths"
+			Grid.Row="1"
+			FontSize="12"
+			ItemsSource="{Binding Path=Datalogger.Paths}" />
+		<Grid
+			Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="2*" />
+				<ColumnDefinition
+					Width="2*" />
+				<ColumnDefinition
+					Width="{Binding ShowUSBConnected, Converter={StaticResource boolGridLengthStarConverter}}" />
+			</Grid.ColumnDefinitions>
+			<Border
+				Grid.Row="0"
+				Grid.Column="0"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="0"
+				Grid.Column="1"
+				Background="#d1d1d1"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="0"
+				Grid.Column="2"
+				Background="#d1d1d1"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<TextBlock
+				Text="LogPeriod (in ms):" />
+			<TextBox
+				Name="tbLogPeriod"
+				Grid.Column="1"
+				Margin="10 0 10 0"
+				Text="{Binding Path=Datalogger.LogPeriod}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeLogPeriodCommand}" />
+			<Image
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				Source="/img/usb.png"
+				Stretch="None"
+				Visibility="{Binding ShowUSBConnected, Converter={StaticResource bVisConverter}}" />
+		</Grid>
+	</Grid>
+</UserControl>

@@ -1,0 +1,129 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlWifiManage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlWifiManage_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="22" />
+				<Setter
+					Property="Margin"
+					Value="20 10 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				BasedOn="{StaticResource {x:Type TextBlock}}"
+				x:Key="txtListItemStyle">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontWeight"
+					Value="Normal" />
+				<Setter
+					Property="FontFamily"
+					Value="Helvetica" />
+				<Setter
+					Property="FontSize"
+					Value="20" />
+				<Setter
+					Property="Margin"
+					Value="10 10 30 10" />
+			</Style>
+			<l:BoolToVisibilityHiddenConverter
+				x:Key="bVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<TextBlock
+			Text="{Binding StrAvailableWlanConnections.LocalizedText}" />
+		<ListBox
+			Grid.Row="1"
+			ScrollViewer.VerticalScrollBarVisibility="Visible"
+			Grid.IsSharedSizeScope="True"
+			Background="#00FFFFFF"
+			HorizontalAlignment="Stretch"
+			Margin="20 15 20 5"
+			HorizontalContentAlignment="Stretch"
+			ItemsSource="{Binding AvailableNetworks}"
+			SelectedItem="{Binding SelectedNetwork}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="Auto"
+								SharedSizeGroup="grpSSID" />
+							<ColumnDefinition
+								Width="Auto"
+								SharedSizeGroup="grpSecurityKey" />
+							<ColumnDefinition />
+							<ColumnDefinition
+								Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<TextBlock
+							Style="{StaticResource txtListItemStyle}"
+							Text="{Binding Name, Mode=OneWay}" />
+						<TextBlock
+							Grid.Column="1"
+							Style="{StaticResource txtListItemStyle}"
+							FontSize="16"
+							HorizontalAlignment="Center"
+							Margin="30 10 30 10"
+							Text="{Binding StrAuthAlgorithm, Mode=OneWay}" />
+						<TextBlock
+							Text="Connected"
+							Grid.Column="2"
+							Style="{StaticResource txtListItemStyle}"
+							FontWeight="Bold"
+							TextAlignment="Right"
+							Visibility="{Binding IsConnected, Converter={StaticResource bVisConverter}}" />
+						<DockPanel
+							Grid.Column="3"
+							HorizontalAlignment="Right">
+							<l:WifiQuality
+								Margin="10 10 5 10"
+								SignalQuality="{Binding SignalQuality}" />
+							<TextBlock
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								Margin="10 10 30 10"
+								FontSize="14"
+								Width="50">(<TextBlock
+									Text="{Binding SignalQuality}" /> %)</TextBlock>
+						</DockPanel>
+					</Grid>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+			<ItemsControl.ItemContainerStyle>
+				<!--Unknown connection ID: 2-->
+				<Style
+					TargetType="{x:Type ListBoxItem}" />
+			</ItemsControl.ItemContainerStyle>
+		</ListBox>
+	</Grid>
+</UserControl>

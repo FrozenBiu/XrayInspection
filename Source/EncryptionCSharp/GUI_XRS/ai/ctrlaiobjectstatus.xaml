@@ -1,0 +1,102 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAIObjectStatus" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Unloaded="CtrlAIObjectStatus_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+				<Setter
+					Property="FontSize"
+					Value="20" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<ScrollViewer
+		Margin="12 24 12 24">
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="*" />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="11"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Style="{StaticResource TextBlock}"
+					Text="{Binding Path=StrInferenceEnabled.LocalizedText, FallbackValue=Auswertung aktiv}" />
+				<CheckBox
+					Grid.Row="0"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					IsChecked="{Binding Path=ObjectDetectionInferenceOnOff}" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					Grid.RowSpan="4"
+					Background="#5f000000"
+					Visibility="{Binding Path=ControlsDisabled, Converter={StaticResource bVisConverter}}" />
+			</Grid>
+		</Border>
+	</ScrollViewer>
+</UserControl>

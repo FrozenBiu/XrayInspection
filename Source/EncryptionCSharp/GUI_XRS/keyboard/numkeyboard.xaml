@@ -1,0 +1,222 @@
+<Window
+	x:Class="GUI_XRS.NumKeyboard" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS"
+	Name="windowNumKeyboard"
+	Title="TouchScreenKeyboard"
+	WindowStartupLocation="Manual"
+	Background="#00FFFFFF"
+	MinHeight="400"
+	MinWidth="400"
+	WindowStyle="None"
+	AllowsTransparency="True"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	WindowState="{Binding WState}"
+	Width="{Binding WindowWidth, Mode=TwoWay}"
+	Height="{Binding WindowHeight, Mode=TwoWay}"
+	Left="{Binding WLeft, Mode=TwoWay}"
+	Top="{Binding WTop, Mode=TwoWay}"
+	TextInput="OnWindowKeyDown"
+	Loaded="Window_Loaded"
+	Unloaded="windowNumKeyboard_Unloaded"
+	ButtonBase.Click="Window_Click"
+	MouseUp="Window_MouseUp">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<!--Unknown connection ID: 2-->
+			<Style
+				TargetType="{x:Type Button}"
+				BasedOn="{StaticResource mainButtonStyle}"
+				x:Key="{x:Type Button}" />
+			<!--Unknown connection ID: 3-->
+			<Style
+				TargetType="{x:Type RepeatButton}"
+				BasedOn="{StaticResource mainButtonStyle}"
+				x:Key="{x:Type RepeatButton}" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Name="mainGrid">
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="{Binding Source={StaticResource MainWindowHeaderHeight}}" />
+			<RowDefinition />
+			<RowDefinition
+				Height="{Binding Source={StaticResource MainWindowFooterHeight}}" />
+		</Grid.RowDefinitions>
+		<Grid
+			Row="1"
+			Background="#FFD3D3D3" />
+		<DockPanel
+			Name="dockPanel"
+			Grid.Row="1">
+			<Grid
+				Name="mainPanel"
+				DockPanel.Dock="{Binding Path=WindowPopupType}">
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					BorderBrush="#8e9192"
+					BorderThickness="0 0 0 1"
+					Background="#e7efc5">
+					<Grid
+						Name="displayPanel"
+						HorizontalAlignment="Center"
+						Width="250">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<TextBlock
+							Name="tbDescription"
+							Grid.Row="0"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Margin="3 3 3 3"
+							FontSize="20"
+							TextWrapping="Wrap" />
+						<TextBox
+							Name="oldBox"
+							Style="{StaticResource disabledTextBox}"
+							Grid.Row="1"
+							HorizontalAlignment="Stretch"
+							TextAlignment="Center"
+							VerticalAlignment="Center"
+							Margin="3 3 3 3"
+							IsEnabled="False"
+							FontSize="20"
+							PreviewGotKeyboardFocus="TextBoxGotKeyboardFocus" />
+						<TextBox
+							Name="inputBox"
+							Grid.Row="2"
+							HorizontalAlignment="Stretch"
+							TextAlignment="Center"
+							VerticalAlignment="Center"
+							Margin="3 3 3 3"
+							Focusable="True"
+							FontSize="20"
+							PreviewGotKeyboardFocus="TextBoxGotKeyboardFocus"
+							SelectionChanged="inputBox_SelectionChanged" />
+						<l:IPAddressBox
+							Name="ipAddressBoxOld"
+							Grid.Row="1"
+							Margin="3 3 3 3"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Center"
+							IsEnabled="False"
+							Visibility="Collapsed" />
+						<l:IPAddressBox
+							Name="ipAddressBoxNew"
+							Grid.Row="2"
+							Margin="3 3 3 3"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Center"
+							Focusable="True"
+							Visibility="Collapsed" />
+					</Grid>
+				</Border>
+				<Border
+					Grid.Row="1"
+					BorderBrush="#ffffff"
+					BorderThickness="0 1 0 0">
+					<Border.Background>
+						<LinearGradientBrush
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#dedede" />
+							<GradientStop
+								Offset="1.00"
+								Color="#eceaea" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel
+						Name="keyboardPanel"
+						Orientation="Vertical"
+						Height="290"
+						Margin="0 0 0 0">
+						<StackPanel
+							Orientation="Horizontal"
+							Width="215">
+							<Button
+								Name="num1"
+								Margin="0">1</Button>
+							<Button
+								Name="num2">2</Button>
+							<Button
+								Name="num3">3</Button>
+						</StackPanel>
+						<StackPanel
+							Orientation="Horizontal"
+							Width="215"
+							Margin="0 10 0 0">
+							<Button
+								Name="num4"
+								Margin="0">4</Button>
+							<Button
+								Name="num5">5</Button>
+							<Button
+								Name="num6">6</Button>
+						</StackPanel>
+						<StackPanel
+							Orientation="Horizontal"
+							Width="215"
+							Margin="0 10 0 0">
+							<Button
+								Name="num7"
+								Margin="0">7</Button>
+							<Button
+								Name="num8">8</Button>
+							<Button
+								Name="num9">9</Button>
+						</StackPanel>
+						<StackPanel
+							Orientation="Horizontal"
+							Width="365"
+							Margin="0 10 0 0">
+							<Button
+								Name="ok"
+								Style="{StaticResource okButtonStyle}"
+								Margin="0 0 5 0"
+								Click="ok_Click">
+								<Image
+									Source="..\img\ok.png"
+									Stretch="None" />
+							</Button>
+							<Button
+								Name="commaOrPlusMinus">,</Button>
+							<Button
+								Name="num0">0</Button>
+							<RepeatButton
+								Name="delete"
+								Click="SpecialBtn_Click">
+								<Image
+									Source="..\img\delete_keyboard.png"
+									Stretch="None" />
+							</RepeatButton>
+							<Button
+								Name="cancel"
+								Style="{StaticResource cancelButtonStyle}"
+								Margin="15 0 0 0"
+								Click="cancel_Click">
+								<Image
+									Source="..\img\cancel.png"
+									Stretch="None" />
+							</Button>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</Grid>
+		</DockPanel>
+	</Grid>
+</Window>

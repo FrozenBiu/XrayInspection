@@ -1,0 +1,229 @@
+<UserControl
+	x:Class="GUI_XRS.ProductChangeControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Loaded="ProductChange_Loaded"
+	Unloaded="ProductChange_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<l:ReferenceProductConverter
+				x:Key="converterReferenceProduct" />
+			<Style
+				TargetType="{x:Type ListBoxItem}"
+				x:Key="ListboxItemStyle">
+				<Setter
+					Property="Margin"
+					Value="1,2,1,1" />
+				<Setter
+					Property="HorizontalAlignment"
+					Value="Stretch" />
+				<Setter
+					Property="Background"
+					Value="#00FFFFFF" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type ListBoxItem}">
+							<Grid>
+								<Border
+									Background="{TemplateBinding Background}" />
+								<Border
+									Background="#BEFFFFFF"
+									Margin="3,1">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<Border
+											Margin="2,1,2,0"
+											Grid.Row="0"
+											Background="#57FFFFFF" />
+									</Grid>
+								</Border>
+								<ContentPresenter
+									Margin="8,5" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="ListBoxItem.IsSelected"
+									Value="True">
+									<Setter
+										Property="Background"
+										Value="#FFADD8E6" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style
+				TargetType="{x:Type ListBox}"
+				x:Key="ListBoxStyle">
+				<Setter
+					Property="ItemContainerStyle"
+					Value="{DynamicResource ListboxItemStyle}" />
+				<Setter
+					Property="Margin"
+					Value="3,3,2,1" />
+			</Style>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Border
+			Margin="20,0,20,0">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="Auto" />
+					<RowDefinition
+						Height="20*" />
+					<RowDefinition
+						Height="Auto" />
+				</Grid.RowDefinitions>
+				<TextBlock
+					Name="tbCurrentAppl"
+					Grid.Row="0"
+					VerticalAlignment="Center"
+					FontSize="25"
+					FontWeight="Bold"
+					FontFamily="Helvetica"
+					Margin="0 2 0 2"
+					Text="{Binding Path=ProductManager.CurrentLoadedProduct.ProductNoNameAndBatchName}" />
+				<ListBox
+					Name="lstProducts"
+					Style="{StaticResource ListBoxStyle}"
+					Grid.Row="1"
+					Background="#00FFFFFF"
+					SelectionMode="Multiple"
+					Grid.IsSharedSizeScope="True"
+					IsSynchronizedWithCurrentItem="True"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding Path=ProductManager.ProductList}"
+					SelectionChanged="SelectedItems">
+					<ItemsControl.ItemContainerStyle>
+						<!--Unknown connection ID: 4-->
+						<Style
+							TargetType="{x:Type ListBoxItem}">
+							<Setter
+								Property="Template">
+								<Setter.Value>
+									<ControlTemplate
+										TargetType="{x:Type ListBoxItem}">
+										<Border
+											Name="Border"
+											Padding="2"
+											SnapsToDevicePixels="True">
+											<ContentPresenter />
+										</Border>
+										<ControlTemplate.Triggers>
+											<Trigger
+												Property="ListBoxItem.IsSelected"
+												Value="True">
+												<Setter
+													TargetName="Border"
+													Value="{DynamicResource SystemColors.HighlightBrushKey}"
+													Property="Background" />
+											</Trigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+							<Setter
+								Property="Visibility">
+								<Setter.Value>
+									<MultiBinding
+										Converter="{StaticResource converterReferenceProduct}">
+										<Binding
+											Path="DataContext.ProductManager.ReferenceProductVisible"
+											RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+										<Binding
+											Path="ProductNumber" />
+									</MultiBinding>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ItemsControl.ItemContainerStyle>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid
+								MinHeight="50">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition
+										Width="Auto"
+										SharedSizeGroup="groupNumber" />
+									<ColumnDefinition
+										Width="Auto"
+										SharedSizeGroup="groupImage" />
+									<ColumnDefinition
+										Width="*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition />
+								</Grid.RowDefinitions>
+								<TextBlock
+									Grid.Column="0"
+									Margin="0 0 15 0"
+									FontWeight="Bold"
+									FontSize="20"
+									FontFamily="Helvetica"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Left"
+									Text="{Binding Path=ProductNumber}" />
+								<Image
+									Grid.Column="1"
+									Margin="0 0 15 0"
+									Source="/img/multiproduct.png"
+									Visibility="{Binding IsMultiProduct, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Grid.Column="1"
+									Margin="0 0 15 0"
+									Source="/img/multiLaneProduct.png"
+									Visibility="{Binding IsLaneProduct, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Grid.Column="1"
+									Margin="0 0 15 0"
+									Source="/img/multiRegionProduct.png"
+									Visibility="{Binding IsRegionProduct, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Grid.Column="1"
+									Margin="0 0 15 0"
+									Source="/img/bulkObjectProducts.png"
+									Visibility="{Binding IsBulkObjectProduct, Converter={StaticResource bVisConverter}}" />
+								<TextBlock
+									Grid.Column="2"
+									FontSize="20"
+									FontFamily="Helvetica"
+									VerticalAlignment="Center"
+									Text="{Binding Path=ProductName}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ListBox>
+				<StackPanel
+					Grid.Row="2"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+					<Image
+						Source="..\img\zoom2.png"
+						HorizontalAlignment="Right"
+						Height="30" />
+					<TextBox
+						Grid.Column="1"
+						HorizontalAlignment="Left"
+						Width="200"
+						Margin="5 5 5 5"
+						FontSize="20"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding ProductSearch.SearchTextInListCommand}"
+						Text="{Binding ProductSearch.SearchText}"
+						Foreground="{Binding ProductSearch.SearchTextBrush}"
+						TextAlignment="{Binding ProductSearch.SearchTextAlignment}" />
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

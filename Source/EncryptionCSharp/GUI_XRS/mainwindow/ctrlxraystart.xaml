@@ -1,0 +1,131 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlXRayStart" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False" xmlns:gui_xrs="clr-namespace:GUI_XRS">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<TextBlock
+			Text="Röntgenstrahlung starten"
+			FontWeight="Bold"
+			FontSize="24"
+			VerticalAlignment="Bottom"
+			TextAlignment="Center" />
+		<Button
+			Name="btnStartXRay"
+			Grid.Row="1"
+			Height="80"
+			Width="80"
+			Margin="40 5 50 0"
+			VerticalAlignment="Top">
+			<FrameworkElement.Resources>
+				<ResourceDictionary>
+					<LinearGradientBrush
+						StartPoint="0,0"
+						EndPoint="0,1"
+						x:Key="EllipseDarkStroke">
+						<GradientStop
+							Offset="0.00"
+							Color="#666666" />
+						<GradientStop
+							Offset="1.00"
+							Color="#191919" />
+					</LinearGradientBrush>
+					<LinearGradientBrush
+						StartPoint="0,0"
+						EndPoint="0,1"
+						x:Key="EllipseStroke">
+						<GradientStop
+							Offset="0.00"
+							Color="#ca5050" />
+						<GradientStop
+							Offset="0.60"
+							Color="#730000" />
+					</LinearGradientBrush>
+					<LinearGradientBrush
+						StartPoint="0,0"
+						EndPoint="0,1"
+						x:Key="EllipseUpFill">
+						<GradientStop
+							Offset="0.00"
+							Color="#ee0000" />
+						<GradientStop
+							Offset="1.00"
+							Color="#aa0000" />
+					</LinearGradientBrush>
+					<LinearGradientBrush
+						StartPoint="0,0"
+						EndPoint="0,1"
+						x:Key="EllipseDownFill">
+						<GradientStop
+							Offset="1.00"
+							Color="#ee0000" />
+						<GradientStop
+							Offset="0.00"
+							Color="#aa0000" />
+					</LinearGradientBrush>
+				</ResourceDictionary>
+			</FrameworkElement.Resources>
+			<Control.Template>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse
+							StrokeThickness="3"
+							Stroke="{StaticResource EllipseDarkStroke}" />
+						<Ellipse
+							Name="btnXRayBorderUp"
+							Height="75"
+							Width="75"
+							StrokeThickness="1"
+							Stroke="{DynamicResource EllipseStroke}"
+							Fill="{DynamicResource EllipseUpFill}" />
+						<Ellipse
+							Name="BorderDown"
+							Height="75"
+							Width="75"
+							StrokeThickness="1"
+							Opacity="0"
+							Stroke="{DynamicResource EllipseStroke}"
+							Fill="{DynamicResource EllipseDownFill}" />
+						<ContentPresenter
+							Name="Contents" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Control.Template>
+		</Button>
+	</Grid>
+</UserControl>

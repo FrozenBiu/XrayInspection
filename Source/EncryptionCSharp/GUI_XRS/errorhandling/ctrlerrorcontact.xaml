@@ -1,0 +1,401 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlErrorContact" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<l:BoolGridLengthAutoConverter
+				x:Key="boolGridLengthAutoConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<ScrollViewer>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="{Binding AdvancedContacts, Converter={StaticResource boolGridLengthAutoConverter}}" />
+				<RowDefinition
+					Height="{Binding AdvancedContacts, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding StopConveyorVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding ErrorHandling.MessageLevelSafeSwiVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid
+				Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 2 0 0" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="1"
+					Margin="20 5 25 5"
+					HorizontalAlignment="Center"
+					FontSize="22"
+					Text="{Binding StrSetErrorContact.LocalizedText, FallbackValue=Fehlerausgang setzen}" />
+			</Grid>
+			<Grid
+				Row="1"
+				ColumnSpan="2">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition
+						Height="{Binding BinMissingVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding HighLevelSensorsVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition />
+					<RowDefinition
+						Height="{Binding InsightNetAvailable, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="15"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="3"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="4"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="5"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="6"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="7"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="8"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="9"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="10"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="11"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="12"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="13"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<DockPanel
+					Grid.Row="0"
+					Grid.Column="0"
+					Margin="0 0 20 0">
+					<TextBlock
+						DockPanel.Dock="Right"
+						Margin="-20 0 0 0"
+						Text="{Binding StrDetector.LocalizedText, FallbackValue=Detektor}" />
+					<TextBlock
+						DockPanel.Dock="Right"
+						Text="{Binding StrError.LocalizedText, FallbackValue=Fehler}" />
+				</DockPanel>
+				<CheckBox
+					Grid.Row="0"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.DetectorErrorEnabled}" />
+				<DockPanel
+					Grid.Row="1"
+					Grid.Column="0"
+					Margin="0 0 20 0">
+					<TextBlock
+						DockPanel.Dock="Right"
+						Margin="-20 0 0 0"
+						Text="{Binding StrXraySource.LocalizedText, FallbackValue=Röntgenquelle}" />
+					<TextBlock
+						DockPanel.Dock="Right"
+						Text="{Binding StrError.LocalizedText, FallbackValue=Fehler}" />
+				</DockPanel>
+				<CheckBox
+					Grid.Row="1"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.XrayErrorEnabled}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrTemperature.LocalizedText, FallbackValue=Temperatur zu hoch}" />
+				<CheckBox
+					Grid.Row="2"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.TemperatureErrorEnabled}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrErrorMotor.LocalizedText, FallbackValue=Fehler Motor}" />
+				<CheckBox
+					Grid.Row="3"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.EngineErrorEnabled}" />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrLowAirPressure.LocalizedText, FallbackValue=Luftdruck zu niedrig}" />
+				<CheckBox
+					Grid.Row="4"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.LowAirPressureErrorEnabled}" />
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrErrorCooling.LocalizedText, FallbackValue=Fehler Kühlung}" />
+				<CheckBox
+					Grid.Row="5"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.CoolingErrorEnabled}" />
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrErrorXRayLamp.LocalizedText, FallbackValue=Fehler Lampe Röntgen ein}" />
+				<CheckBox
+					Grid.Row="6"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.XrayLampErrorEnabled}" />
+				<TextBlock
+					Grid.Row="7"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrBinFull.LocalizedText, FallbackValue=Behälter voll}" />
+				<CheckBox
+					Grid.Row="7"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.BinFullEnabled}" />
+				<TextBlock
+					Grid.Row="8"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrRejectVerify.LocalizedText, FallbackValue=Auswurfüberwachung}" />
+				<CheckBox
+					Grid.Row="8"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.MissingObjectsEnabled}" />
+				<TextBlock
+					Grid.Row="9"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrBinMissing.LocalizedText, FallbackValue=Behälter fehlt oder offen}" />
+				<CheckBox
+					Grid.Row="9"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.BinMissingEnabled}" />
+				<TextBlock
+					Grid.Row="10"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrInOutFeedCheck.LocalizedText, FallbackValue=Ein - / Auslaufüberwachung}" />
+				<CheckBox
+					Grid.Row="10"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.HighLevelSensorsEnabled}" />
+				<TextBlock
+					Grid.Row="11"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrTooManyRejects.LocalizedText, FallbackValue=Metallhäufung}" />
+				<CheckBox
+					Grid.Row="11"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.TooManyRejectsEnabled}" />
+				<TextBlock
+					Grid.Row="12"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrInsightNetConnection.LocalizedText, FallbackValue=Insight.NET Verbindung}" />
+				<CheckBox
+					Grid.Row="12"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.InsightNetConnectionErrorEnabled}" />
+				<TextBlock
+					Grid.Row="13"
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrDiskSpaceLow.LocalizedText, FallbackValue=Festplattenspeicher niedrig}" />
+				<CheckBox
+					Grid.Row="13"
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.DiskSpaceLowErrorEnabled}" />
+			</Grid>
+			<Grid
+				Row="2"
+				ColumnSpan="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 2 0 0" />
+				<TextBlock
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					Text="{Binding StrStopConveyorIfError.LocalizedText, FallbackValue=Förderbandstopp bei Fehler}" />
+				<CheckBox
+					Grid.Column="1"
+					IsChecked="{Binding ErrorHandling.StopConveyorIfError}" />
+			</Grid>
+			<Grid
+				Row="3"
+				ColumnSpan="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 2 0 2" />
+				<TextBlock
+					Grid.Column="0"
+					Margin="0 0 20 0"
+					VerticalAlignment="Center"
+					Text="{Binding StrMessageSafetySwitches.LocalizedText, FallbackValue=Benachrichtigunslevel Sicherheitsschalter}" />
+				<ComboBox
+					Grid.Column="1"
+					Margin="65 17 65 17"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding ListMessLevSafeSwitch}"
+					SelectedItem="{Binding ErrorHandling.MessageLevelSafetySwitch, Mode=TwoWay}" />
+			</Grid>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

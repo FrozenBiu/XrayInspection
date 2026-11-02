@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This PDAConfig was created on: 02.02.2016 11:43:46 -->
+<!-- This PDAConfig was generated with WS_Edit v2.5.0 -->
+<!-- This PDAConfig was validated with the WS Schema v2005.03-->
+<pda xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.wzw.tum.de/lvt/WS_200503.xsd" src="..\SeSoTec\MDHMI\Raycon">
+  <port_information max_connections="1">
+    <port_number>50000</port_number>
+  </port_information>
+  <commands max_requests="100">
+    <command>NOOP</command>
+    <command>READ_SVALUE</command>
+    <command>WRITE_SVALUE</command>
+    <command>READ_STRING</command>
+  </commands>
+  <entry tag_number="00011" tag_name="WS_Test_Unsigned32_1" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 1 für Unsigned32; liefert den festen Unsigned32 Wert "0", entspricht der Untergrenze des Wertebereichs des Datentyps Unsigned32</specification>
+      <specification country_code="EN">Test 1 for Unsigned32, sends back the fixed Unsigned32 value "0". This value corresponds to the lower limit of the domain of Unsigned32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00012" tag_name="WS_Test_Unsigned32_2" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 2 für Unsigned32,liefert festen Unsigned32 Wert "4294967295", entspricht der Obergrenze des Wertebereichs des Datentyps Unsigned32</specification>
+      <specification country_code="EN">Test 2 for Unsigned32, sends back the fixed Unsigned32 value "4294967295". This value corresponds to the lower limit of the domain of Unsigned32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00013" tag_name="WS_Test_Unsigned32_3" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 3 für Unsigned32, liefert festen Unsigned32 Wert "1234561890", entspricht beliebig gewählten Wert aus Wertebereich des Datentyps Unsigned32</specification>
+      <specification country_code="EN">Test 3 for Unsigned32, sends back the fixed Unsigned32 value "1234561890". This value corresponds to an arbitrarily chosen value from the domain of Unsigned32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00014" tag_name="WS_Test_Signed32_1" data_type="SIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 1 für Signed32, liefert festen Signed32 Wert "-2147483648", entspricht der Untergrenze des Wertebereichs des Datentyps Signed32</specification>
+      <specification country_code="EN">Test 1 for Signed32, sends back the fixed Sihned32 value "-2147483648". This value corresponds to the lower limit of the domain of Signed32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00015" tag_name="WS_Test_Signed32_2" data_type="SIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 2 für Signed32, liefert den festen Signed32 Wert "2147483647", entspricht der Obergrenze des Wertebreichs des Datentyps Signed32</specification>
+      <specification country_code="EN">Test 2 for Signed32, sends back the fixed Signed32 value "2147483647". This value corresponds to the lower limit of the domain of Signed32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00016" tag_name="WS_Test_Signed32_3" data_type="SIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 3 für Signed32, liefert festen Signed32 Wert "-1234567890", entspricht beliebig gewählten Wert aus Wertebereich des Datentyps Signed32</specification>
+      <specification country_code="EN">Test 3 for Signed32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00017" tag_name="WS_Test_Real_1" data_type="REAL" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 1 für Real, liefert festen Real Wert "-3,40282347*10^38", entspricht Untergrenze des Wertebereichs des Datentyps Real</specification>
+      <specification country_code="EN">Test 1 for Real</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00018" tag_name="WS_Test_Real_2" data_type="REAL" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 2 für Real, liefert den festen Real Wert "3,40282347*10^38", entspricht der Obergrenze des Wertebereichs des Datentyps Real</specification>
+      <specification country_code="EN">Test 2 for Real</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00019" tag_name="WS_Test_Real_3" data_type="REAL" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 3 für Real, liefert den festen Real Wert !1,23456789*10^3", entspricht einem beliebig gewählten Wert aus dem Wertebereich des Datentyps Real</specification>
+      <specification country_code="EN">Test 3 for Real</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00020" tag_name="WS_Test_Hex32_1" data_type="HEX32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 1 für Hex32, liefert den festen Hex32 Wert "00000000", entspricht der Untergrenze des Wertebereichs des Datentyps Hex32</specification>
+      <specification country_code="EN">Test 1 for Hex32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00021" tag_name="WS_Test_Hex32_2" data_type="HEX32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 2 für Hex32, liefert festen Real Wert "FFFFFFFF", entspricht der Obergrenze des Wertebereichs des Datentyps Hex32</specification>
+      <specification country_code="EN">Test 2 for Hex32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00022" tag_name="WS_Test_Hex32_3" data_type="HEX32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 3 für Hex32, liefert festen Hex32 Wert "13579BDF", entspricht einem beliebig gewählten Wert aus dem Wertebereich des Datentyps Hex32</specification>
+      <specification country_code="EN">Test 3 for Hex32</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00023" tag_name="WS_Test_String16_1" data_type="STRING16" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 1 für String16, liefert festen String16 Wert "T"</specification>
+      <specification country_code="EN">Test 1 for String16</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00024" tag_name="WS_Test_String16_2" data_type="STRING16" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 2 für String16, liefert festen String16 Wert "E" zurück</specification>
+      <specification country_code="EN">Test 2 for String16</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00025" tag_name="WS_Test_String16_3" data_type="STRING16" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Test 3 für String16, liefert festen String16 Wert "S"</specification>
+      <specification country_code="EN">Test 3 for String16</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00066" tag_name="WS_Sys_Time_Loc" data_type="UNSIGNED32" rw_access="RW">
+    <entry_description>
+      <specification country_code="DE">Systemzeit lokal</specification>
+      <specification country_code="EN">System Time Local</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00081" tag_name="SST_CUR_PROD_NBR" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="EN">Number of active product</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00082" tag_name="SST_CUR_PROD_NAME" data_type="STRING16" rw_access="R">
+    <entry_description>
+      <specification country_code="EN">Name of active product</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="00320" tag_name="WS_S88_State" data_type="HEX32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Betriebszustand nach ISA S88</specification>
+      <specification country_code="EN">S88 State</specification>
+    </entry_description>
+    <bit_description>
+      <specification bit_number="0" country_code="DE" type_of_or="XOR">Stopzustand</specification>
+      <specification bit_number="0" country_code="EN" type_of_or="XOR">Stopped</specification>
+      <specification bit_number="2" country_code="DE" type_of_or="XOR">Leerlauf</specification>
+      <specification bit_number="2" country_code="EN" type_of_or="XOR">Idle</specification>
+      <specification bit_number="7" country_code="DE" type_of_or="XOR">Betrieb</specification>
+      <specification bit_number="7" country_code="EN" type_of_or="XOR">Running</specification>
+    </bit_description>
+  </entry>
+  <entry tag_number="00403" tag_name="WS_Mach_Design_Spd" data_type="REAL" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Nennausbringung</specification>
+      <specification country_code="EN">Machine Design Speed</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="40312" tag_name="WS_L_Test_Result" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Letztes Testergebnis</specification>
+      <specification country_code="EN">Last Test Result</specification>
+    </entry_description>
+    <integer_description>
+      <specification integer_number="0" country_code="DE">Bestanden</specification>
+      <specification integer_number="0" country_code="EN">Passed</specification>
+      <specification integer_number="1" country_code="DE">Nicht bestanden</specification>
+      <specification integer_number="1" country_code="EN">Failed</specification>
+      <specification integer_number="2" country_code="DE">Timeout</specification>
+      <specification integer_number="2" country_code="EN">Timeout</specification>
+      <specification integer_number="3" country_code="DE">Nicht durchgeführt</specification>
+      <specification integer_number="3" country_code="EN">Not performed</specification>
+    </integer_description>
+  </entry>
+  <entry tag_number="50244" tag_name="WS_Tot_Det_F_Bodies" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Detektierte Fremdkörper gesamt</specification>
+      <specification country_code="EN">Total Detected Foreign Bodies</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="50246" tag_name="WS_Tot_Func_Tests" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Funktionstests gesamt</specification>
+      <specification country_code="EN">Total Function Tests</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="50247" tag_name="WS_Tot_Func_Tests_OK" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Erfolgreiche Funktionstests gesamt</specification>
+      <specification country_code="EN">Total Function Tests Passed</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="50248" tag_name="WS_Tot_Func_Tests_F" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Nicht erfolgreiche Funktionstests gesamt</specification>
+      <specification country_code="EN">Total Function Tests Failed</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="50256" tag_name="WS_Tot_Ejection_Dur" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Ausschleusedauer gesamt</specification>
+      <specification country_code="EN">Total Ejection Duration</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="50281" tag_name="WS_Tot_Mach_Fail" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="DE">Maschinenfehler</specification>
+      <specification country_code="EN">Total Machine Failures</specification>
+    </entry_description>
+  </entry>
+  <entry tag_number="51003" tag_name="SST_PROD_COUNTER" data_type="UNSIGNED32" rw_access="R">
+    <entry_description>
+      <specification country_code="EN">Product counter</specification>
+    </entry_description>
+  </entry>
+</pda>

@@ -1,0 +1,218 @@
+<UserControl
+	x:Class="GUI_XRS.Datalogger.CtrlDatalogsPredMainResets" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False" xmlns:datalogger="clr-namespace:GUI_XRS.Datalogger"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<l:StringToVisibilityConverter
+				x:Key="stringToVisibilityConverter" />
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="{x:Type TextBox}" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12 0 12 0">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1">
+			<ScrollViewer>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition
+							Height="{Binding RejecterIsActive[0], Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding RejecterIsActive[1], Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding RejecterIsActive[2], Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding RejecterIsActive[3], Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding SVTIsActive, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="11"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 1 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="4"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="5"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="6"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="7"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="{Binding Path=StrConveyor.LocalizedText}" />
+					<CheckBox
+						Grid.Row="0"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[0]}" />
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Text="{Binding Path=StrProducts.LocalizedText}" />
+					<CheckBox
+						Grid.Row="1"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[1]}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						Text="Rejecter1" />
+					<CheckBox
+						Grid.Row="2"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[2]}" />
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="Rejecter2" />
+					<CheckBox
+						Grid.Row="3"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[3]}" />
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="0"
+						Text="Rejecter3" />
+					<CheckBox
+						Grid.Row="4"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[4]}" />
+					<TextBlock
+						Grid.Row="5"
+						Grid.Column="0"
+						Text="Rejecter4" />
+					<CheckBox
+						Grid.Row="5"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[5]}" />
+					<TextBlock
+						Grid.Row="6"
+						Grid.Column="0">
+						<TextBlock.Text>
+							<MultiBinding
+								StringFormat=" {0} 1-{1}">
+								<Binding
+									Path="StrValves.LocalizedText" />
+								<Binding
+									Path="NumValves" />
+							</MultiBinding>
+						</TextBlock.Text>
+					</TextBlock>
+					<CheckBox
+						Grid.Row="6"
+						Grid.Column="1"
+						IsChecked="{Binding Path=SelectedTables[6]}" />
+					<TextBlock
+						Grid.Row="7"
+						Grid.Column="0"
+						Text="{Binding Path=StrResetCounts.LocalizedText}" />
+					<Button
+						Grid.Row="7"
+						Grid.Column="1"
+						Style="{StaticResource defaultButtonStyle}"
+						Command="{Binding ResetSelectedCounterCommand}">
+						<Image
+							Source="../img/delete.png"
+							Height="40" />
+					</Button>
+				</Grid>
+			</ScrollViewer>
+		</Border>
+	</Grid>
+</UserControl>

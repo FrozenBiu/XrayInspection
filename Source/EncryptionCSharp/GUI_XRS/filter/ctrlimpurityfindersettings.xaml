@@ -1,0 +1,206 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlImpurityFinderSettings" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:ImpurityFinderTypes
+				x:Key="ImpurityFinderTypes">
+				<l:ImpurityFinderType>Metal</l:ImpurityFinderType>
+				<l:ImpurityFinderType>Glass</l:ImpurityFinderType>
+			</l:ImpurityFinderTypes>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<l:ImpurityFinderTypesStringConverter
+				x:Key="impurityFinderTypesStringConverter" />
+			<l:ImpurityFinderTypeStringConverter
+				x:Key="impurityFinderTypeStringConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		Margin="12 24 12 24"
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="{Binding IsAlgorithmVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding IsLDVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding IsComparerVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding IsComparerVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding IsComparerVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+				<RowDefinition
+					Height="{Binding IsHighPrecisionVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Border
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="1"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="2"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="3"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="4"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="0"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="1"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="2"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="3"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="4"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<TextBlock
+				Text="{Binding StrSpecializedToDetect.LocalizedText, FallbackValue=Specialized to detect}" />
+			<ComboBox
+				Grid.Row="0"
+				Grid.Column="1"
+				Grid.ColumnSpan="4"
+				Margin="65 0 65 0"
+				FontSize="22"
+				ScrollViewer.PanningMode="None"
+				ItemsSource="{Binding Source={StaticResource ImpurityFinderTypes}, Converter={StaticResource impurityFinderTypesStringConverter}}"
+				SelectedItem="{Binding Path=ImpurityFinderType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource impurityFinderTypeStringConverter}}"
+				SelectionChanged="CancelAlgorithmChangeIfNeeded" />
+			<TextBlock
+				Grid.Row="1"
+				Text="{Binding StrEnhancedLowDensity.LocalizedText, FallbackValue=Enhanced detection of contaminations with low density}" />
+			<CheckBox
+				Grid.Row="1"
+				Grid.Column="1"
+				IsChecked="{Binding Path=LowDensityEnabled}"
+				Checked="CancelLowDensityEnableIfNeeded" />
+			<TextBlock
+				Grid.Row="2"
+				Text="Wirefinder" />
+			<CheckBox
+				Grid.Row="2"
+				Grid.Column="1"
+				IsChecked="{Binding Path=WireComparerEnabled}"
+				Checked="CancelLowDensityEnableIfNeeded" />
+			<TextBlock
+				Grid.Row="3"
+				Text="Glassincreaser" />
+			<CheckBox
+				Grid.Row="3"
+				Grid.Column="1"
+				IsChecked="{Binding Path=GlassComparerEnabled}"
+				Checked="CancelLowDensityEnableIfNeeded" />
+			<TextBlock
+				Grid.Row="4"
+				Text="Bonesdetector" />
+			<CheckBox
+				Grid.Row="4"
+				Grid.Column="1"
+				IsChecked="{Binding Path=BonesComparerEnabled}"
+				Checked="CancelLowDensityEnableIfNeeded" />
+			<Grid
+				Row="5">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
+					Grid.Row="1"
+					Text="HighPrecision"
+					Margin="20,0" />
+				<TextBlock
+					Grid.Row="2"
+					Foreground="#FF808080"
+					Text="{Binding Path=HighPrecisionDescription, FallbackValue=Stainless Steel 0.3 - 0.6mm   Glass 0.6 - 1.5 mm}" />
+			</Grid>
+			<CheckBox
+				Grid.Row="5"
+				Grid.Column="1"
+				IsChecked="{Binding Path=BlackMetalCheckerEnabled}"
+				Checked="CancelLowDensityEnableIfNeeded" />
+		</Grid>
+	</Border>
+</UserControl>

@@ -1,0 +1,215 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAIStatus" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS" xmlns:tk="http://schemas.microsoft.com/wpf/2008/toolkit"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Unloaded="CtrlAIStatus_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+				<Setter
+					Property="FontSize"
+					Value="20" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<ScrollViewer
+		Margin="12 24 12 24">
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="11"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="14"
+					Grid.RowSpan="9"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 3 0 0 " />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="14"
+					Grid.RowSpan="9"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 1 0 0 " />
+				<Border
+					Grid.Row="3"
+					Grid.Column="0"
+					Grid.ColumnSpan="14"
+					Grid.RowSpan="9"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 1 0 0 " />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Margin="20 0 20 0">
+					<Run
+						Text="{Binding Path=CurrentProductInference}" />
+					<LineBreak />
+					<Run
+						Text="{Binding Path=StrInferenceEnabledMessage.LocalizedText, FallbackValue=Auswertung aktiv}" />
+				</TextBlock>
+				<CheckBox
+					Grid.Row="0"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					IsChecked="{Binding Path=AnomalyDetectionInferenceOnOff}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Margin="20 0 20 0">
+					<Run
+						Text="{Binding Path=CurrentProductTraining}" />
+					<LineBreak />
+					<Run
+						Text="{Binding Path=StrTrainingEnabledMessage.LocalizedText, FallbackValue=Training aktiv}" />
+				</TextBlock>
+				<CheckBox
+					Grid.Row="1"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					IsChecked="{Binding Path=AnomalyDetectionTrainingOnOff}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Margin="20 0 20 0"
+					Text="{Binding Path=StrTrainingProgressMessage.LocalizedText, FallbackValue=Fortschritt}" />
+				<TextBox
+					Grid.Row="2"
+					Grid.Column="1"
+					HorizontalAlignment="Stretch"
+					Margin="65 0 65 10"
+					IsEnabled="False"
+					Style="{StaticResource disabledTextBox}"
+					Text="{Binding Path=TrainingProgress}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Margin="20 0 20 0"
+					Text="{Binding Path=StrTimeTrainingMessage.LocalizedText, FallbackValue=Vorraussichtliche Restdauer des Trainings}" />
+				<TextBox
+					Grid.Row="3"
+					Grid.Column="1"
+					HorizontalAlignment="Stretch"
+					Margin="65 0 65 10"
+					IsEnabled="False"
+					Style="{StaticResource disabledTextBox}"
+					Text="{Binding Path=EstimatedTimeTraining}" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					Grid.RowSpan="4"
+					Background="#5f000000"
+					Visibility="{Binding Path=ControlsDisabled, Converter={StaticResource bVisConverter}}" />
+			</Grid>
+		</Border>
+	</ScrollViewer>
+</UserControl>

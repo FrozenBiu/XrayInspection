@@ -1,0 +1,18 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlRetrainRegion" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="UserControl_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		common:ControlCommandBehavior.UnloadedCommand="{Binding ReleaseResourcesCommand}">
+		<image:XRSImageBox
+			Name="imagebox" />
+	</Grid>
+</UserControl>

@@ -1,0 +1,1064 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlParameter" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Background="#00FFFFFF"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Unloaded="CtrlParameter_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<local:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<local:BoolToTextBoxStyleConverter
+				x:Key="bTextBoxStyleConverter" />
+			<Style
+				x:Key="okButtonStyle">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="EllipseDarkStroke"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#4a4a4a" />
+							<GradientStop
+								Offset="0.30"
+								Color="#4d4d4d" />
+							<GradientStop
+								Offset="0.70"
+								Color="#2a2a2a" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseStroke"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#98e781" />
+							<GradientStop
+								Offset="0.60"
+								Color="#358a06" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseUpFill"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#b8e409" />
+							<GradientStop
+								Offset="1.00"
+								Color="#98bd08" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="EllipseDownFill"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="1.00"
+								Color="#b8e409" />
+							<GradientStop
+								Offset="0.00"
+								Color="#98bd08" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Height"
+					Value="55" />
+				<Setter
+					Property="Width"
+					Value="55" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type ToggleButton}">
+							<Grid>
+								<Ellipse
+									StrokeThickness="3"
+									Fill="{StaticResource EllipseDarkStroke}" />
+								<Ellipse
+									Name="BorderUp"
+									Height="50"
+									Width="50"
+									StrokeThickness="1"
+									Stroke="{DynamicResource EllipseStroke}"
+									Fill="{DynamicResource EllipseUpFill}" />
+								<Ellipse
+									Name="BorderDown"
+									Height="50"
+									Width="50"
+									StrokeThickness="1"
+									Opacity="0"
+									Stroke="{DynamicResource EllipseStroke}"
+									Fill="{DynamicResource EllipseDownFill}" />
+								<ContentPresenter
+									Name="Contents" />
+								<Ellipse
+									Fill="#ffffff"
+									Opacity="0.07"
+									Margin="0 0 0 25" />
+							</Grid>
+							<FrameworkTemplate.Resources>
+								<ResourceDictionary>
+									<Storyboard
+										x:Key="ButtonDownTimeLine">
+										<DoubleAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="BorderDown"
+											Storyboard.TargetProperty="Opacity">
+											<SplineDoubleKeyFrame
+												KeyTime="00:00:00.05"
+												Value="1" />
+										</DoubleAnimationUsingKeyFrames>
+										<ThicknessAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame
+												KeyTime="00:00:00.025"
+												Value="4,4,2,2" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+									<Storyboard
+										x:Key="ButtonUpTimeLine">
+										<DoubleAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="BorderDown"
+											Storyboard.TargetProperty="Opacity">
+											<SplineDoubleKeyFrame
+												KeyTime="00:00:00.25"
+												Value="0" />
+										</DoubleAnimationUsingKeyFrames>
+										<ThicknessAnimationUsingKeyFrames
+											BeginTime="00:00:00"
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame
+												KeyTime="00:00:00.25"
+												Value="3,3,3,3" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+								</ResourceDictionary>
+							</FrameworkTemplate.Resources>
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="IsPressed"
+									Value="True">
+									<Setter
+										TargetName="BorderDown"
+										Property="UIElement.Opacity"
+										Value="1" />
+									<Setter
+										TargetName="Contents"
+										Property="Margin"
+										Value="4,4,2,2" />
+									<TriggerBase.EnterActions>
+										<BeginStoryboard
+											Storyboard="{StaticResource ButtonDownTimeLine}" />
+									</TriggerBase.EnterActions>
+									<TriggerBase.ExitActions>
+										<BeginStoryboard
+											Storyboard="{StaticResource ButtonUpTimeLine}" />
+									</TriggerBase.ExitActions>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<ScrollViewer
+		Name="scrollviewer"
+		VerticalScrollBarVisibility="Visible"
+		HorizontalScrollBarVisibility="Visible">
+		<Grid
+			Name="mainGrid"
+			Margin="0 0 0 0">
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="Auto" />
+				<RowDefinition
+					Height="Auto" />
+				<RowDefinition
+					Height="45" />
+			</Grid.RowDefinitions>
+			<Border
+				Grid.Row="0">
+				<FrameworkElement.Resources>
+					<ResourceDictionary>
+						<Style
+							TargetType="{x:Type Border}"
+							x:Key="NameBorderStyle">
+							<Setter
+								Property="MinHeight"
+								Value="35" />
+							<Setter
+								Property="Background"
+								Value="#e7efc5" />
+							<Setter
+								Property="BorderBrush"
+								Value="#9399a0" />
+							<Setter
+								Property="Border.Padding"
+								Value="10 4 10 4" />
+							<Setter
+								Property="Margin"
+								Value="0 0 0 -9" />
+							<Setter
+								Property="BorderThickness"
+								Value="1" />
+							<Style.Triggers>
+								<DataTrigger
+									Value="Visible"
+									Binding="{Binding TextBoxVisibility}">
+									<Setter
+										Property="BorderThickness"
+										Value="0" />
+									<Setter
+										Property="Margin"
+										Value="0" />
+									<Setter
+										Property="Background"
+										Value="#00FFFFFF" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+						<Style
+							TargetType="{x:Type TextBlock}"
+							x:Key="TextBlockStyle">
+							<Setter
+								Property="VerticalAlignment"
+								Value="Center" />
+							<Setter
+								Property="FontFamily"
+								Value="Arial" />
+							<Setter
+								Property="Foreground"
+								Value="#414141" />
+							<Setter
+								Property="FontSize"
+								Value="14" />
+							<Setter
+								Property="Margin"
+								Value="0 2 0 2" />
+							<Setter
+								Property="TextWrapping"
+								Value="Wrap" />
+						</Style>
+						<Style
+							TargetType="{x:Type TextBlock}"
+							BasedOn="{StaticResource TextBlockStyle}"
+							x:Key="TextBlockBoldStyle">
+							<Setter
+								Property="FontWeight"
+								Value="Bold" />
+						</Style>
+						<Style
+							TargetType="{x:Type TextBox}"
+							x:Key="TextBoxStyle">
+							<Setter
+								Property="Visibility"
+								Value="{Binding TextBoxVisibility}" />
+							<Setter
+								Property="MinHeight"
+								Value="35" />
+							<Setter
+								Property="Margin"
+								Value="0 2 0 2" />
+							<Setter
+								Property="FontFamily"
+								Value="Arial" />
+							<Setter
+								Property="FontSize"
+								Value="14" />
+							<Setter
+								Property="VerticalAlignment"
+								Value="Center" />
+							<Setter
+								Property="Foreground"
+								Value="#ffffff" />
+							<Setter
+								Property="TextBox.TextWrapping"
+								Value="Wrap" />
+							<Setter
+								Property="Focusable"
+								Value="False" />
+							<Setter
+								Property="Template">
+								<Setter.Value>
+									<ControlTemplate
+										TargetType="{x:Type TextBox}">
+										<Border
+											CornerRadius="5"
+											BorderThickness="1"
+											BorderBrush="#d3d6d6">
+											<Border.Background>
+												<LinearGradientBrush
+													StartPoint="0,0"
+													EndPoint="0,1">
+													<GradientStop
+														Offset="0"
+														Color="#434343" />
+													<GradientStop
+														Offset="0.2"
+														Color="#585858" />
+													<GradientStop
+														Offset="1"
+														Color="#636666" />
+												</LinearGradientBrush>
+											</Border.Background>
+											<ScrollViewer
+												Name="PART_ContentHost"
+												Margin="0"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+						<Style
+							TargetType="{x:Type TextBox}"
+							x:Key="TextBoxDisabledStyle">
+							<Setter
+								Property="Visibility"
+								Value="{Binding TextBoxVisibility}" />
+							<Setter
+								Property="MinHeight"
+								Value="35" />
+							<Setter
+								Property="Margin"
+								Value="0 2 0 2" />
+							<Setter
+								Property="FontFamily"
+								Value="Arial" />
+							<Setter
+								Property="FontSize"
+								Value="14" />
+							<Setter
+								Property="VerticalAlignment"
+								Value="Center" />
+							<Setter
+								Property="Foreground"
+								Value="#414141" />
+							<Setter
+								Property="TextBox.TextWrapping"
+								Value="Wrap" />
+							<Setter
+								Property="Focusable"
+								Value="False" />
+							<Setter
+								Property="Template">
+								<Setter.Value>
+									<ControlTemplate
+										TargetType="{x:Type TextBox}">
+										<Border
+											CornerRadius="5"
+											BorderThickness="1"
+											Background="#00FFFFFF">
+											<ScrollViewer
+												Name="PART_ContentHost"
+												Margin="0"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ResourceDictionary>
+				</FrameworkElement.Resources>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<TreeView
+						Name="treePar"
+						BorderThickness="0 0 0 0"
+						BorderBrush="#eff2f3"
+						ItemsSource="{Binding ParameterItems}"
+						PreviewMouseWheel="treePar_PreviewMouseWheel">
+						<ItemsControl.ItemTemplate>
+							<HierarchicalDataTemplate
+								ItemsSource="{Binding ChildrenItem}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition
+											Width="200" />
+										<ColumnDefinition
+											Width="100" />
+										<ColumnDefinition
+											Width="55" />
+										<ColumnDefinition
+											Width="55" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+									<Border
+										Style="{StaticResource NameBorderStyle}"
+										Grid.Column="0"
+										VerticalAlignment="Center"
+										HorizontalAlignment="Left">
+										<TextBlock
+											Style="{StaticResource TextBlockBoldStyle}"
+											Text="{Binding ShownName}" />
+									</Border>
+									<!--Unknown connection ID: 5-->
+									<TextBox
+										Grid.Column="1"
+										TextWrapping="Wrap"
+										AcceptsReturn="True"
+										Text="{Binding Value}"
+										IsEnabled="{Binding ReadAndWrite}"
+										Visibility="{Binding Path=IsParameterItem, Converter={StaticResource bVisConverter}}">
+										<FrameworkElement.Style>
+											<MultiBinding
+												Converter="{StaticResource bTextBoxStyleConverter}">
+												<MultiBinding.Bindings>
+													<Binding
+														RelativeSource="{RelativeSource Self}" />
+													<Binding
+														Path="ReadAndWrite" />
+												</MultiBinding.Bindings>
+											</MultiBinding>
+										</FrameworkElement.Style>
+									</TextBox>
+									<TextBlock
+										Grid.Column="2"
+										Margin="15 0 0 0"
+										Style="{StaticResource TextBlockStyle}"
+										Text="{Binding Min}"
+										Visibility="{Binding Path=IsParameterItem, Converter={StaticResource bVisConverter}}" />
+									<TextBlock
+										Grid.Column="3"
+										Margin="4 0 0 0"
+										Style="{StaticResource TextBlockStyle}"
+										Text="{Binding Max}"
+										Visibility="{Binding Path=IsParameterItem, Converter={StaticResource bVisConverter}}" />
+									<TextBlock
+										Grid.Column="4"
+										Style="{StaticResource TextBlockStyle}"
+										TextWrapping="Wrap"
+										Width="250"
+										Text="{Binding Description}"
+										Visibility="{Binding Path=IsParameterItem, Converter={StaticResource bVisConverter}}" />
+								</Grid>
+							</HierarchicalDataTemplate>
+						</ItemsControl.ItemTemplate>
+						<FrameworkElement.Resources>
+							<ResourceDictionary>
+								<Style
+									TargetType="{x:Type TreeViewItem}"
+									x:Key="{x:Type TreeViewItem}">
+									<Setter
+										Property="Template">
+										<Setter.Value>
+											<ControlTemplate
+												TargetType="{x:Type TreeViewItem}">
+												<Border
+													Name="Bd"
+													Padding="15 0 3 0">
+													<Grid>
+														<Expander
+															Name="Exp"
+															IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+															<FrameworkElement.Resources>
+																<ResourceDictionary>
+																	<Style
+																		TargetType="{x:Type Expander}"
+																		x:Key="{x:Type Expander}">
+																		<Setter
+																			Property="Template">
+																			<Setter.Value>
+																				<ControlTemplate
+																					TargetType="{x:Type Expander}">
+																					<StackPanel
+																						Orientation="Vertical">
+																						<StackPanel
+																							Orientation="Horizontal"
+																							Margin="0 7 0 0">
+																							<ToggleButton
+																								Name="toggleBtn"
+																								Margin="0 0 5 0"
+																								Style="{StaticResource okButtonStyle}"
+																								IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+																								<ContentControl.ContentTemplate>
+																									<DataTemplate>
+																										<Image
+																											Name="rotateMe"
+																											Source="..\img\arrow.png"
+																											Stretch="None"
+																											RenderTransformOrigin="0.5,0.5">
+																											<UIElement.RenderTransform>
+																												<RotateTransform />
+																											</UIElement.RenderTransform>
+																										</Image>
+																										<DataTemplate.Triggers>
+																											<DataTrigger
+																												Value="True"
+																												Binding="{Binding ElementName=toggleBtn, Path=IsChecked}">
+																												<TriggerBase.EnterActions>
+																													<BeginStoryboard>
+																														<Storyboard>
+																															<DoubleAnimation
+																																Storyboard.TargetName="rotateMe"
+																																Storyboard.TargetProperty="RenderTransform.Angle"
+																																To="90"
+																																Duration="0:0:0.3" />
+																														</Storyboard>
+																													</BeginStoryboard>
+																												</TriggerBase.EnterActions>
+																												<TriggerBase.ExitActions>
+																													<BeginStoryboard>
+																														<Storyboard>
+																															<DoubleAnimation
+																																Storyboard.TargetName="rotateMe"
+																																Storyboard.TargetProperty="RenderTransform.Angle"
+																																To="0"
+																																Duration="0:0:0.3" />
+																														</Storyboard>
+																													</BeginStoryboard>
+																												</TriggerBase.ExitActions>
+																											</DataTrigger>
+																										</DataTemplate.Triggers>
+																									</DataTemplate>
+																								</ContentControl.ContentTemplate>
+																							</ToggleButton>
+																							<ContentPresenter
+																								Content="{TemplateBinding Header}" />
+																						</StackPanel>
+																						<ContentPresenter
+																							Name="mainContent"
+																							Visibility="Collapsed" />
+																					</StackPanel>
+																					<ControlTemplate.Triggers>
+																						<Trigger
+																							Property="Expander.IsExpanded"
+																							Value="True">
+																							<Setter
+																								TargetName="mainContent"
+																								Property="Visibility"
+																								Value="Visible" />
+																						</Trigger>
+																					</ControlTemplate.Triggers>
+																				</ControlTemplate>
+																			</Setter.Value>
+																		</Setter>
+																	</Style>
+																</ResourceDictionary>
+															</FrameworkElement.Resources>
+															<HeaderedContentControl.Header>
+																<ContentPresenter
+																	ContentSource="Header" />
+															</HeaderedContentControl.Header>
+															<ItemsPresenter />
+														</Expander>
+														<Border
+															Name="CntPres"
+															MinHeight="46"
+															Visibility="Collapsed"
+															BorderThickness="1"
+															BorderBrush="#9399a0"
+															Margin="35 -1 0 0">
+															<Border.Background>
+																<LinearGradientBrush
+																	StartPoint="0,0"
+																	EndPoint="0,1">
+																	<GradientStop
+																		Offset="0.00"
+																		Color="#e7eaea" />
+																	<GradientStop
+																		Offset="1.00"
+																		Color="#c9cccd" />
+																</LinearGradientBrush>
+															</Border.Background>
+															<StackPanel
+																Orientation="Horizontal">
+																<CheckBox
+																	Margin="5 0 0 0"
+																	Visibility="{Binding Path=IsCheckedVisible, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}"
+																	IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" />
+																<ContentPresenter
+																	ContentSource="Header" />
+															</StackPanel>
+														</Border>
+													</Grid>
+												</Border>
+												<ControlTemplate.Triggers>
+													<Trigger
+														Property="ItemsControl.HasItems"
+														Value="False">
+														<Setter
+															TargetName="Exp"
+															Property="Visibility"
+															Value="Collapsed" />
+														<Setter
+															TargetName="CntPres"
+															Property="Visibility"
+															Value="Visible" />
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</ResourceDictionary>
+						</FrameworkElement.Resources>
+					</TreeView>
+				</Grid>
+			</Border>
+			<Border
+				Grid.Row="1">
+				<FrameworkElement.Resources>
+					<ResourceDictionary>
+						<Style
+							TargetType="{x:Type Border}"
+							x:Key="NameBorderStyle">
+							<Setter
+								Property="MinHeight"
+								Value="35" />
+							<Setter
+								Property="Background"
+								Value="#e7efc5" />
+							<Setter
+								Property="BorderBrush"
+								Value="#9399a0" />
+							<Setter
+								Property="Border.Padding"
+								Value="10 4 10 4" />
+							<Setter
+								Property="Margin"
+								Value="0 0 0 -9" />
+							<Setter
+								Property="BorderThickness"
+								Value="1" />
+							<Style.Triggers>
+								<DataTrigger
+									Value="Visible"
+									Binding="{Binding TextBoxVisibility}">
+									<Setter
+										Property="BorderThickness"
+										Value="0" />
+									<Setter
+										Property="Margin"
+										Value="0" />
+									<Setter
+										Property="Background"
+										Value="#00FFFFFF" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+						<Style
+							TargetType="{x:Type TextBlock}"
+							x:Key="TextBlockStyle">
+							<Setter
+								Property="VerticalAlignment"
+								Value="Center" />
+							<Setter
+								Property="FontFamily"
+								Value="Arial" />
+							<Setter
+								Property="Foreground"
+								Value="#414141" />
+							<Setter
+								Property="FontSize"
+								Value="14" />
+							<Setter
+								Property="Margin"
+								Value="0 5 0 5" />
+							<Setter
+								Property="TextWrapping"
+								Value="Wrap" />
+						</Style>
+						<Style
+							TargetType="{x:Type TextBlock}"
+							BasedOn="{StaticResource TextBlockStyle}"
+							x:Key="TextBlockBoldStyle">
+							<Setter
+								Property="FontWeight"
+								Value="Bold" />
+						</Style>
+						<Style
+							TargetType="{x:Type TextBox}"
+							x:Key="TextBoxStyle">
+							<Setter
+								Property="Visibility"
+								Value="{Binding TextBoxVisibility}" />
+							<Setter
+								Property="MinHeight"
+								Value="35" />
+							<Setter
+								Property="Margin"
+								Value="0 2 0 2" />
+							<Setter
+								Property="FontFamily"
+								Value="Arial" />
+							<Setter
+								Property="FontSize"
+								Value="14" />
+							<Setter
+								Property="VerticalAlignment"
+								Value="Center" />
+							<Setter
+								Property="Foreground"
+								Value="#ffffff" />
+							<Setter
+								Property="TextBox.TextWrapping"
+								Value="Wrap" />
+							<Setter
+								Property="Focusable"
+								Value="False" />
+							<Setter
+								Property="Template">
+								<Setter.Value>
+									<ControlTemplate
+										TargetType="{x:Type TextBox}">
+										<Border
+											CornerRadius="5"
+											BorderThickness="1"
+											BorderBrush="#d3d6d6">
+											<Border.Background>
+												<LinearGradientBrush
+													StartPoint="0,0"
+													EndPoint="0,1">
+													<GradientStop
+														Offset="0"
+														Color="#434343" />
+													<GradientStop
+														Offset="0.2"
+														Color="#585858" />
+													<GradientStop
+														Offset="1"
+														Color="#636666" />
+												</LinearGradientBrush>
+											</Border.Background>
+											<ScrollViewer
+												Name="PART_ContentHost"
+												Margin="0"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+						<Style
+							TargetType="{x:Type TextBox}"
+							x:Key="TextBoxDisabledStyle">
+							<Setter
+								Property="Visibility"
+								Value="{Binding TextBoxVisibility}" />
+							<Setter
+								Property="MinHeight"
+								Value="35" />
+							<Setter
+								Property="Margin"
+								Value="0 2 0 2" />
+							<Setter
+								Property="FontFamily"
+								Value="Arial" />
+							<Setter
+								Property="FontSize"
+								Value="14" />
+							<Setter
+								Property="VerticalAlignment"
+								Value="Center" />
+							<Setter
+								Property="Foreground"
+								Value="#414141" />
+							<Setter
+								Property="TextBox.TextWrapping"
+								Value="Wrap" />
+							<Setter
+								Property="Focusable"
+								Value="False" />
+							<Setter
+								Property="Template">
+								<Setter.Value>
+									<ControlTemplate
+										TargetType="{x:Type TextBox}">
+										<Border
+											CornerRadius="5"
+											BorderThickness="1"
+											Background="#00FFFFFF">
+											<ScrollViewer
+												Name="PART_ContentHost"
+												Margin="0"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ResourceDictionary>
+				</FrameworkElement.Resources>
+				<Grid
+					Visibility="{Binding Path=IsOperatingHoursVisible, Converter={StaticResource bVisConverter}}">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<TreeView
+						Name="treePar2"
+						BorderThickness="0 0 0 0"
+						BorderBrush="#eff2f3"
+						ItemsSource="{Binding ParameterOperatingHours}">
+						<ItemsControl.ItemTemplate>
+							<HierarchicalDataTemplate
+								ItemsSource="{Binding ChildrenItem}">
+								<Grid
+									Visibility="{Binding Path=IsOperatingHoursVisible, Converter={StaticResource bVisConverter}}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+									<Border
+										Style="{StaticResource NameBorderStyle}"
+										Grid.Column="0"
+										Width=" 227"
+										VerticalAlignment="Center"
+										HorizontalAlignment="Left">
+										<TextBlock
+											Style="{StaticResource TextBlockBoldStyle}"
+											Text="{Binding Operatinghours}" />
+									</Border>
+									<Grid
+										Margin="0,0,0,0"
+										Column="1">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition />
+											<ColumnDefinition />
+											<ColumnDefinition />
+											<ColumnDefinition />
+											<ColumnDefinition />
+										</Grid.ColumnDefinitions>
+										<TextBlock
+											Grid.Column="0"
+											Style="{StaticResource TextBlockStyle}"
+											TextWrapping="Wrap"
+											Width="175"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Left"
+											Text="{Binding StrforDateTimeOperatingHours}" />
+										<TextBlock
+											Grid.Column="1"
+											Style="{StaticResource TextBlockStyle}"
+											TextWrapping="Wrap"
+											Width="85"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Left"
+											Text="{Binding StrforVoltageOperatingHours}" />
+										<TextBlock
+											Grid.Column="2"
+											Style="{StaticResource TextBlockStyle}"
+											TextWrapping="Wrap"
+											Width="85"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Left"
+											Text="{Binding StrforCurrentOperatingHours}" />
+										<TextBlock
+											Grid.Column="3"
+											Style="{StaticResource TextBlockStyle}"
+											TextWrapping="Wrap"
+											Width="85"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Left"
+											Text="{Binding StrforOperatingHours}" />
+										<TextBlock
+											Grid.Column="4"
+											Style="{StaticResource TextBlockStyle}"
+											TextWrapping="Wrap"
+											Width="150"
+											VerticalAlignment="Top"
+											HorizontalAlignment="Left"
+											Text="{Binding StrforOperatingHoursTotal}" />
+									</Grid>
+								</Grid>
+							</HierarchicalDataTemplate>
+						</ItemsControl.ItemTemplate>
+						<FrameworkElement.Resources>
+							<ResourceDictionary>
+								<Style
+									TargetType="{x:Type TreeViewItem}"
+									x:Key="{x:Type TreeViewItem}">
+									<Setter
+										Property="Template">
+										<Setter.Value>
+											<ControlTemplate
+												TargetType="{x:Type TreeViewItem}">
+												<Border
+													Name="Bd"
+													Padding="45 0 0 0"
+													Visibility="{Binding Path=IsOperatingHoursVisible, Converter={StaticResource bVisConverter}}">
+													<Grid>
+														<Expander
+															Name="Exp">
+															<FrameworkElement.Resources>
+																<ResourceDictionary>
+																	<Style
+																		TargetType="{x:Type Expander}"
+																		x:Key="{x:Type Expander}">
+																		<Setter
+																			Property="Template">
+																			<Setter.Value>
+																				<ControlTemplate
+																					TargetType="{x:Type Expander}">
+																					<StackPanel
+																						Orientation="Vertical">
+																						<StackPanel
+																							Orientation="Horizontal"
+																							Margin="0 7 0 0">
+																							<ToggleButton
+																								Name="toggleBtn"
+																								Margin="0 0 5 0"
+																								Style="{StaticResource okButtonStyle}"
+																								IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+																								<ContentControl.ContentTemplate>
+																									<DataTemplate>
+																										<Image
+																											Name="rotateMe"
+																											Source="..\img\arrow.png"
+																											Stretch="None"
+																											RenderTransformOrigin="0.5,0.5">
+																											<UIElement.RenderTransform>
+																												<RotateTransform />
+																											</UIElement.RenderTransform>
+																										</Image>
+																										<DataTemplate.Triggers>
+																											<DataTrigger
+																												Value="True"
+																												Binding="{Binding ElementName=toggleBtn, Path=IsChecked}">
+																												<TriggerBase.EnterActions>
+																													<BeginStoryboard>
+																														<Storyboard>
+																															<DoubleAnimation
+																																Storyboard.TargetName="rotateMe"
+																																Storyboard.TargetProperty="RenderTransform.Angle"
+																																To="90"
+																																Duration="0:0:0.3" />
+																														</Storyboard>
+																													</BeginStoryboard>
+																												</TriggerBase.EnterActions>
+																												<TriggerBase.ExitActions>
+																													<BeginStoryboard>
+																														<Storyboard>
+																															<DoubleAnimation
+																																Storyboard.TargetName="rotateMe"
+																																Storyboard.TargetProperty="RenderTransform.Angle"
+																																To="0"
+																																Duration="0:0:0.3" />
+																														</Storyboard>
+																													</BeginStoryboard>
+																												</TriggerBase.ExitActions>
+																											</DataTrigger>
+																										</DataTemplate.Triggers>
+																									</DataTemplate>
+																								</ContentControl.ContentTemplate>
+																							</ToggleButton>
+																							<ContentPresenter
+																								Content="{TemplateBinding Header}" />
+																						</StackPanel>
+																						<ContentPresenter
+																							Name="mainContent"
+																							Visibility="Collapsed" />
+																					</StackPanel>
+																					<ControlTemplate.Triggers>
+																						<Trigger
+																							Property="Expander.IsExpanded"
+																							Value="True">
+																							<Setter
+																								TargetName="mainContent"
+																								Property="Visibility"
+																								Value="Visible" />
+																						</Trigger>
+																					</ControlTemplate.Triggers>
+																				</ControlTemplate>
+																			</Setter.Value>
+																		</Setter>
+																	</Style>
+																</ResourceDictionary>
+															</FrameworkElement.Resources>
+															<HeaderedContentControl.Header>
+																<ContentPresenter
+																	ContentSource="Header" />
+															</HeaderedContentControl.Header>
+															<ItemsPresenter />
+														</Expander>
+														<Border
+															Name="CntPres"
+															MinHeight="46"
+															Visibility="Collapsed"
+															BorderThickness="1"
+															BorderBrush="#9399a0"
+															Margin="5 -1 0 0">
+															<Border.Background>
+																<LinearGradientBrush
+																	StartPoint="0,0"
+																	EndPoint="0,1">
+																	<GradientStop
+																		Offset="0.00"
+																		Color="#e7eaea" />
+																	<GradientStop
+																		Offset="1.00"
+																		Color="#c9cccd" />
+																</LinearGradientBrush>
+															</Border.Background>
+															<StackPanel
+																Orientation="Horizontal">
+																<CheckBox
+																	Margin="5 0 0 0"
+																	Visibility="{Binding Path=IsCheckedVisible, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}"
+																	IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" />
+																<ContentPresenter
+																	ContentSource="Header" />
+															</StackPanel>
+														</Border>
+													</Grid>
+												</Border>
+												<ControlTemplate.Triggers>
+													<Trigger
+														Property="ItemsControl.HasItems"
+														Value="False">
+														<Setter
+															TargetName="Exp"
+															Property="Visibility"
+															Value="Collapsed" />
+														<Setter
+															TargetName="CntPres"
+															Property="Visibility"
+															Value="Visible" />
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</ResourceDictionary>
+						</FrameworkElement.Resources>
+					</TreeView>
+					<Border
+						Name="licensesButton"
+						Grid.Column="0"
+						Grid.Row="1"
+						Width="80"
+						Height="80"
+						BorderBrush="#FF000000"
+						BorderThickness="1"
+						CornerRadius="3"
+						Background="#00FFFFFF"
+						HorizontalAlignment="Left"
+						Margin="80 30 0 0"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding ShowLicensesCommand}">
+						<Image
+							Source="../img/info.png"
+							Stretch="None" />
+					</Border>
+				</Grid>
+			</Border>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

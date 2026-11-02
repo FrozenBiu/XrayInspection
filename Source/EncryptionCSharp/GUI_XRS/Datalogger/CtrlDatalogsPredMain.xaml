@@ -1,0 +1,634 @@
+<UserControl
+	x:Class="GUI_XRS.Datalogger.CtrlDatalogsPredMain" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:tk="http://schemas.microsoft.com/wpf/2008/toolkit"
+	MinHeight="300"
+	MinWidth="300"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False" xmlns:datalogger="clr-namespace:GUI_XRS.Datalogger"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<l:BoolGridLengthAutoConverter
+				x:Key="boolGridLengthAutoConverter" />
+			<l:StringToVisibilityConverter
+				x:Key="stringToVisibilityConverter" />
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type tk:DataGridColumnHeader}"
+				x:Key="{x:Type tk:DataGridColumnHeader}">
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="HorizontalContentAlignment"
+					Value="Left" />
+				<Setter
+					Property="Foreground"
+					Value="#FFFFFFFF" />
+				<Setter
+					Property="Background"
+					Value="#FF9ACD32" />
+				<Setter
+					Property="Padding"
+					Value="1 1 1 1" />
+			</Style>
+			<Style
+				TargetType="{x:Type tk:DataGridCell}"
+				x:Key="{x:Type tk:DataGridCell}">
+				<Setter
+					Property="FontSize"
+					Value="16" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type tk:DataGridCell}">
+							<Grid
+								Background="{TemplateBinding Background}">
+								<ContentPresenter
+									VerticalAlignment="Center"
+									HorizontalAlignment="Left" />
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="HorizontalContentAlignment"
+					Value="Left" />
+				<Style.Triggers>
+					<Trigger
+						Property="tk:DataGridCell.IsSelected"
+						Value="True">
+						<Setter
+							Property="Foreground"
+							Value="#FFF0F8FF" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				x:Key="TextBoxDisabledStyle">
+				<Setter
+					Property="Visibility"
+					Value="{Binding TextBoxVisibility}" />
+				<Setter
+					Property="MinHeight"
+					Value="35" />
+				<Setter
+					Property="Margin"
+					Value="0 2 0 2" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontSize"
+					Value="14" />
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="Foreground"
+					Value="#414141" />
+				<Setter
+					Property="TextBox.TextWrapping"
+					Value="Wrap" />
+				<Setter
+					Property="Focusable"
+					Value="False" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type TextBox}">
+							<Border
+								CornerRadius="5"
+								BorderThickness="1"
+								Background="#00FFFFFF">
+								<ScrollViewer
+									Name="PART_ContentHost"
+									Margin="0"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center" />
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Name="datalogsTables"
+		Background="#e7e7e6"
+		Margin="0,-4,0,0">
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="60" />
+			<RowDefinition
+				Height="{Binding NotWidescreen, Converter={StaticResource boolGridLengthAutoConverter}}" />
+			<RowDefinition />
+			<RowDefinition
+				Height="20" />
+		</Grid.RowDefinitions>
+		<Grid
+			Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Grid.Column="0"
+				Margin="5 0 0 0"
+				FontSize="22"
+				FontWeight="Bold"
+				Text="Table:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left" />
+			<ComboBox
+				Grid.Column="1"
+				Margin="10 0 0 0"
+				FontSize="22"
+				Width="450"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Focusable="True"
+				ScrollViewer.PanningMode="None"
+				ItemsSource="{Binding Path=DataLogsTableNameList}"
+				SelectedItem="{Binding Path=SelectedDataLogsTable, Mode=TwoWay}">
+				<ItemsControl.ItemContainerStyle>
+					<Style
+						TargetType="{x:Type ComboBoxItem}">
+						<Style.Triggers>
+							<Trigger
+								Property="Content"
+								Value="OLD TABLES:">
+								<Trigger.Setters>
+									<Setter
+										Property="IsEnabled"
+										Value="False" />
+								</Trigger.Setters>
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</ItemsControl.ItemContainerStyle>
+			</ComboBox>
+			<TextBlock
+				Grid.Column="2"
+				Margin="20 0 0 0"
+				FontSize="22"
+				FontWeight="Bold"
+				Text="Start:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Visibility="{Binding Widescreen, Converter={StaticResource bVisConverter}}" />
+			<TextBox
+				Grid.Column="3"
+				Margin="5 0 0 0"
+				FontSize="22"
+				Width="140"
+				Height="40"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Text="{Binding Path=StartTimeSelection}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeStartTimeCmd}"
+				IsEnabled="{Binding Path=TimeSelectionIsPossible}"
+				Visibility="{Binding Widescreen, Converter={StaticResource bVisConverter}}">
+				<FrameworkElement.Style>
+					<MultiBinding
+						Converter="{StaticResource bTextBoxStyleConverter}">
+						<MultiBinding.Bindings>
+							<Binding
+								RelativeSource="{RelativeSource Self}" />
+							<Binding
+								Path="TimeSelectionIsPossible" />
+						</MultiBinding.Bindings>
+					</MultiBinding>
+				</FrameworkElement.Style>
+			</TextBox>
+			<TextBlock
+				Grid.Column="4"
+				Margin="10 0 0 0"
+				FontSize="22"
+				FontWeight="Bold"
+				Text="End:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Visibility="{Binding Widescreen, Converter={StaticResource bVisConverter}}" />
+			<TextBox
+				Grid.Column="5"
+				Margin="5 0 0 0"
+				FontSize="22"
+				Width="140"
+				Height="40"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Text="{Binding Path=EndTimeSelection}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeEndTimeCmd}"
+				IsEnabled="{Binding Path=TimeSelectionIsPossible}"
+				Visibility="{Binding Widescreen, Converter={StaticResource bVisConverter}}">
+				<FrameworkElement.Style>
+					<MultiBinding
+						Converter="{StaticResource bTextBoxStyleConverter}">
+						<MultiBinding.Bindings>
+							<Binding
+								RelativeSource="{RelativeSource Self}" />
+							<Binding
+								Path="TimeSelectionIsPossible" />
+						</MultiBinding.Bindings>
+					</MultiBinding>
+				</FrameworkElement.Style>
+			</TextBox>
+			<Button
+				Grid.Column="6"
+				Margin="10,0,0,0"
+				Height="40"
+				Width="40"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Command="{Binding ActualizeSelectedTableCommand}">
+				<Image
+					Source="../img/actualize.png" />
+			</Button>
+			<Button
+				Grid.Column="7"
+				Margin="10,0,0,0"
+				Content="Init"
+				Height="40"
+				Width="40"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Command="{Binding SetInitTimesCommand}" />
+		</Grid>
+		<Grid
+			Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Grid.Column="0"
+				Margin="5 0 0 5"
+				FontSize="22"
+				FontWeight="Bold"
+				Text="Start:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left" />
+			<TextBox
+				Grid.Column="1"
+				Margin="15 0 0 5"
+				FontSize="22"
+				Width="140"
+				Height="40"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Text="{Binding Path=StartTimeSelection}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeStartTimeCmd}"
+				IsEnabled="{Binding Path=TimeSelectionIsPossible}">
+				<FrameworkElement.Style>
+					<MultiBinding
+						Converter="{StaticResource bTextBoxStyleConverter}">
+						<MultiBinding.Bindings>
+							<Binding
+								RelativeSource="{RelativeSource Self}" />
+							<Binding
+								Path="TimeSelectionIsPossible" />
+						</MultiBinding.Bindings>
+					</MultiBinding>
+				</FrameworkElement.Style>
+			</TextBox>
+			<TextBlock
+				Grid.Column="2"
+				Margin="15 0 0 5"
+				FontSize="22"
+				FontWeight="Bold"
+				Text="End:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left" />
+			<TextBox
+				Grid.Column="3"
+				Margin="15 0 0 5"
+				FontSize="22"
+				Width="140"
+				Height="40"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Text="{Binding Path=EndTimeSelection}"
+				common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeEndTimeCmd}"
+				IsEnabled="{Binding Path=TimeSelectionIsPossible}">
+				<FrameworkElement.Style>
+					<MultiBinding
+						Converter="{StaticResource bTextBoxStyleConverter}">
+						<MultiBinding.Bindings>
+							<Binding
+								RelativeSource="{RelativeSource Self}" />
+							<Binding
+								Path="TimeSelectionIsPossible" />
+						</MultiBinding.Bindings>
+					</MultiBinding>
+				</FrameworkElement.Style>
+			</TextBox>
+		</Grid>
+		<Grid
+			Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="5" />
+				<ColumnDefinition />
+				<ColumnDefinition
+					Width="5" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition
+					Height="5" />
+			</Grid.RowDefinitions>
+			<Grid
+				Row="0"
+				Column="1"
+				Background="#FFFFFFFF">
+				<FrameworkElement.Resources>
+					<ResourceDictionary>
+						<FrameworkElement
+							DataContext="{Binding}"
+							x:Key="ProxyElement" />
+					</ResourceDictionary>
+				</FrameworkElement.Resources>
+				<ContentControl
+					Visibility="Collapsed"
+					Content="{StaticResource ProxyElement}" />
+				<tk:DataGrid
+					Name="dbDataLogsTable"
+					Grid.Row="1"
+					IsReadOnly="True"
+					Margin="5,5,5,5"
+					Background="#FFFFFFFF"
+					HorizontalAlignment="Left"
+					HeadersVisibility="Column"
+					FontSize="16"
+					AutoGenerateColumns="False"
+					CanUserAddRows="False"
+					CanUserResizeColumns="False"
+					CanUserResizeRows="False"
+					BorderBrush="#FFA9A9A9"
+					BorderThickness="1.5 1.5 1.5 1.5"
+					ItemsSource="{Binding DataLogsList}">
+					<tk:DataGrid.Columns>
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column0}"
+							Header="{Binding DataContext.Header[0], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[0], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column1_Path}"
+							Header="{Binding DataContext.Header[1], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[1], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column1_DateTime}"
+							Header="{Binding DataContext.Header[2], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[2], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column2}"
+							Header="{Binding DataContext.Header[3], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[3], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column3}"
+							Header="{Binding DataContext.Header[4], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[4], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column4}"
+							Header="{Binding DataContext.Header[5], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[5], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column5}"
+							Header="{Binding DataContext.Header[6], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[6], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column6}"
+							Header="{Binding DataContext.Header[7], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[7], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column7}"
+							Header="{Binding DataContext.Header[8], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[8], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column8}"
+							Header="{Binding DataContext.Header[9], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[9], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column9}"
+							Header="{Binding DataContext.Header[10], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[10], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column10}"
+							Header="{Binding DataContext.Header[11], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[11], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column11}"
+							Header="{Binding DataContext.Header[12], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[12], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column12}"
+							Header="{Binding DataContext.Header[13], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[13], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column13}"
+							Header="{Binding DataContext.Header[14], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[14], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column14}"
+							Header="{Binding DataContext.Header[15], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[15], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column15}"
+							Header="{Binding DataContext.Header[16], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[16], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column16}"
+							Header="{Binding DataContext.Header[17], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[17], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column17}"
+							Header="{Binding DataContext.Header[18], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[18], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column18}"
+							Header="{Binding DataContext.Header[19], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[19], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column19}"
+							Header="{Binding DataContext.Header[20], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[20 ], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column20}"
+							Header="{Binding DataContext.Header[21], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[21], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column21}"
+							Header="{Binding DataContext.Header[22], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[22], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column22}"
+							Header="{Binding DataContext.Header[23], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[23], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column23}"
+							Header="{Binding DataContext.Header[24], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[24], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column24}"
+							Header="{Binding DataContext.Header[25], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[25], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column25}"
+							Header="{Binding DataContext.Header[26], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[26], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+						<tk:DataGridTextColumn
+							Width="Auto"
+							Binding="{Binding Column26}"
+							Header="{Binding DataContext.Header[27], Source={StaticResource ProxyElement}}"
+							Visibility="{Binding DataContext.Header[27], Source={StaticResource ProxyElement}, Converter={StaticResource stringToVisibilityConverter}}" />
+					</tk:DataGrid.Columns>
+				</tk:DataGrid>
+			</Grid>
+			<Border
+				Grid.Row="0"
+				Margin="5,0,5,0"
+				Grid.ColumnSpan="5"
+				BorderBrush="#FFA9A9A9"
+				BorderThickness="1.5 1.5 1.5 1.5" />
+		</Grid>
+		<Grid
+			Row="3">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Grid.Column="1"
+				Margin="5 0 0 0"
+				FontSize="16"
+				FontWeight="Normal"
+				Text="Rows:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right" />
+			<TextBlock
+				Grid.Column="2"
+				Margin="1 0 0 0"
+				FontSize="16"
+				FontWeight="Normal"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="{Binding Path=RowCount}" />
+			<TextBlock
+				Grid.Column="3"
+				Margin="5 0 0 0"
+				FontSize="16"
+				FontWeight="Normal"
+				Text="Columns:"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right" />
+			<TextBlock
+				Grid.Column="4"
+				Margin="1 0 5 0"
+				FontSize="16"
+				FontWeight="Normal"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="{Binding Path=ColumnCount}" />
+		</Grid>
+	</Grid>
+</UserControl>

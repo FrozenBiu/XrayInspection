@@ -1,0 +1,140 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlBackupOptions" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12 24 12 24">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1"
+			Margin="0 0 0 12">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="5"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="3"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 1 0 0" />
+				<CheckBox
+					Grid.Row="0"
+					Grid.Column="1"
+					IsChecked="{Binding Path=Backup.SaveProducts}" />
+				<CheckBox
+					Grid.Row="1"
+					Grid.Column="1"
+					IsChecked="{Binding Path=Backup.SaveSystem}" />
+				<CheckBox
+					Grid.Row="2"
+					Grid.Column="1"
+					IsChecked="{Binding Path=Backup.SaveAnomalyDetectionImages}"
+					Visibility="{Binding Path=ShowSaveAnomalyDetectionImages, Converter={StaticResource bVisConverter}}" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Text="{Binding Path=StrSaveProducts.LocalizedText, FallbackValue=Produkteinstellungen sichern}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Text="{Binding Path=StrSaveSystem.LocalizedText, FallbackValue=Komplettes System sichern}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Text="{Binding Path=StrSaveAnomalyDetectionImages.LocalizedText, FallbackValue=Mit Bilder sichern}"
+					Visibility="{Binding Path=ShowSaveAnomalyDetectionImages, Converter={StaticResource bVisConverter}}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Text="{Binding Path=StrDoBackup.LocalizedText, FallbackValue=Backup ausführen}" />
+				<Button
+					Grid.Row="3"
+					Grid.Column="1"
+					Style="{StaticResource defaultButtonStyle}"
+					Command="{Binding Path=DoBackupCommand}">
+					<Image
+						Source="../img/backup.png"
+						Height="45" />
+				</Button>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

@@ -1,0 +1,413 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlTestcardSimMonitoring" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS" xmlns:tk="http://schemas.microsoft.com/wpf/2008/toolkit"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:ComplianceBoolToBackgroundColorConverter
+				x:Key="complianceBoolToBackgroundColorConverter" />
+			<l:ActivateCMCalculationConverter
+				x:Key="activateCMCalculationConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type tk:DataGridColumnHeader}"
+				x:Key="{x:Type tk:DataGridColumnHeader}">
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="HorizontalContentAlignment"
+					Value="Center" />
+				<Setter
+					Property="Foreground"
+					Value="#FFFFFFFF" />
+				<Setter
+					Property="Background"
+					Value="#FF9ACD32" />
+				<Setter
+					Property="Padding"
+					Value="1 1 1 1" />
+			</Style>
+			<Style
+				TargetType="{x:Type tk:DataGridCell}"
+				x:Key="{x:Type tk:DataGridCell}">
+				<Setter
+					Property="FontSize"
+					Value="16" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type tk:DataGridCell}">
+							<Grid
+								Background="{TemplateBinding Background}">
+								<ContentPresenter
+									VerticalAlignment="Center"
+									HorizontalAlignment="Center" />
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="HorizontalContentAlignment"
+					Value="Center" />
+				<Style.Triggers>
+					<Trigger
+						Property="tk:DataGridCell.IsSelected"
+						Value="True">
+						<Setter
+							Property="Foreground"
+							Value="#FF000000" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		Margin="12 24 12 24"
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition
+					Height="{Binding IsAINotAvailable, Converter={StaticResource boolGridLengthStarConverter}}" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Border
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="1"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="2"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="3"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="4"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="5"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="6"
+				Grid.Column="0"
+				Grid.RowSpan="3"
+				Background="#e7efc5"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 1 0" />
+			<Border
+				Grid.Row="0"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="1"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="2"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="3"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="4"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="5"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<Border
+				Grid.Row="6"
+				Grid.ColumnSpan="2"
+				BorderBrush="#b6b6b6"
+				BorderThickness="0 0 0 1" />
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Text="{Binding InitSensitivitiesWithUnit, FallbackValue=Initiale Empfindlichkeiten (mm)}" />
+			<Grid
+				Row="0"
+				Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="55" />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition
+						Width="55" />
+				</Grid.ColumnDefinitions>
+				<TextBlock
+					Grid.Column="1"
+					HorizontalAlignment="Left"
+					Margin="0 0 0 0"
+					Text="{Binding StrVA.LocalizedText, FallbackValue=Edelstahl}" />
+				<TextBox
+					Grid.Column="2"
+					Width="90"
+					HorizontalAlignment="Right"
+					Margin="0 0 0 0"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=InitVASensitivity}" />
+				<TextBlock
+					Grid.Column="3"
+					HorizontalAlignment="Left"
+					Margin="20 0 0 0"
+					Text="{Binding StrGlass.LocalizedText, FallbackValue=Glass}" />
+				<TextBox
+					Grid.Column="4"
+					Width="90"
+					HorizontalAlignment="Right"
+					Margin="0 0 0 0"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=InitGlassSensitivity}" />
+			</Grid>
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				Text="{Binding ActualSensitivitiesWithUnit, FallbackValue=Aktuelle Empfindlichkeiten (mm)}" />
+			<Grid
+				Row="1"
+				Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="55" />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition
+						Width="55" />
+				</Grid.ColumnDefinitions>
+				<TextBlock
+					Grid.Column="1"
+					HorizontalAlignment="Left"
+					Margin="0 0 0 0"
+					Text="{Binding StrVA.LocalizedText, FallbackValue=Edelstahl}" />
+				<TextBox
+					Grid.Column="2"
+					Width="90"
+					HorizontalAlignment="Right"
+					Margin="0 0 0 0"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=ActualVASensitivity}" />
+				<TextBlock
+					Grid.Column="3"
+					HorizontalAlignment="Left"
+					Margin="20 0 0 0"
+					Text="{Binding StrGlass.LocalizedText, FallbackValue=Glass}" />
+				<TextBox
+					Grid.Column="4"
+					Width="90"
+					HorizontalAlignment="Right"
+					Margin="0 0 0 0"
+					Style="{StaticResource disabledTextBox}"
+					TextAlignment="Right"
+					Text="{Binding Path=ActualGlassSensitivity}" />
+			</Grid>
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				Text="{Binding CompSensitivityVA, FallbackValue=Compliance Empfindlichkeit Edelstahl (mm)}" />
+			<Grid
+				Row="2"
+				Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition
+						Width="{Binding IsAINotAvailable, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<ColumnDefinition
+						Width="{Binding IsAIAvailableWidth}" />
+				</Grid.ColumnDefinitions>
+				<ComboBox
+					Grid.Column="0"
+					Margin="55 0 0 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding Path=BallDiameterListVA}"
+					SelectedItem="{Binding Path=SelectedBallDiameterComplVA, Mode=TwoWay}" />
+				<Button
+					Name="btnStartCMVA"
+					Style="{StaticResource defaultButtonStyle}"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Command="{Binding StartVAComplianceAdjustmentsCmd}"
+					IsEnabled="{Binding ActivatedCMStartVA}">
+					<Image
+						Height="40"
+						Source="{Binding ActivatedCMStartVA, FallbackValue=Collapsed, Converter={StaticResource activateCMCalculationConverter}}" />
+				</Button>
+			</Grid>
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="0"
+				Text="{Binding CompSensitivityGlass, FallbackValue=Compliance Empfindlichkeit Glas(mm)}" />
+			<Grid
+				Row="3"
+				Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition
+						Width="{Binding IsAINotAvailable, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<ColumnDefinition
+						Width="{Binding IsAIAvailableWidth}" />
+				</Grid.ColumnDefinitions>
+				<ComboBox
+					Grid.Row="0"
+					Grid.Column="0"
+					Margin="55 0 0 0"
+					FontSize="22"
+					ScrollViewer.PanningMode="None"
+					ItemsSource="{Binding Path=BallDiameterListGlass}"
+					SelectedItem="{Binding Path=SelectedBallDiameterComplGlass, Mode=TwoWay}" />
+				<Button
+					Style="{StaticResource defaultButtonStyle}"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Command="{Binding StartGlassComplianceAdjustmentsCmd}"
+					IsEnabled="{Binding ActivatedCMStartGlass}">
+					<Image
+						Height="40"
+						Source="{Binding ActivatedCMStartGlass, FallbackValue=Collapsed, Converter={StaticResource activateCMCalculationConverter}}" />
+				</Button>
+			</Grid>
+			<TextBlock
+				Grid.Row="4"
+				Grid.Column="0"
+				Text="{Binding ResetSensitivityToInitSens, FallbackValue=Rücksetzen der Filter zu Inititale Empfindlichkeiten}" />
+			<Grid
+				Row="5"
+				Column="1">
+				<Button
+					Style="{StaticResource defaultButtonStyle}"
+					Grid.Row="0"
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Command="{Binding StartFilterResetToInitSensitivitiesCmd}"
+					IsEnabled="{Binding ActivatedResetToInitSens}">
+					<Image
+						Height="40"
+						Source="{Binding ActivatedResetToInitSens, FallbackValue=Collapsed, Converter={StaticResource activateCMCalculationConverter}}" />
+				</Button>
+			</Grid>
+			<Grid
+				Row="2"
+				Column="1"
+				Background="#5f000000"
+				Visibility="{Binding ActivateICMParams, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+			<Grid
+				Row="2"
+				Column="0"
+				Background="#5f000000"
+				Visibility="{Binding ActivateICMParams, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+			<Grid
+				Row="3"
+				Column="1"
+				Background="#5f000000"
+				Visibility="{Binding ActivateICMParams, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+			<Grid
+				Row="3"
+				Column="0"
+				Background="#5f000000"
+				Visibility="{Binding ActivateICMParams, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+			<Grid
+				Row="4"
+				Column="1"
+				Background="#5f000000"
+				Visibility="{Binding ActivateICMParams, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+			<Grid
+				Row="4"
+				Column="0"
+				Background="#5f000000"
+				Visibility="{Binding ActivateICMParams, FallbackValue=Collapsed, Converter={StaticResource bVisConverter}}" />
+		</Grid>
+	</Border>
+</UserControl>

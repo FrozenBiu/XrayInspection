@@ -1,0 +1,195 @@
+<UserControl
+	x:Class="GUI_XRS.ChangeUserData" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding DeregisterLocalizedTextCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:UserRightsStringConverter
+				x:Key="userRightsStringConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="2*" />
+			<ColumnDefinition
+				Width="3*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition
+				Height="{Binding CommitErrorsVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.RowSpan="6"
+			Background="#e7efc5"
+			BorderBrush="#b6b6b6"
+			BorderThickness="0 0 1 0" />
+		<Border
+			Grid.Row="0"
+			Grid.Column="1"
+			Grid.RowSpan="6"
+			Background="#d1d1d1" />
+		<Border
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			BorderBrush="#b6b6b6"
+			BorderThickness="0 0 0 1" />
+		<Border
+			Grid.Row="1"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			BorderBrush="#b6b6b6"
+			BorderThickness="0 0 0 1" />
+		<Border
+			Grid.Row="2"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			BorderBrush="#b6b6b6"
+			BorderThickness="0 0 0 1" />
+		<Border
+			Grid.Row="3"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			BorderBrush="#b6b6b6"
+			BorderThickness="0 0 0 1" />
+		<TextBlock
+			Grid.Row="0"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Margin="10 0 20 0"
+			Text="{Binding Path=usermanagementViewModel.UserID.LocalizedText, FallbackValue=Benutzer ID}" />
+		<TextBlock
+			Name="tbUserName"
+			Grid.Row="1"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Margin="10 0 20 0"
+			Text="{Binding Path=usermanagementViewModel.UserName.LocalizedText, FallbackValue=Benutzername}" />
+		<TextBlock
+			Name="tbUserGroup"
+			Grid.Row="2"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Margin="10 0 20 0"
+			Text="{Binding Path=usermanagementViewModel.UserGroup.LocalizedText, FallbackValue=Benutzergruppe}" />
+		<TextBlock
+			Grid.Row="3"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Margin="10 0 20 0"
+			Text="{Binding Path=usermanagementViewModel.CommitErrors.LocalizedText, FallbackValue=Fehler zurücksetzen}" />
+		<TextBlock
+			Grid.Row="4"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Margin="10 0 20 0"
+			Text="{Binding Path=StrPassword.LocalizedText, FallbackValue=Passwort}" />
+		<TextBlock
+			Grid.Row="5"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Margin="10 0 20 0"
+			Text="{Binding Path=StrRepeatPassword.LocalizedText, FallbackValue=Passwort wiederholen}" />
+		<TextBox
+			Name="txtID"
+			Grid.Row="0"
+			Grid.Column="1"
+			VerticalAlignment="Center"
+			Margin="50 0 50 0"
+			HorizontalContentAlignment="Left"
+			Text="{Binding Path=ID}"
+			common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeIDCommand}" />
+		<TextBox
+			Name="txtUsername"
+			Grid.Row="1"
+			Grid.Column="1"
+			VerticalAlignment="Center"
+			Margin="50 0 50 0"
+			HorizontalContentAlignment="Left"
+			Text="{Binding Path=Username}"
+			common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeUsernameCommand}" />
+		<ComboBox
+			Grid.Row="2"
+			Grid.Column="1"
+			Margin="50 0 50 0"
+			IsSynchronizedWithCurrentItem="True"
+			VerticalAlignment="Center"
+			ScrollViewer.PanningMode="None"
+			ItemsSource="{Binding SelectableUserRights}"
+			SelectedValue="{Binding Right, Mode=TwoWay}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<TextBlock
+						Text="{Binding Path=., Converter={StaticResource userRightsStringConverter}}" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ComboBox>
+		<CheckBox
+			Grid.Row="3"
+			Grid.Column="1"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Margin="50 0 50 0"
+			IsChecked="{Binding Path=CommitErrors}" />
+		<PasswordBox
+			Name="pbPassword"
+			Grid.Row="4"
+			Grid.Column="1"
+			VerticalAlignment="Center"
+			Margin="50 0 50 0"
+			Password="Dummy"
+			common:MouseCommandBehavior.MouseUpCommand="{Binding InputPasswordCommand}" />
+		<PasswordBox
+			Name="pbPasswordRepeate"
+			Grid.Row="5"
+			Grid.Column="1"
+			VerticalAlignment="Center"
+			Margin="50 0 50 0"
+			Password="Dummy"
+			common:MouseCommandBehavior.MouseUpCommand="{Binding InputPasswordRepeatCommand}" />
+	</Grid>
+</UserControl>

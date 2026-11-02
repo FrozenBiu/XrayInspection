@@ -1,0 +1,385 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlMachineParameter" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:DoubleStringConverterPrec1
+				x:Key="doubleStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="30 0 30 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Margin"
+					Value="30 0 30 0" />
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Border
+		Grid.Row="0"
+		BorderBrush="#a8a8a8"
+		BorderThickness="1"
+		Background="#d1d1d1"
+		Margin="0 0 0 12">
+		<ScrollViewer>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="2*" />
+					<ColumnDefinition
+						Width="3*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="*" />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="7"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="3"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="4"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="5"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<Border
+					Grid.Row="6"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 1" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Text="{Binding Path=StrMachineType.LocalizedText, FallbackValue=Maschinentyp}" />
+				<Grid
+					Row="0"
+					Column="1"
+					Margin="0 10 30 10">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<TextBox
+						TextAlignment="Center"
+						IsEnabled="False"
+						Margin="30 0 0 0"
+						Text="{Binding Path=MachineType}">
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource bTextBoxStyleConverter}">
+								<MultiBinding.Bindings>
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+								</MultiBinding.Bindings>
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</TextBox>
+					<Grid
+						Row="1"
+						Margin="30 0 0 0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="*" />
+							<ColumnDefinition
+								Width="Auto" />
+							<ColumnDefinition
+								Width="*" />
+						</Grid.ColumnDefinitions>
+						<TextBox
+							Grid.Column="0"
+							TextAlignment="Center"
+							Margin=" 0"
+							Text="{Binding Path=InspectionWidth}"
+							IsEnabled="{Binding Path=ServiceMode}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding SetInspectionWidthCommand}">
+							<FrameworkElement.Style>
+								<MultiBinding
+									Converter="{StaticResource bTextBoxStyleConverter}">
+									<MultiBinding.Bindings>
+										<Binding
+											RelativeSource="{RelativeSource Self}" />
+										<Binding
+											Path="ServiceMode" />
+									</MultiBinding.Bindings>
+								</MultiBinding>
+							</FrameworkElement.Style>
+						</TextBox>
+						<Label
+							Grid.Column="1"
+							VerticalAlignment="Center"
+							FontFamily="Arial"
+							FontSize="30"
+							Foreground="#5e5e5e">/</Label>
+						<TextBox
+							Grid.Column="2"
+							TextAlignment="Center"
+							Margin="0"
+							Text="{Binding Path=InspectionHeight}"
+							IsEnabled="{Binding Path=ServiceMode}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding SetInspectionHeightCommand}">
+							<FrameworkElement.Style>
+								<MultiBinding
+									Converter="{StaticResource bTextBoxStyleConverter}">
+									<MultiBinding.Bindings>
+										<Binding
+											RelativeSource="{RelativeSource Self}" />
+										<Binding
+											Path="ServiceMode" />
+									</MultiBinding.Bindings>
+								</MultiBinding>
+							</FrameworkElement.Style>
+						</TextBox>
+					</Grid>
+				</Grid>
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Text="{Binding Path=StrMachineSubType.LocalizedText, FallbackValue=Maschinensubtyp}" />
+				<TextBox
+					Grid.Row="1"
+					Grid.Column="1"
+					TextAlignment="Left"
+					Text="{Binding Path=MachineSubType}"
+					IsEnabled="{Binding Path=ServiceMode}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding SetMachineSubTypeCommand}">
+					<FrameworkElement.Style>
+						<MultiBinding
+							Converter="{StaticResource bTextBoxStyleConverter}">
+							<MultiBinding.Bindings>
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="ServiceMode" />
+							</MultiBinding.Bindings>
+						</MultiBinding>
+					</FrameworkElement.Style>
+				</TextBox>
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Text="{Binding Path=StrMachineName.LocalizedText, FallbackValue=Gerätename}" />
+				<TextBox
+					Grid.Row="2"
+					Grid.Column="1"
+					TextAlignment="Left"
+					Text="{Binding Path=DeviceName}"
+					IsEnabled="{Binding Path=EditAllowed}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding SetMachineNameCommand}">
+					<FrameworkElement.Style>
+						<MultiBinding
+							Converter="{StaticResource bTextBoxStyleConverter}">
+							<MultiBinding.Bindings>
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="EditAllowed" />
+							</MultiBinding.Bindings>
+						</MultiBinding>
+					</FrameworkElement.Style>
+				</TextBox>
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Text="{Binding Path=StrLineName.LocalizedText, FallbackValue=Linienname}" />
+				<TextBox
+					Grid.Row="3"
+					Grid.Column="1"
+					TextAlignment="Left"
+					Text="{Binding Path=LineName}"
+					IsEnabled="{Binding Path=EditAllowed}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding SetLineNameCommand}">
+					<FrameworkElement.Style>
+						<MultiBinding
+							Converter="{StaticResource bTextBoxStyleConverter}">
+							<MultiBinding.Bindings>
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="EditAllowed" />
+							</MultiBinding.Bindings>
+						</MultiBinding>
+					</FrameworkElement.Style>
+				</TextBox>
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="0"
+					Text="{Binding Path=StrSerialNumber.LocalizedText, FallbackValue=Seriennummer}" />
+				<TextBox
+					Grid.Row="4"
+					Grid.Column="1"
+					TextAlignment="Left"
+					Text="{Binding Path=SerialNumber}"
+					IsEnabled="{Binding Path=ServiceMode}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding SetSerialNumberCommand}">
+					<FrameworkElement.Style>
+						<MultiBinding
+							Converter="{StaticResource bTextBoxStyleConverter}">
+							<MultiBinding.Bindings>
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="ServiceMode" />
+							</MultiBinding.Bindings>
+						</MultiBinding>
+					</FrameworkElement.Style>
+				</TextBox>
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="0"
+					Text="{Binding Path=StrLocation.LocalizedText, FallbackValue=Ort}" />
+				<TextBox
+					Grid.Row="5"
+					Grid.Column="1"
+					TextAlignment="Left"
+					MinLines="5"
+					Margin="30 10 30 10"
+					Text="{Binding Path=Location}"
+					IsEnabled="{Binding Path=EditAllowed}"
+					common:MouseCommandBehavior.MouseUpCommand="{Binding SetLocationCommand}">
+					<FrameworkElement.Style>
+						<MultiBinding
+							Converter="{StaticResource bTextBoxStyleConverter}">
+							<MultiBinding.Bindings>
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="EditAllowed" />
+							</MultiBinding.Bindings>
+						</MultiBinding>
+					</FrameworkElement.Style>
+				</TextBox>
+			</Grid>
+		</ScrollViewer>
+	</Border>
+</UserControl>

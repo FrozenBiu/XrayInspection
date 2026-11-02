@@ -1,0 +1,132 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAIRestoreOptions" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Unloaded="CtrAIRestoreOptions_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 20 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Margin="12 24 12 24">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1"
+			Margin="0 0 0 12">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="{Binding RestoreXAVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition
+						Height="{Binding RestoreXOVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.RowSpan="5"
+					Background="#e7efc5"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 1 0" />
+				<Border
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 0 0 0" />
+				<Border
+					Grid.Row="2"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					BorderBrush="#b6b6b6"
+					BorderThickness="0 1 0 0" />
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Text="{Binding Path=StrRestoreXA.LocalizedText, FallbackValue=THiNK XA Modell laden}"
+					Visibility="{Binding Path=RestoreXAVisible, Converter={StaticResource bVisConverter}}" />
+				<CheckBox
+					Grid.Row="0"
+					Grid.Column="1"
+					IsChecked="{Binding Path=RestoreXA}"
+					Visibility="{Binding Path=RestoreXAVisible, Converter={StaticResource bVisConverter}}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Text="{Binding Path=StrRestoreXO.LocalizedText, FallbackValue=THiNK XO Modell laden}"
+					Visibility="{Binding Path=RestoreXOVisible, Converter={StaticResource bVisConverter}}" />
+				<CheckBox
+					Grid.Row="1"
+					Grid.Column="1"
+					IsChecked="{Binding Path=RestoreXO}"
+					Visibility="{Binding Path=RestoreXOVisible, Converter={StaticResource bVisConverter}}" />
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Text="{Binding Path=StrChoseBackup.LocalizedText, FallbackValue=Backup wählen}" />
+				<Button
+					Grid.Row="2"
+					Grid.Column="1"
+					Style="{StaticResource defaultButtonStyle}"
+					Command="{Binding Path=ChooseBackupCommand}">
+					<Image
+						Source="../img/restore.png"
+						Height="45" />
+				</Button>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

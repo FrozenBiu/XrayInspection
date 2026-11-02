@@ -1,0 +1,127 @@
+<UserControl
+	x:Class="GUI_XRS.SubMenu" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Height="Auto"
+	Width="Auto"
+	MinWidth="100"
+	MinHeight="100"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CloseCommand}">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:BoolToVisibilityInvertedHiddenConverter
+				x:Key="boolToVisibilityInvertedHiddenConverter" />
+			<l:SubmenuMachineStatesBoolConverter
+				x:Key="submenuMachineStatesBoolConverter" />
+			<l:BoolToBrushConverter
+				x:Key="boolToBrushConverter" />
+			<Style
+				TargetType="{x:Type ListBox}"
+				x:Key="styleSubmenu">
+				<Style.Resources>
+					<ResourceDictionary>
+						<Style
+							TargetType="{x:Type Button}"
+							BasedOn="{StaticResource btnMainMenu}"
+							x:Key="{x:Type Button}" />
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="ItemsPanel">
+					<Setter.Value>
+						<ItemsPanelTemplate>
+							<WrapPanel />
+						</ItemsPanelTemplate>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="HorizontalScrollBarVisibility"
+					Value="Disabled" />
+				<Setter
+					Property="ScrollViewer.PanningMode"
+					Value="None" />
+				<Setter
+					Property="Background"
+					Value="#e7efc5" />
+				<Setter
+					Property="ItemTemplate">
+					<Setter.Value>
+						<DataTemplate>
+							<Button
+								Name="btnSubMenuItem"
+								Width="125"
+								Height="120"
+								Margin="10"
+								Command="{Binding CommandClickHandler}"
+								CommandParameter="{Binding CommandParameter}"
+								Visibility="{Binding Path=Visible, Converter={StaticResource bVisConverter}}">
+								<UIElement.IsEnabled>
+									<MultiBinding
+										Mode="OneWay"
+										Converter="{StaticResource submenuMachineStatesBoolConverter}">
+										<Binding
+											Path="ResourceKey" />
+										<Binding
+											Path="DataContext.MachineState.State"
+											RelativeSource="{RelativeSource AncestorType=ListBox}" />
+										<Binding
+											Path="DataContext.DemoMode"
+											RelativeSource="{RelativeSource AncestorType=ListBox}" />
+									</MultiBinding>
+								</UIElement.IsEnabled>
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition
+											Height="60" />
+										<RowDefinition
+											Height="40" />
+									</Grid.RowDefinitions>
+									<Image
+										Margin="5 5 5 0"
+										Source="{Binding Path=ImagePath}"
+										Stretch="{Binding Stretch}"
+										Visibility="{Binding Path=IsEnabled, ElementName=btnSubMenuItem, Converter={StaticResource bVisConverter}}" />
+									<Image
+										Margin="5 5 5 0"
+										Source="{Binding Path=ImageDisabledPath}"
+										Stretch="{Binding Stretch}"
+										Visibility="{Binding Path=IsEnabled, ElementName=btnSubMenuItem, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+									<TextBlock
+										Margin="0 5 0 0"
+										Grid.Row="1"
+										TextAlignment="Center"
+										TextWrapping="Wrap"
+										Text="{Binding Path=LocalizedText}"
+										Foreground="{Binding Path=IsEnabled, ElementName=btnSubMenuItem, Converter={StaticResource boolToBrushConverter}}" />
+								</Grid>
+							</Button>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<ListBox
+			Name="lbox"
+			Style="{StaticResource styleSubmenu}"
+			ItemsSource="{Binding Path=SubMenuItems}"
+			SelectionChanged="lbox_SelectionChanged">
+			<ItemsControl.ItemContainerStyle>
+				<Style
+					TargetType="{x:Type ListBoxItem}">
+					<Setter
+						Property="Padding"
+						Value="0" />
+				</Style>
+			</ItemsControl.ItemContainerStyle>
+		</ListBox>
+	</Grid>
+</UserControl>

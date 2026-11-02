@@ -1,0 +1,122 @@
+<UserControl
+	x:Class="GUI_XRS.WifiQuality" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Background="#00FFFFFF"
+	Height="50"
+	Width="50"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False" xmlns:gui_xrs="clr-namespace:GUI_XRS">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<LinearGradientBrush
+				StartPoint="0 0"
+				EndPoint="1 1"
+				x:Key="WlanQualityEnoughBrushLight">
+				<GradientBrush.GradientStops>
+					<GradientStop
+						Color="#93FF07"
+						Offset="1" />
+					<GradientStop
+						Color="#B8E40B"
+						Offset="0.2" />
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0 0"
+				EndPoint="1 1"
+				x:Key="WlanQualityEnoughBrushDark">
+				<GradientBrush.GradientStops>
+					<GradientStop
+						Color="#247740"
+						Offset="1" />
+					<GradientStop
+						Color="#B8E40B"
+						Offset="0" />
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0 0"
+				EndPoint="1 1"
+				x:Key="WlanQualityNotEnoughBrush">
+				<GradientBrush.GradientStops>
+					<GradientStop
+						Color="#BCBCBC"
+						Offset="1" />
+					<GradientStop
+						Color="#E9E9E9"
+						Offset="0" />
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<SolidColorBrush
+				Color="#8F8F8F"
+				x:Key="LightBorderBrush" />
+			<SolidColorBrush
+				Color="#6F6F6F"
+				x:Key="DarkBorderBrush" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Border
+			Grid.Column="0"
+			Margin="0.2 33 0 0"
+			BorderThickness="0 0 2 2"
+			BorderBrush="{StaticResource DarkBorderBrush}">
+			<Border
+				Name="bdLow"
+				Background="{StaticResource WlanQualityNotEnoughBrush}"
+				BorderThickness="2 2 0 0"
+				BorderBrush="{StaticResource LightBorderBrush}" />
+		</Border>
+		<Border
+			Grid.Column="1"
+			Margin="0.2 25 0 0"
+			BorderThickness="0 0 2 2"
+			BorderBrush="{StaticResource DarkBorderBrush}">
+			<Border
+				Name="bdMediumLow"
+				Background="{StaticResource WlanQualityNotEnoughBrush}"
+				BorderThickness="2 2 0 0"
+				BorderBrush="{StaticResource LightBorderBrush}" />
+		</Border>
+		<Border
+			Grid.Column="2"
+			Margin="0.2 17 0 0"
+			BorderThickness="0 0 2 2"
+			BorderBrush="{StaticResource DarkBorderBrush}">
+			<Border
+				Name="bdMedium"
+				Background="{StaticResource WlanQualityNotEnoughBrush}"
+				BorderThickness="2 2 0 0"
+				BorderBrush="{StaticResource LightBorderBrush}" />
+		</Border>
+		<Border
+			Grid.Column="3"
+			Margin="0.2 9 0 0"
+			BorderThickness="0 0 2 2"
+			BorderBrush="{StaticResource DarkBorderBrush}">
+			<Border
+				Name="bdMediumHigh"
+				Background="{StaticResource WlanQualityNotEnoughBrush}"
+				BorderThickness="2 2 0 0"
+				BorderBrush="{StaticResource LightBorderBrush}" />
+		</Border>
+		<Border
+			Grid.Column="4"
+			Margin="0.2 0 0 0"
+			BorderThickness="0 0 2 2"
+			BorderBrush="{StaticResource DarkBorderBrush}">
+			<Border
+				Name="bdHigh"
+				Background="{StaticResource WlanQualityNotEnoughBrush}"
+				BorderThickness="2 2 0 0"
+				BorderBrush="{StaticResource LightBorderBrush}" />
+		</Border>
+	</Grid>
+</UserControl>

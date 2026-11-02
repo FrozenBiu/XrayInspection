@@ -1,0 +1,209 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlTestcardSimHistogram" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS" xmlns:image="clr-namespace:XrsImage;assembly=XrsImage" xmlns:seso="clr-namespace:SesoPlot;assembly=Sesoplot"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="*" />
+			<ColumnDefinition
+				Width="4*" />
+			<ColumnDefinition
+				Width="5" />
+		</Grid.ColumnDefinitions>
+		<Grid
+			Column="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="1.2*" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontWeight="Bold"
+				FontSize="20"
+				Text="{Binding Path=StrInformation.LocalizedText, FallbackValue=Empfindlichkeit Information}" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrPixel.LocalizedText, FallbackValue=Empfindlichkeit Pixel}" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=PixelCount}" />
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrObjectPixel, FallbackValue=Objekt Pixel}" />
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=ObjectPixelCount}" />
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrBackgroundPixel, FallbackValue=Hintergrund Pixel}" />
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=BackgroundPixelCount}" />
+			<TextBlock
+				Grid.Row="4"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrMinimum.LocalizedText, FallbackValue=Minimum}" />
+			<TextBlock
+				Grid.Row="4"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=MinGreyvalue}" />
+			<TextBlock
+				Grid.Row="5"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrMaximum.LocalizedText, FallbackValue=Maximum}" />
+			<TextBlock
+				Grid.Row="5"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=MaxGreyvalue}" />
+			<TextBlock
+				Grid.Row="6"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrMeanValue.LocalizedText, FallbackValue=Mittelwert}" />
+			<TextBlock
+				Grid.Row="6"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=MeanGreyvalue}" />
+			<TextBlock
+				Grid.Row="7"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StrDeviation.LocalizedText, FallbackValue=Standard Abweichung}" />
+			<TextBlock
+				Grid.Row="7"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				Margin="20,0,0,0"
+				VerticalAlignment="Top"
+				FontSize="14"
+				Text="{Binding Path=StandardDeviation}" />
+		</Grid>
+		<Grid
+			Column="1"
+			Background="#FFFFFFFF">
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="15" />
+				<RowDefinition
+					Height="*" />
+				<RowDefinition
+					Height="15" />
+			</Grid.RowDefinitions>
+			<TextBlock
+				Grid.Row="0"
+				Text="Counts"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Margin="30,0,0,0" />
+			<seso:SesoPlot
+				Name="plot"
+				Grid.Row="1"
+				MinimumX="0"
+				MinimumY="0"
+				MaximumX="11000"
+				MajorTicksX="500"
+				MajorTicksY="200"
+				MinorTicksX="50"
+				MinorTicksY="50"
+				DrawMinorGridLinesHorizontal="True"
+				DrawMinorGridLinesVertical="True"
+				Margin="0,-40,-20,-15"
+				MaximumXLimit="11000"
+				MaximumY="{Binding MaxY}">
+				<seso:SesoPlot.Graphs>
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF008000"
+						StrokeThickness="1"
+						Points="{Binding PlotPoints}" />
+					<seso:Graph
+						GraphType="Linear"
+						Stroke="#FF808080"
+						StrokeDashArray="2 4"
+						StrokeThickness="2"
+						Points="{Binding BackgroundLevel}" />
+				</seso:SesoPlot.Graphs>
+			</seso:SesoPlot>
+			<TextBlock
+				Grid.Row="2"
+				Text="Greyvalues"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				Margin="0,0,0,0" />
+		</Grid>
+	</Grid>
+</UserControl>

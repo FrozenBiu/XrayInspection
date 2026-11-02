@@ -1,0 +1,304 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlIPConfiguration" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Background="#e7efc5"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Loaded="CtrlIPConfiguration_Loaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="14" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Left" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type Label}"
+				x:Key="{x:Type Label}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="14" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type l:IPAddressBox}"
+				x:Key="{x:Type l:IPAddressBox}">
+				<Setter
+					Property="Margin"
+					Value="5" />
+				<Setter
+					Property="Width"
+					Value="250" />
+				<Setter
+					Property="HorizontalAlignment"
+					Value="Left" />
+				<Setter
+					Property="FontSize"
+					Value="27" />
+			</Style>
+			<Style
+				TargetType="{x:Type l:RadioButtonExtended}"
+				BasedOn="{StaticResource {x:Type RadioButton}}"
+				x:Key="{x:Type l:RadioButtonExtended}" />
+			<l:BoolGridLengthAutoConverter
+				x:Key="boolGridLengthAutoConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<ScrollViewer>
+		<Grid
+			Margin="50 10 50 10">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid
+				Row="0">
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="Auto" />
+					<ColumnDefinition
+						Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<RadioButton
+					Name="btnObtainIPAutomatically"
+					GroupName="IPSelectionType"
+					Margin="5 5 5 5"
+					CommandParameter="True"
+					IsChecked="{Binding NIC.DHCPEnabled, Mode=OneWay}"
+					Command="{Binding NIC.SetDHCPConfigCommand, Mode=OneWay}" />
+				<TextBlock
+					Grid.Column="1"
+					VerticalAlignment="Center"
+					Grid.ColumnSpan="2"
+					Text="{Binding StrObtainIPAutomatically.LocalizedText}" />
+				<Border
+					Grid.Row="1"
+					BorderBrush="#7f7f7f"
+					BorderThickness="1"
+					Margin="0 28 0 0"
+					Grid.ColumnSpan="3" />
+				<Grid
+					Row="1"
+					ColumnSpan="3">
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="Auto" />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="200" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<RadioButton
+						Name="btnDefineIPManually"
+						GroupName="IPSelectionType"
+						Margin="5 7 0 5"
+						CommandParameter="False"
+						IsChecked="{Binding NIC.IPStatic, Mode=OneWay}"
+						Command="{Binding NIC.SetDHCPConfigCommand}" />
+					<Border
+						Grid.Column="1"
+						Grid.ColumnSpan="2"
+						Margin="0 0 50 0"
+						Background="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+						<Label
+							Grid.Column="1"
+							Content="{Binding StrUseFollowingIP.LocalizedText}" />
+					</Border>
+					<TextBlock
+						Grid.Row="1"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						Margin="20 0 0 0"
+						Text="{Binding StrIPAddress.LocalizedText}" />
+					<l:IPAddressBox
+						Grid.Row="1"
+						Grid.Column="2"
+						MaxHeight="40"
+						IPAddress="{Binding NIC.IPAddress}"
+						IsEnabled="{Binding NIC.IPStatic}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetIPAddressCommand}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						Margin="20 0 0 0"
+						Text="{Binding StrSubnetMask.LocalizedText}" />
+					<l:IPAddressBox
+						Grid.Row="2"
+						Grid.Column="2"
+						Margin="5"
+						IsSubnetMask="True"
+						MaxHeight="40"
+						IPAddress="{Binding NIC.SubnetMask}"
+						IsEnabled="{Binding NIC.IPStatic}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetSubnetMaskCommand}" />
+					<TextBlock
+						Grid.Row="3"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						Margin="20 0 0 5"
+						Text="{Binding StrDefaultGateway.LocalizedText}" />
+					<l:IPAddressBox
+						Grid.Row="3"
+						Grid.Column="2"
+						Margin="5"
+						MaxHeight="40"
+						IPAddress="{Binding NIC.DefaultGateway}"
+						IsEnabled="{Binding NIC.IPStatic}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetGatewayCommand}" />
+				</Grid>
+			</Grid>
+			<Grid
+				Row="1"
+				Margin="0 20 0 0">
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="{Binding NIC.DHCPEnabled, Converter={StaticResource boolGridLengthAutoConverter}}" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="Auto" />
+					<ColumnDefinition
+						Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<l:RadioButtonExtended
+					Name="btnObtainDNSAutomatically"
+					GroupName="DNSSelectionType"
+					Margin="5 5 5 5"
+					CommandParameter="True"
+					IsCheckedReal="{Binding NIC.DNSAutomaticReal, Mode=OneWay}"
+					Command="{Binding NIC.SetDNSConfigCommand}" />
+				<TextBlock
+					Grid.Column="1"
+					VerticalAlignment="Center"
+					Grid.ColumnSpan="2"
+					Text="{Binding StrObtainDNSAutomatically.LocalizedText}" />
+				<Border
+					Grid.Row="1"
+					BorderBrush="#7f7f7f"
+					BorderThickness="1"
+					Margin="0 28 0 0"
+					Grid.ColumnSpan="3" />
+				<Grid
+					Row="1"
+					ColumnSpan="3">
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="Auto" />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="200" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<l:RadioButtonExtended
+						Name="btnDefineDNSManually"
+						GroupName="DNSSelectionType"
+						Margin="5 7 0 5"
+						CommandParameter="False"
+						IsCheckedReal="{Binding NIC.DNSStatic, Mode=OneWay}"
+						Command="{Binding NIC.SetDNSConfigCommand}" />
+					<Border
+						Grid.Column="1"
+						Grid.ColumnSpan="2"
+						Margin="0 0 50 0"
+						Background="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+						<Label
+							Grid.Column="1"
+							Content="{Binding StrUseFollowingDNS.LocalizedText}" />
+					</Border>
+					<TextBlock
+						Grid.Row="1"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						Margin="20 0 0 0"
+						Text="{Binding StrPreferredDNSServer.LocalizedText}" />
+					<l:IPAddressBox
+						Name="ipPreferredDNS"
+						Grid.Row="1"
+						Grid.Column="2"
+						Margin="5"
+						MaxHeight="40"
+						IsEnabled="{Binding NIC.DNSStatic}"
+						IPAddress="{Binding NIC.PreferredDNS}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetPreferredDNSCommand}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						Margin="20 0 0 0"
+						Text="{Binding StrAlternateDNSServer.LocalizedText}" />
+					<l:IPAddressBox
+						Name="ipAlternateDNS"
+						Grid.Row="2"
+						Grid.Column="2"
+						Margin="5"
+						MaxHeight="40"
+						IsEnabled="{Binding NIC.DNSStatic}"
+						IPAddress="{Binding NIC.AlternateDNS}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding SetAlternateDNSCommand}" />
+				</Grid>
+			</Grid>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

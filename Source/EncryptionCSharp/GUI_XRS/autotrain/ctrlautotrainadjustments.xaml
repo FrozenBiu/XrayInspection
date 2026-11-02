@@ -1,0 +1,361 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAutotrainAdjustments" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Unloaded="CtrlAutotrainAdjustments_Unloaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:DoubleStringConverterPrec1
+				x:Key="doubleStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Margin"
+					Value="65 0 65 0" />
+			</Style>
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid
+		Name="mainGrid"
+		Margin="12 24 12 24">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border
+			Grid.Row="0"
+			BorderBrush="#a8a8a8"
+			BorderThickness="1"
+			Background="#d1d1d1"
+			Margin="0 0 0 12">
+			<ScrollViewer>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="3*" />
+						<ColumnDefinition
+							Width="2*" />
+						<ColumnDefinition
+							Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="{Binding IsXRayPowerAdjustmentVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding IsAutoEdgeFilterVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding IsEdgeFilterVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding CanFilterVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding AdvancedFiltersVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding SizeFilterForTrainingVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding IsBulkOptionVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding ImpurityFinderSettingsVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding ContaminationCountVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+						<RowDefinition
+							Height="{Binding AnomalyDetectionTrainVisible, Converter={StaticResource boolGridLengthStarConverter}}" />
+					</Grid.RowDefinitions>
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.RowSpan="11"
+						Background="#e7efc5"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 1 0" />
+					<Border
+						Grid.Row="0"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="4"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="5"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="6"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="7"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="8"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="9"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="10"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<Border
+						Grid.Row="11"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						BorderBrush="#b6b6b6"
+						BorderThickness="0 0 0 1" />
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="{Binding Path=StrXRayPower.LocalizedText, FallbackValue=Einstellung Röntgenleistung}" />
+					<Button
+						Style="{StaticResource defaultButtonStyle}"
+						Grid.Row="0"
+						Grid.Column="2"
+						Margin="5"
+						Command="{Binding ShowAutokVSettingsCommand}">
+						<Image
+							Source="../img/settings.png"
+							Height="40" />
+					</Button>
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Text="{Binding Path=StrAutoEdgeFilterActive.LocalizedText, FallbackValue=AutoKantenfilter aktiv}" />
+					<CheckBox
+						Grid.Row="1"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=IsAutoEdgeFilterEnabled}" />
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						Text="{Binding Path=StrEdgeFilterActive.LocalizedText, FallbackValue=Kantenfilter aktiv}" />
+					<CheckBox
+						Grid.Row="2"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=IsEdgeFilterEnabled}" />
+					<Button
+						Style="{StaticResource defaultButtonStyle}"
+						Grid.Row="2"
+						Grid.Column="2"
+						Command="{Binding ShowNEdgePixelControlCommand}">
+						<Image
+							Source="../img/filter.png"
+							Height="40" />
+					</Button>
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="{Binding Path=StrCanFilterActive.LocalizedText, FallbackValue=Dosenfilter aktiv}" />
+					<CheckBox
+						Grid.Row="3"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=IsCanFilterEnabled}" />
+					<Button
+						Style="{StaticResource defaultButtonStyle}"
+						Grid.Row="3"
+						Grid.Column="2"
+						Command="{Binding ShowCanFilterControlCommand}">
+						<Image
+							Source="../img/filter.png"
+							Height="40" />
+					</Button>
+					<TextBlock
+						Grid.Row="4"
+						Grid.Column="0"
+						Text="{Binding Path=StrIgnoreClip.LocalizedText, FallbackValue=Clip ignorieren}" />
+					<CheckBox
+						Grid.Row="4"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=Acq.IgnoreClip}" />
+					<TextBlock
+						Grid.Row="5"
+						Grid.Column="0"
+						Text="{Binding Path=StrActivateImageSize.LocalizedText, FallbackValue=Bildgröße aktivieren}" />
+					<CheckBox
+						Grid.Row="5"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=IsSizeFilterEnabled}" />
+					<TextBlock
+						Grid.Row="6"
+						Text="{Binding Path=StrBulkShowContImages.LocalizedText, FallbackValue=Bilder mit Verunreinigungen anzeigen}" />
+					<CheckBox
+						Grid.Row="6"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=BulkContImagesShown, Mode=TwoWay}" />
+					<TextBlock
+						Grid.Row="7"
+						Grid.Column="0"
+						Text="{Binding Path=StrImpurityFinderSettings.LocalizedText, FallbackValue=Einstellung Filter für Verunreinigungen}" />
+					<Button
+						Style="{StaticResource defaultButtonStyle}"
+						Grid.Row="7"
+						Grid.Column="2"
+						Margin="5"
+						Command="{Binding ShowImpurityFinderSettingsCommand}">
+						<Image
+							Source="../img/settings.png"
+							Height="40" />
+					</Button>
+					<TextBlock
+						Grid.Row="8"
+						Grid.Column="0"
+						Text="{Binding Path=StrCountContaminations.LocalizedText, FallbackValue=Verunreinigungen zählen}"
+						Visibility="{Binding Path=ContaminationCountVisible, Converter={StaticResource bVisConverter}}" />
+					<CheckBox
+						Grid.Row="8"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=IsContaminationCountEnabled}"
+						Visibility="{Binding Path=ContaminationCountVisible, Converter={StaticResource bVisConverter}}" />
+					<TextBlock
+						Grid.Row="9"
+						Grid.Column="0"
+						Text="{Binding Path=StrAnomalyDetectionTrain.LocalizedText, FallbackValue=Anomalieerkennung Training aktiv}"
+						Visibility="{Binding Path=AnomalyDetectionTrainVisible, Converter={StaticResource bVisConverter}}" />
+					<CheckBox
+						Grid.Row="9"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsChecked="{Binding Path=AnomalyDetectionTrainingOnOff}"
+						Visibility="{Binding Path=AnomalyDetectionTrainVisible, Converter={StaticResource bVisConverter}}" />
+				</Grid>
+			</ScrollViewer>
+		</Border>
+	</Grid>
+</UserControl>

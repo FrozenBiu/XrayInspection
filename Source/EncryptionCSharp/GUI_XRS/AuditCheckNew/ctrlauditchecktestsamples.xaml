@@ -1,0 +1,602 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlAuditCheckTestsamples" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:l="clr-namespace:GUI_XRS" xmlns:tk="http://schemas.microsoft.com/wpf/2008/toolkit"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	common:ControlCommandBehavior.UnloadedCommand="{Binding CleanUpCommand}"
+	Unloaded="AuditCheck_Unloaded"
+	Loaded="AuditCheck_Loaded">
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:BoolToStringConverter
+				x:Key="bStringConverter" />
+			<l:DoubleStringConverterPrec1
+				x:Key="doubleStringConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisConverter" />
+			<l:IVPMaterialStringConverter
+				x:Key="materialStringConverter" />
+			<l:IVPOneMaterialStringConverter
+				x:Key="materialStringConverter2" />
+			<l:IVPTestCardSizeStringConverter
+				x:Key="testCardStringConverter" />
+			<l:IVPSingleTestCardSizeStringConverter
+				x:Key="testCardStringConverter2" />
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="{x:Type TextBlock}">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Right" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+				<Setter
+					Property="TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle2">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackgroundEnabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#cfcfcf" />
+							<GradientStop
+								Offset="0.02"
+								Color="#e9e9e9" />
+							<GradientStop
+								Offset="0.03"
+								Color="#f1f1f1" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorderEnabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#bebebe" />
+							<GradientStop
+								Offset="0.10"
+								Color="#d8d8d8" />
+							<GradientStop
+								Offset="0.9"
+								Color="#d8d8d8" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBackgroundDisabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorderDisabled"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type TextBox}">
+							<Border
+								CornerRadius="3"
+								BorderThickness="2"
+								Padding="{TemplateBinding Padding}">
+								<FrameworkElement.Style>
+									<Style
+										TargetType="{x:Type Border}">
+										<Style.Triggers>
+											<Trigger
+												Property="IsEnabled"
+												Value="True">
+												<Setter
+													Property="Background"
+													Value="{DynamicResource textBoxBackgroundEnabled}" />
+												<Setter
+													Property="BorderBrush"
+													Value="{DynamicResource textBoxBorderEnabled}" />
+											</Trigger>
+											<Trigger
+												Property="IsEnabled"
+												Value="False">
+												<Setter
+													Property="Background"
+													Value="{DynamicResource textBoxBackgroundDisabled}" />
+												<Setter
+													Property="BorderBrush"
+													Value="{DynamicResource textBoxBorderDisabled}" />
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</FrameworkElement.Style>
+								<ScrollViewer
+									Name="PART_ContentHost"
+									Margin="0" />
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="65 0 50 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="disabledTextBox">
+				<Style.Resources>
+					<ResourceDictionary>
+						<LinearGradientBrush
+							x:Key="textBoxBackground"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.00"
+								Color="#adadad" />
+							<GradientStop
+								Offset="0.02"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.03"
+								Color="#c7c7c7" />
+						</LinearGradientBrush>
+						<LinearGradientBrush
+							x:Key="textBoxBorder"
+							StartPoint="0,0"
+							EndPoint="0,1">
+							<GradientStop
+								Offset="0.01"
+								Color="#9f9f9f" />
+							<GradientStop
+								Offset="0.10"
+								Color="#bababa" />
+							<GradientStop
+								Offset="0.9"
+								Color="#bababa" />
+							<GradientStop
+								Offset="1.00"
+								Color="#e6e6e6" />
+						</LinearGradientBrush>
+					</ResourceDictionary>
+				</Style.Resources>
+				<Setter
+					Property="Margin"
+					Value="65 0 65 0" />
+			</Style>
+			<l:BoolGridLengthStarConverter
+				x:Key="boolGridLengthStarConverter" />
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<ScrollViewer
+			HorizontalScrollBarVisibility="Visible"
+			VerticalScrollBarVisibility="Hidden"
+			Margin=" 12 24 12 0">
+			<FrameworkElement.Resources>
+				<ResourceDictionary />
+			</FrameworkElement.Resources>
+			<Grid
+				Margin="0 0 0 26">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Border
+					Grid.Row="0"
+					BorderBrush="#a8a8a8"
+					BorderThickness="1"
+					Background="#d1d1d1"
+					Margin="0 0 0 12">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="1.4*"
+								MinWidth="230" />
+							<ColumnDefinition
+								Width="*"
+								MinWidth="200" />
+							<ColumnDefinition
+								Width="*"
+								MinWidth="260" />
+							<ColumnDefinition
+								Width="*"
+								MinWidth="140" />
+							<ColumnDefinition
+								Width="*"
+								MinWidth="180" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Border
+							Grid.Row="0"
+							Grid.Column="0"
+							Grid.RowSpan="11"
+							Background="#e7efc5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<Border
+							Grid.Column="0"
+							Grid.Row="0"
+							Grid.ColumnSpan="5"
+							Background="#e7efc5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<Border
+							Grid.Row="0"
+							Grid.Column="0"
+							Grid.ColumnSpan="5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 0 1" />
+						<Border
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 0 1" />
+						<Border
+							Grid.Row="2"
+							Grid.Column="0"
+							Grid.ColumnSpan="5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 0 1" />
+						<Border
+							Grid.Row="3"
+							Grid.Column="0"
+							Grid.ColumnSpan="5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 0 1" />
+						<Border
+							Grid.Row="4"
+							Grid.Column="0"
+							Grid.ColumnSpan="5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 0 1" />
+						<Border
+							Grid.Row="5"
+							Grid.Column="0"
+							Grid.ColumnSpan="5"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 0 1" />
+						<Border
+							Grid.Row="0"
+							Grid.Column="0"
+							Grid.RowSpan="6"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<Border
+							Grid.Row="0"
+							Grid.Column="1"
+							Grid.RowSpan="6"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<Border
+							Grid.Row="0"
+							Grid.Column="2"
+							Grid.RowSpan="6"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<Border
+							Grid.Row="0"
+							Grid.Column="3"
+							Grid.RowSpan="6"
+							BorderBrush="#b6b6b6"
+							BorderThickness="0 0 1 0" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="0"
+							HorizontalAlignment="Center"
+							Text="{Binding Path=StrMaterial.LocalizedText, FallbackValue=Material}" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="2"
+							HorizontalAlignment="Center"
+							Text="{Binding Path=StrBallSize.LocalizedText, FallbackValue=Ball size}" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="1"
+							HorizontalAlignment="Center"
+							Text="{Binding Path=StrTestcardSize.LocalizedText, FallbackValue=Testcard Size}" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="3"
+							HorizontalAlignment="Center"
+							Text="{Binding Path=StrNumberOfBalls.LocalizedText, FallbackValue=Number}" />
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="4"
+							HorizontalAlignment="Center"
+							Text="{Binding Path=StrINNumber.LocalizedText, FallbackValue=Numer (ID), StringFormat={}{0} (ID)}" />
+						<ComboBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding MaterialList, Converter={StaticResource materialStringConverter}}"
+							SelectedItem="{Binding SelectedMaterial1, Mode=TwoWay, Converter={StaticResource materialStringConverter2}}" />
+						<ComboBox
+							Grid.Row="2"
+							Grid.Column="0"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding MaterialList, Converter={StaticResource materialStringConverter}}"
+							SelectedItem="{Binding SelectedMaterial2, Mode=TwoWay, Converter={StaticResource materialStringConverter2}}" />
+						<ComboBox
+							Grid.Row="3"
+							Grid.Column="0"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding MaterialList, Converter={StaticResource materialStringConverter}}"
+							SelectedItem="{Binding SelectedMaterial3, Mode=TwoWay, Converter={StaticResource materialStringConverter2}}" />
+						<ComboBox
+							Grid.Row="4"
+							Grid.Column="0"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding MaterialList, Converter={StaticResource materialStringConverter}}"
+							SelectedItem="{Binding SelectedMaterial4, Mode=TwoWay, Converter={StaticResource materialStringConverter2}}" />
+						<ComboBox
+							Grid.Row="5"
+							Grid.Column="0"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding MaterialList, Converter={StaticResource materialStringConverter}}"
+							SelectedItem="{Binding SelectedMaterial5, Mode=TwoWay, Converter={StaticResource materialStringConverter2}}" />
+						<ComboBox
+							Grid.Row="1"
+							Grid.Column="1"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestCardSize1, Converter={StaticResource testCardStringConverter}}"
+							SelectedItem="{Binding SelectedTestCardSize1, Mode=TwoWay, Converter={StaticResource testCardStringConverter2}}" />
+						<ComboBox
+							Grid.Row="2"
+							Grid.Column="1"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestCardSize2, Converter={StaticResource testCardStringConverter}}"
+							SelectedItem="{Binding SelectedTestCardSize2, Mode=TwoWay, Converter={StaticResource testCardStringConverter2}}" />
+						<ComboBox
+							Grid.Row="3"
+							Grid.Column="1"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestCardSize3, Converter={StaticResource testCardStringConverter}}"
+							SelectedItem="{Binding SelectedTestCardSize3, Mode=TwoWay, Converter={StaticResource testCardStringConverter2}}" />
+						<ComboBox
+							Grid.Row="4"
+							Grid.Column="1"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestCardSize4, Converter={StaticResource testCardStringConverter}}"
+							SelectedItem="{Binding SelectedTestCardSize4, Mode=TwoWay, Converter={StaticResource testCardStringConverter2}}" />
+						<ComboBox
+							Grid.Row="5"
+							Grid.Column="1"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestCardSize5, Converter={StaticResource testCardStringConverter}}"
+							SelectedItem="{Binding SelectedTestCardSize5, Mode=TwoWay, Converter={StaticResource testCardStringConverter2}}" />
+						<ComboBox
+							Grid.Row="1"
+							Grid.Column="2"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestBallSize1}"
+							SelectedItem="{Binding SelectedTestBallSize1, Mode=TwoWay}" />
+						<ComboBox
+							Grid.Row="2"
+							Grid.Column="2"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestBallSize2}"
+							SelectedItem="{Binding SelectedTestBallSize2, Mode=TwoWay}" />
+						<ComboBox
+							Grid.Row="3"
+							Grid.Column="2"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestBallSize3}"
+							SelectedItem="{Binding SelectedTestBallSize3, Mode=TwoWay}" />
+						<ComboBox
+							Grid.Row="4"
+							Grid.Column="2"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestBallSize4}"
+							SelectedItem="{Binding SelectedTestBallSize4, Mode=TwoWay}" />
+						<ComboBox
+							Grid.Row="5"
+							Grid.Column="2"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							ScrollViewer.PanningMode="None"
+							ItemsSource="{Binding TestBallSize5}"
+							SelectedItem="{Binding SelectedTestBallSize5, Mode=TwoWay}" />
+						<TextBox
+							Grid.Row="1"
+							Grid.Column="3"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Style="{StaticResource TextBoxStyle2}"
+							Text="{Binding NumberTestBalls1}"
+							IsEnabled="{Binding TextBoxVisible1}"
+							MouseUp="TextBox_MouseUp1" />
+						<TextBox
+							Grid.Row="2"
+							Grid.Column="3"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Style="{StaticResource TextBoxStyle2}"
+							Text="{Binding NumberTestBalls2}"
+							IsEnabled="{Binding TextBoxVisible2}"
+							MouseUp="TextBox_MouseUp2" />
+						<TextBox
+							Grid.Row="3"
+							Grid.Column="3"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Style="{StaticResource TextBoxStyle2}"
+							Text="{Binding NumberTestBalls3}"
+							IsEnabled="{Binding TextBoxVisible3}"
+							MouseUp="TextBox_MouseUp3" />
+						<TextBox
+							Grid.Row="4"
+							Grid.Column="3"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Style="{StaticResource TextBoxStyle2}"
+							Text="{Binding NumberTestBalls4}"
+							IsEnabled="{Binding TextBoxVisible4}"
+							MouseUp="TextBox_MouseUp4" />
+						<TextBox
+							Grid.Row="5"
+							Grid.Column="3"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Style="{StaticResource TextBoxStyle2}"
+							Text="{Binding NumberTestBalls5}"
+							IsEnabled="{Binding TextBoxVisible5}"
+							MouseUp="TextBox_MouseUp5" />
+						<TextBox
+							Grid.Row="1"
+							Grid.Column="4"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Text="{Binding INNumber1}"
+							MouseUp="MouseUp_INNumber1" />
+						<TextBox
+							Grid.Row="2"
+							Grid.Column="4"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Text="{Binding INNumber2}"
+							MouseUp="MouseUp_INNumber2" />
+						<TextBox
+							Grid.Row="3"
+							Grid.Column="4"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Text="{Binding INNumber3}"
+							MouseUp="MouseUp_INNumber3" />
+						<TextBox
+							Grid.Row="4"
+							Grid.Column="4"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Text="{Binding INNumber4}"
+							MouseUp="MouseUp_INNumber4" />
+						<TextBox
+							Grid.Row="5"
+							Grid.Column="4"
+							Grid.ColumnSpan="1"
+							Margin="15 5 15 5"
+							FontSize="22"
+							Text="{Binding INNumber5}"
+							MouseUp="MouseUp_INNumber5" />
+					</Grid>
+				</Border>
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

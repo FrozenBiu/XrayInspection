@@ -1,0 +1,2408 @@
+<Window
+	x:Class="GUI_XRS.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS" xmlns:common="clr-namespace:Common;assembly=Common" xmlns:image="clr-namespace:XrsImage;assembly=XRSImage" xmlns:System="clr-namespace:System;assembly=mscorlib"
+	Name="mainWindow"
+	Icon="..\img\overview.png"
+	Title="Raycon XRS"
+	ResizeMode="NoResize"
+	WindowStartupLocation="Manual"
+	WindowStyle="None"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False"
+	Width="{Binding WindowWidth, Mode=TwoWay}"
+	Height="{Binding WindowHeight, Mode=TwoWay}"
+	WindowState="{Binding WState}"
+	common:MouseCommandBehavior.MouseUpCommand="{Binding SignalUserActivityCommand}"
+	common:ControlCommandBehavior.ClosingCommand="{Binding CloseCommand}"
+	Left="{Binding WLeft, Mode=TwoWay}"
+	Top="{Binding WTop, Mode=TwoWay}"
+	Loaded="GUI_loaded"
+	ButtonBase.Click="mainWindow_Click"
+	ContentRendered="mainWindow_ContentRendered">
+	<UIElement.InputBindings>
+		<KeyBinding
+			Modifiers="Ctrl"
+			Key="B"
+			Command="{Binding DoBackupCommand}" />
+	</UIElement.InputBindings>
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="..\MasterResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<l:BoolToVisibilityHiddenConverter
+				x:Key="bVisConverter" />
+			<l:BoolToVisibilityCollapsedConverter
+				x:Key="bVisCollapsedConverter" />
+			<l:IntToVisibilityConverter
+				x:Key="visConverter" />
+			<l:IntToVisibilityConverter1
+				x:Key="vis1Converter" />
+			<l:IntToCountMessageConverter
+				x:Key="cntConverter" />
+			<l:MachineStatesToVisibilityConverter
+				x:Key="machVisConverter" />
+			<l:MessageHeightConverter
+				x:Key="messHeightConverter" />
+			<l:BoolToTextBoxStyleConverter2
+				x:Key="bTextBoxStyleConverter" />
+			<l:ComplianceBoolToBrushConverter
+				x:Key="complianceBoolToBrushConverter" />
+			<l:BoolToBrushConverter
+				x:Key="boolBrushConverter" />
+			<l:TwoBoolBrushConverter
+				x:Key="twoBoolBrushConverter" />
+			<l:MessageTypeToButtonStyleConverter
+				x:Key="messageTypeToButtonStyleConverter" />
+			<l:WorstMessageTypeToBrushConverter
+				x:Key="worstMessageTypeToBrushConverter" />
+			<l:LaneStringConverter
+				x:Key="laneStringConverter" />
+			<l:UserRightsBoolConverter
+				x:Key="userRightsBoolConverter" />
+			<l:MachineTypeEntryOrHigherVisibilityConverter
+				x:Key="machineTypeEntryOrHigherVisibilityConverter" />
+			<l:MachineStateXrayStarterVisibilityConverter
+				x:Key="machineStateXrayStarterVisibilityConverter" />
+			<l:ResetButtonVisibilityConverter
+				x:Key="resetButtonVisibilityConverter" />
+			<l:AutolearnMachineStatesBoolConverter
+				x:Key="autolearnMachineStatesBoolConverter" />
+			<l:ProductChangeMachineStatesBoolConverter
+				x:Key="productChangeMachineStatesBoolConverter" />
+			<l:BoolToVisibilityInvertedHiddenConverter
+				x:Key="boolToVisibilityInvertedHiddenConverter" />
+			<l:StandBulkModeProductChangeMachineStatesBoolConverter
+				x:Key="standBulkModeProductChangeMachineStatesBoolConverter" />
+			<l:AutolearnMachineStatesBoolConverter2
+				x:Key="autolearnMachineStatesBoolConverter2" />
+			<l:MachineStatesToVisibilityConverterWithBulk
+				x:Key="machineStateBulkConverter" />
+			<l:AutolearnMachineStatesBoolConverterWithRefProd
+				x:Key="autolearnMachineStatesBoolConverterWithRefProd" />
+			<l:MachineStatesBoolConverterColorMessage
+				x:Key="machineStatesBoolConverterColorMessage" />
+			<l:AutolearnMachineStatesTextBoxStyleConverter
+				x:Key="autolearnMachineStatesTextBoxStyleConverter" />
+			<l:AutolearnMachineStatesSliderStyleConverter
+				x:Key="autolearnMachineStatesSlideStyleConverter" />
+			<Visibility
+				x:Key="vis">Hidden</Visibility>
+			<Style
+				TargetType="{x:Type TextBlock}"
+				x:Key="txtThresholdStyle">
+				<Setter
+					Property="VerticalAlignment"
+					Value="Center" />
+				<Setter
+					Property="FontFamily"
+					Value="Arial" />
+				<Setter
+					Property="FontWeight"
+					Value="Bold" />
+				<Setter
+					Property="FontSize"
+					Value="18" />
+				<Setter
+					Property="Foreground"
+					Value="#272727" />
+				<Setter
+					Property="TextBlock.TextAlignment"
+					Value="Left" />
+				<Setter
+					Property="Margin"
+					Value="20 0 25 0" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxStyle">
+				<Setter
+					Property="Margin"
+					Value="5 20 5 20" />
+				<Setter
+					Property="TextBox.TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<Style
+				TargetType="{x:Type TextBox}"
+				BasedOn="{StaticResource {x:Type TextBox}}"
+				x:Key="TextBoxDisabledStyle">
+				<Setter
+					Property="Margin"
+					Value="5 20 5 20" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type TextBox}">
+							<Border
+								CornerRadius="5"
+								BorderThickness="1"
+								Background="#00FFFFFF">
+								<ScrollViewer
+									Name="PART_ContentHost"
+									Margin="0"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center" />
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Setter
+					Property="TextBox.TextWrapping"
+					Value="Wrap" />
+			</Style>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="SliderDeactivatedBrush">
+				<GradientStop
+					Offset="0.00"
+					Color="#adadad" />
+				<GradientStop
+					Offset="0.02"
+					Color="#bababa" />
+				<GradientStop
+					Offset="0.03"
+					Color="#c7c7c7" />
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="SliderDeactivatedBorder">
+				<GradientStop
+					Offset="0.01"
+					Color="#9f9f9f" />
+				<GradientStop
+					Offset="0.10"
+					Color="#bababa" />
+				<GradientStop
+					Offset="0.9"
+					Color="#bababa" />
+				<GradientStop
+					Offset="1.00"
+					Color="#e6e6e6" />
+			</LinearGradientBrush>
+			<Style
+				TargetType="{x:Type l:RadioButtonExtended}"
+				x:Key="{x:Type l:RadioButtonExtended}">
+				<Setter
+					Property="Height"
+					Value="80" />
+				<Setter
+					Property="Width"
+					Value="195" />
+				<Setter
+					Property="Margin"
+					Value="0 5 0 5" />
+				<Setter
+					Property="HorizontalAlignment"
+					Value="Left" />
+			</Style>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="NormalBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#CCC"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="1,0"
+				x:Key="HorizontalNormalBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#CCC"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="LightBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#EEE"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="1,0"
+				x:Key="HorizontalLightBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#EEE"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="DarkBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#FFF"
+							Offset="0.0" />
+						<GradientStop
+							Color="#AAA"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<LinearGradientBrush
+				StartPoint="0,0"
+				EndPoint="0,1"
+				x:Key="PressedBrush">
+				<GradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop
+							Color="#BBB"
+							Offset="0.0" />
+						<GradientStop
+							Color="#EEE"
+							Offset="0.1" />
+						<GradientStop
+							Color="#EEE"
+							Offset="0.9" />
+						<GradientStop
+							Color="#FFF"
+							Offset="1.0" />
+					</GradientStopCollection>
+				</GradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<SolidColorBrush
+				Color="#888"
+				x:Key="DisabledForegroundBrush" />
+			<SolidColorBrush
+				Color="#EEE"
+				x:Key="DisabledBackgroundBrush" />
+			<SolidColorBrush
+				Color="#FFF"
+				x:Key="WindowBackgroundBrush" />
+			<SolidColorBrush
+				Color="#DDD"
+				x:Key="SelectedBackgroundBrush" />
+			<SolidColorBrush
+				Color="#444"
+				x:Key="GlyphBrush" />
+			<SolidColorBrush
+				Color="#DDD"
+				x:Key="LightColorBrush" />
+			<Style
+				TargetType="{x:Type RepeatButton}"
+				x:Key="SliderButtonStyle">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Setter
+					Property="IsTabStop"
+					Value="False" />
+				<Setter
+					Property="Focusable"
+					Value="False" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type RepeatButton}">
+							<Border
+								Background="#00FFFFFF" />
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style
+				TargetType="{x:Type Thumb}"
+				x:Key="SliderThumbStyleActivated">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Setter
+					Property="Height"
+					Value="50" />
+				<Setter
+					Property="Width"
+					Value="50" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type Thumb}">
+							<Ellipse
+								Name="Ellipse"
+								StrokeThickness="1"
+								Fill="{StaticResource NormalBrush}"
+								Stroke="{StaticResource NormalBorderBrush}" />
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="UIElement.IsMouseOver"
+									Value="True">
+									<Setter
+										TargetName="Ellipse"
+										Property="Fill"
+										Value="{StaticResource DarkBrush}" />
+								</Trigger>
+								<Trigger
+									Property="IsEnabled"
+									Value="False">
+									<Setter
+										TargetName="Ellipse"
+										Property="Fill"
+										Value="{StaticResource DisabledBackgroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style
+				TargetType="{x:Type Thumb}"
+				x:Key="SliderThumbStyleDeactivated">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Setter
+					Property="Height"
+					Value="50" />
+				<Setter
+					Property="Width"
+					Value="50" />
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type Thumb}">
+							<Ellipse
+								Name="Ellipse"
+								StrokeThickness="1"
+								Fill="{StaticResource SliderDeactivatedBrush}"
+								Stroke="{StaticResource SliderDeactivatedBorder}" />
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="UIElement.IsMouseOver"
+									Value="True">
+									<Setter
+										TargetName="Ellipse"
+										Property="Fill"
+										Value="{StaticResource SliderDeactivatedBrush}" />
+								</Trigger>
+								<Trigger
+									Property="IsEnabled"
+									Value="False">
+									<Setter
+										TargetName="Ellipse"
+										Property="Fill"
+										Value="{StaticResource SliderDeactivatedBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<ControlTemplate
+				TargetType="{x:Type Slider}"
+				x:Key="VerticalSliderActivated">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto"
+							MinWidth="{TemplateBinding MinWidth}" />
+						<ColumnDefinition
+							Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TickBar
+						Name="TopTick"
+						SnapsToDevicePixels="True"
+						Placement="Left"
+						Width="4"
+						Visibility="Collapsed"
+						Fill="{StaticResource GlyphBrush}" />
+					<Border
+						Name="TrackBackground"
+						Margin="0"
+						CornerRadius="2"
+						Width="10"
+						Grid.Column="1"
+						BorderThickness="1"
+						Background="{StaticResource HorizontalLightBrush}"
+						BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+					<Track
+						Name="PART_Track"
+						Grid.Column="1">
+						<Track.DecreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.DecreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.DecreaseRepeatButton>
+						<Track.Thumb>
+							<Thumb
+								Style="{StaticResource SliderThumbStyleActivated}" />
+						</Track.Thumb>
+						<Track.IncreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.IncreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.IncreaseRepeatButton>
+					</Track>
+					<TickBar
+						Name="BottomTick"
+						SnapsToDevicePixels="True"
+						Grid.Column="2"
+						Fill="{TemplateBinding Foreground}"
+						Placement="Right"
+						Width="4"
+						Visibility="Collapsed" />
+				</Grid>
+				<ControlTemplate.Triggers>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="TopLeft">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="BottomRight">
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="Both">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+			<ControlTemplate
+				TargetType="{x:Type Slider}"
+				x:Key="VerticalSliderDeactivated">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="Auto" />
+						<ColumnDefinition
+							Width="Auto"
+							MinWidth="{TemplateBinding MinWidth}" />
+						<ColumnDefinition
+							Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TickBar
+						Name="TopTick"
+						SnapsToDevicePixels="True"
+						Placement="Left"
+						Width="4"
+						Visibility="Collapsed"
+						Fill="{StaticResource GlyphBrush}" />
+					<Border
+						Name="TrackBackground"
+						Margin="0"
+						CornerRadius="2"
+						Width="10"
+						Grid.Column="1"
+						BorderThickness="1"
+						Background="{StaticResource SliderDeactivatedBrush}"
+						BorderBrush="{StaticResource SliderDeactivatedBorder}" />
+					<Track
+						Name="PART_Track"
+						Grid.Column="1">
+						<Track.DecreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.DecreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.DecreaseRepeatButton>
+						<Track.Thumb>
+							<Thumb
+								Style="{StaticResource SliderThumbStyleDeactivated}" />
+						</Track.Thumb>
+						<Track.IncreaseRepeatButton>
+							<RepeatButton
+								Command="Slider.IncreaseLarge"
+								Style="{StaticResource SliderButtonStyle}" />
+						</Track.IncreaseRepeatButton>
+					</Track>
+					<TickBar
+						Name="BottomTick"
+						SnapsToDevicePixels="True"
+						Grid.Column="2"
+						Fill="{TemplateBinding Foreground}"
+						Placement="Right"
+						Width="4"
+						Visibility="Collapsed" />
+				</Grid>
+				<ControlTemplate.Triggers>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="TopLeft">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="BottomRight">
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+					<Trigger
+						Property="Slider.TickPlacement"
+						Value="Both">
+						<Setter
+							TargetName="TopTick"
+							Property="Visibility"
+							Value="Visible" />
+						<Setter
+							TargetName="BottomTick"
+							Property="Visibility"
+							Value="Visible" />
+					</Trigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+			<Style
+				TargetType="{x:Type Slider}"
+				x:Key="activatedSliderStyle">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Style.Triggers>
+					<Trigger
+						Property="Slider.Orientation"
+						Value="Vertical">
+						<Setter
+							Property="MinWidth"
+							Value="21" />
+						<Setter
+							Property="MinHeight"
+							Value="104" />
+						<Setter
+							Property="Template"
+							Value="{StaticResource VerticalSliderActivated}" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+			<Style
+				TargetType="{x:Type Slider}"
+				x:Key="deactivatedSliderStyle">
+				<Setter
+					Property="UIElement.SnapsToDevicePixels"
+					Value="True" />
+				<Setter
+					Property="FrameworkElement.OverridesDefaultStyle"
+					Value="True" />
+				<Style.Triggers>
+					<Trigger
+						Property="Slider.Orientation"
+						Value="Vertical">
+						<Setter
+							Property="MinWidth"
+							Value="21" />
+						<Setter
+							Property="MinHeight"
+							Value="104" />
+						<Setter
+							Property="Template"
+							Value="{StaticResource VerticalSliderDeactivated}" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+	<Grid>
+		<DockPanel
+			LastChildFill="True">
+			<Border
+				BorderBrush="#8e9192"
+				BorderThickness="0,0,0,1"
+				DockPanel.Dock="Top"
+				Height="{Binding Source={StaticResource MainWindowHeaderHeight}}">
+				<Border.Background>
+					<LinearGradientBrush
+						StartPoint="0,0"
+						EndPoint="0,1">
+						<GradientStop
+							Offset="0.00"
+							Color="#98bd08" />
+						<GradientStop
+							Offset="1.00"
+							Color="#b8e409" />
+					</LinearGradientBrush>
+				</Border.Background>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<StackPanel
+						Orientation="Horizontal"
+						Grid.Column="0">
+						<Image
+							Margin="20 0 20 0"
+							Stretch="None"
+							Source="{Binding Path=SelectedBranding.CompanyLogo}" />
+						<Label
+							Width="400"
+							VerticalContentAlignment="Center"
+							FontSize="16"
+							FontWeight="Bold"
+							Foreground="#414141"
+							FontFamily="Verdana"
+							Content="{Binding Path=SelectedBranding.MachineDescription}" />
+					</StackPanel>
+					<Button
+						Name="buttonScreenshot"
+						Style="{StaticResource okButtonStyle}"
+						Width="50"
+						Height="50"
+						Grid.Column="1"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Bottom"
+						Opacity="0"
+						MouseDoubleClick="buttonScreenshot_Click" />
+				</Grid>
+			</Border>
+			<Border
+				BorderBrush="#8e9192"
+				BorderThickness="0,1,0,0"
+				DockPanel.Dock="Bottom"
+				Height="{Binding Source={StaticResource MainWindowFooterHeight}}">
+				<Border.Background>
+					<LinearGradientBrush
+						StartPoint="0,0"
+						EndPoint="0,1">
+						<GradientStop
+							Offset="0.00"
+							Color="#d2d2d2" />
+						<GradientStop
+							Offset="1.00"
+							Color="#b8b8b8" />
+					</LinearGradientBrush>
+				</Border.Background>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="200" />
+						<ColumnDefinition
+							Width="200" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Border
+						BorderBrush="#e3e7ea"
+						BorderThickness="0 0 1 0"
+						Grid.Column="0">
+						<TextBlock
+							TextAlignment="Center"
+							VerticalAlignment="Center"
+							Foreground="#383838"
+							FontFamily="Verdana"
+							FontSize="15"
+							Text="{Binding Path=Time}"
+							common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeTimeCommand}" />
+					</Border>
+					<Border
+						BorderThickness="1 0 1 0"
+						Grid.Column="1"
+						Padding="10 0 10 0">
+						<Border.BorderBrush>
+							<LinearGradientBrush
+								StartPoint="0,0"
+								EndPoint="1,0">
+								<GradientStop
+									Offset="0.5"
+									Color="#8e9192" />
+								<GradientStop
+									Offset="0.5"
+									Color="#e3e7ea" />
+								<GradientStop
+									Offset="1.0"
+									Color="#e3e7ea" />
+							</LinearGradientBrush>
+						</Border.BorderBrush>
+						<Button
+							Name="btnChangeUser"
+							Command="{Binding ChangeUserCommand}"
+							Visibility="{Binding Path=FirstApplicationLoaded, Converter={StaticResource bVisConverter}}">
+							<StackPanel
+								Orientation="Horizontal"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center">
+								<Image
+									Source="..\img\changeuser_small.png"
+									Stretch="None"
+									Margin="0 0 7 0" />
+								<TextBlock
+									Name="tbUser"
+									VerticalAlignment="Center"
+									Text="{Binding Path=CurrentUser.Username}" />
+							</StackPanel>
+						</Button>
+					</Border>
+					<Border
+						BorderBrush="#8e9192"
+						BorderThickness="1 0 0 0"
+						Grid.Column="2"
+						Padding="0 0 0 0">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition
+									Width="Auto" />
+								<ColumnDefinition
+									Width="40" />
+								<ColumnDefinition
+									Width="Auto" />
+								<ColumnDefinition
+									Width="100" />
+								<ColumnDefinition
+									Width="10" />
+								<ColumnDefinition
+									Width="50" />
+								<ColumnDefinition />
+								<ColumnDefinition
+									Width="60" />
+							</Grid.ColumnDefinitions>
+							<Image
+								Name="XrayOnIcon"
+								Grid.Column="0"
+								Stretch="Uniform"
+								Margin="10 4 0 4"
+								Source="{Binding XRayImage}"
+								Visibility="{Binding Path=machineState.XRayOnIndicator, Converter={StaticResource bVisConverter}}" />
+							<Image
+								Name="InspectingIcon"
+								Height="20"
+								Grid.Column="1"
+								Margin="0"
+								Source="..\img\product_xray.png"
+								Stretch="Uniform"
+								Visibility="{Binding Path=machineState.Inspecting, Converter={StaticResource bVisConverter}}" />
+							<Image
+								Name="DataLoggingIcon"
+								Grid.Column="2"
+								Margin="5 2 5 2"
+								Source="..\img\dataplotter.png"
+								Stretch="Uniform"
+								Visibility="{Binding Path=logger.ShowLoggerIcon, Converter={StaticResource bVisConverter}, FallbackValue=Hidden}" />
+							<Button
+								Name="btnMessageSystem"
+								Grid.Column="3"
+								common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+								Visibility="{Binding Path=ErrorMessages.Count, Converter={StaticResource visConverter}}">
+								<FrameworkElement.Style>
+									<MultiBinding
+										Converter="{StaticResource messageTypeToButtonStyleConverter}">
+										<MultiBinding.Bindings>
+											<Binding
+												RelativeSource="{RelativeSource Self}" />
+											<Binding
+												Path="WorstMessageType" />
+										</MultiBinding.Bindings>
+									</MultiBinding>
+								</FrameworkElement.Style>
+								<FrameworkElement.Resources>
+									<ResourceDictionary>
+										<Style
+											TargetType="{x:Type Label}"
+											x:Key="messageSystemLabelStyle">
+											<Setter
+												Property="FontFamily"
+												Value="Helvetica" />
+											<Setter
+												Property="FontSize"
+												Value="15" />
+											<Setter
+												Property="VerticalAlignment"
+												Value="Center" />
+											<Setter
+												Property="Padding"
+												Value="2 0 2 0" />
+										</Style>
+									</ResourceDictionary>
+								</FrameworkElement.Resources>
+								<FrameworkElement.ContextMenu>
+									<ContextMenu
+										Style="{StaticResource messageSystemContextMenuStyle}"
+										Margin="0 0 100 50"
+										Visibility="{Binding ErrorMessages.Count, Converter={StaticResource visConverter}}"
+										ItemsSource="{Binding ErrorMessages}">
+										<ItemsControl.ItemContainerStyle>
+											<Style
+												BasedOn="{StaticResource contextMenuItemStyle}"
+												TargetType="{x:Type MenuItem}">
+												<Style.Resources>
+													<ResourceDictionary>
+														<l:MessageTypeToImageConverter
+															x:Key="messageTypeToImageConverter" />
+													</ResourceDictionary>
+												</Style.Resources>
+												<Setter
+													Property="MenuItem.Command"
+													Value="{Binding MessageCommand}" />
+												<Setter
+													Property="Template">
+													<Setter.Value>
+														<ControlTemplate
+															TargetType="{x:Type MenuItem}">
+															<StackPanel>
+																<Border
+																	Name="Border"
+																	Padding="5"
+																	Background="#00FFFFFF">
+																	<StackPanel
+																		Orientation="Horizontal">
+																		<Image
+																			Stretch="Uniform"
+																			Height="22"
+																			VerticalAlignment="Center"
+																			Margin="0 0 5 0"
+																			Source="{Binding Path=LogbookEntry.Type, Converter={StaticResource messageTypeToImageConverter}}" />
+																		<TextBlock
+																			MinWidth="100"
+																			MaxWidth="600"
+																			TextWrapping="Wrap"
+																			VerticalAlignment="Center"
+																			Text="{Binding MessageTitle}" />
+																	</StackPanel>
+																</Border>
+																<Separator
+																	Style="{StaticResource SeparatorStyle}" />
+															</StackPanel>
+															<ControlTemplate.Triggers>
+																<Trigger
+																	Property="MenuItem.IsHighlighted"
+																	Value="True">
+																	<Setter
+																		TargetName="Border"
+																		Property="Background"
+																		Value="#9e9e9e" />
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</ItemsControl.ItemContainerStyle>
+									</ContextMenu>
+								</FrameworkElement.ContextMenu>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition
+											Width="3*" />
+										<ColumnDefinition
+											Width="*" />
+									</Grid.ColumnDefinitions>
+									<StackPanel
+										Orientation="Horizontal"
+										VerticalAlignment="Center"
+										Margin="6 0 7 0">
+										<Image
+											Stretch="None"
+											VerticalAlignment="Center"
+											Margin="0 0 0 2"
+											Source="{Binding XMessageSystemImage}" />
+										<Label
+											Style="{StaticResource messageSystemLabelStyle}"
+											Visibility="{Binding Path=ErrorMessages.Count, Converter={StaticResource vis1Converter}}"
+											Foreground="{Binding WorstMessageType, Converter={StaticResource worstMessageTypeToBrushConverter}}">(</Label>
+										<Label
+											Style="{StaticResource messageSystemLabelStyle}"
+											FontWeight="Bold"
+											Content="{Binding Path=ErrorMessages.Count, Converter={StaticResource cntConverter}}"
+											Foreground="{Binding WorstMessageType, Converter={StaticResource worstMessageTypeToBrushConverter}}" />
+										<Label
+											Style="{StaticResource messageSystemLabelStyle}"
+											Visibility="{Binding Path=ErrorMessages.Count, Converter={StaticResource vis1Converter}}"
+											Foreground="{Binding WorstMessageType, Converter={StaticResource worstMessageTypeToBrushConverter}}">)</Label>
+									</StackPanel>
+									<Image
+										Source="..\img\errorArrow.png"
+										Stretch="None"
+										Grid.Column="1" />
+								</Grid>
+							</Button>
+							<Button
+								Name="btnResetMessages"
+								Grid.Column="5"
+								common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+								Command="{Binding ResetMessagesCommand}">
+								<UIElement.Visibility>
+									<MultiBinding
+										Converter="{StaticResource resetButtonVisibilityConverter}">
+										<Binding
+											Path="ErrorMessages.Count" />
+										<Binding
+											Path="CurrentUser.Rights" />
+									</MultiBinding>
+								</UIElement.Visibility>
+								<Image
+									Source="/img/return2.png"
+									Stretch="Uniform"
+									Height="30"
+									Width="30" />
+								<FrameworkElement.Resources>
+									<ResourceDictionary>
+										<Style
+											TargetType="{x:Type Label}"
+											x:Key="messageSystemLabelStyle">
+											<Setter
+												Property="FontFamily"
+												Value="Helvetica" />
+											<Setter
+												Property="FontSize"
+												Value="15" />
+											<Setter
+												Property="VerticalAlignment"
+												Value="Center" />
+											<Setter
+												Property="Padding"
+												Value="2 0 2 0" />
+										</Style>
+									</ResourceDictionary>
+								</FrameworkElement.Resources>
+							</Button>
+							<TextBlock
+								Grid.Column="6"
+								FontWeight="Bold"
+								Margin="10 0 0 0"
+								FontSize="20"
+								FontFamily="Helvetica"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Right"
+								Text="{Binding Path=SystemIsCompliant}"
+								Foreground="{Binding ComplTextForeground, Converter={StaticResource complianceBoolToBrushConverter}}" />
+							<Border
+								Grid.Column="7"
+								BorderThickness="1 0 0 0"
+								BorderBrush="#e3e7ea"
+								HorizontalAlignment="Right"
+								Width="51"
+								Visibility="{Binding Path=WifiClient.WifiAvailable, Converter={StaticResource bVisConverter}}">
+								<Border
+									Grid.Column="4"
+									BorderThickness="1 0 0 0"
+									HorizontalAlignment="Right"
+									Width="50">
+									<Border.BorderBrush>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="1,0">
+											<GradientStop
+												Offset="0.5"
+												Color="#8e9192" />
+											<GradientStop
+												Offset="0.5"
+												Color="#e3e7ea" />
+											<GradientStop
+												Offset="1.0"
+												Color="#e3e7ea" />
+										</LinearGradientBrush>
+									</Border.BorderBrush>
+									<Grid>
+										<l:WifiQuality
+											Margin="2 4 10 2"
+											HorizontalAlignment="Right"
+											DarkerColors="True"
+											SignalQuality="{Binding WifiClient.WifiSignalQuality}"
+											Visibility="{Binding Path=WifiClient.WifiConnected, Converter={StaticResource bVisConverter}, FallbackValue=Visible}">
+											<FrameworkElement.LayoutTransform>
+												<ScaleTransform
+													ScaleX="0.6"
+													ScaleY="0.6" />
+											</FrameworkElement.LayoutTransform>
+										</l:WifiQuality>
+										<Image
+											Source="/img/wifiDisconnected.png"
+											Margin="2 2 6 0"
+											Visibility="{Binding Path=WifiClient.WifiNotConnected, Converter={StaticResource bVisConverter}}" />
+									</Grid>
+								</Border>
+							</Border>
+						</Grid>
+					</Border>
+					<Border
+						BorderBrush="#8e9192"
+						Style="{StaticResource styleBgLines}"
+						Grid.Column="0"
+						Visibility="{Binding FooterMainWindowIsDeactivated, Converter={StaticResource bVisCollapsedConverter}}" />
+					<Border
+						BorderBrush="#8e9192"
+						Style="{StaticResource styleBgLines}"
+						Grid.Column="1"
+						Visibility="{Binding FooterMainWindowIsDeactivated, Converter={StaticResource bVisCollapsedConverter}}" />
+					<Border
+						BorderBrush="#8e9192"
+						Style="{StaticResource styleBgLines}"
+						Grid.Column="2"
+						Visibility="{Binding FooterMainWindowIsDeactivated, Converter={StaticResource bVisCollapsedConverter}}" />
+				</Grid>
+			</Border>
+			<Border
+				Background="#e7efc5"
+				BorderBrush="#c4c5c5"
+				BorderThickness="2,0,0,0"
+				DockPanel.Dock="Right"
+				Width="{Binding Source={StaticResource MainWindowMainMenuWidth}}"
+				Visibility="{Binding Machine.MachineType, Converter={StaticResource machineTypeEntryOrHigherVisibilityConverter}}">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid
+						Row="0"
+						Margin="0 40 0 20">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition
+								Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBlock
+							TextAlignment="Center"
+							FontWeight="Bold"
+							FontSize="10"
+							TextWrapping="Wrap"
+							Margin="3 0 3 0"
+							VerticalAlignment="Bottom"
+							Foreground="#b2b2b2"
+							Text="{Binding StrStartXray.LocalizedText}" />
+						<Button
+							Name="defaultXRay"
+							Grid.Row="1"
+							Height="70"
+							Width="70"
+							Margin="10 5 10 10"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center">
+							<FrameworkElement.Resources>
+								<ResourceDictionary>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseDarkStroke">
+										<GradientStop
+											Offset="0.00"
+											Color="#666666" />
+										<GradientStop
+											Offset="1.00"
+											Color="#b2b2b2" />
+									</LinearGradientBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseStroke">
+										<GradientStop
+											Offset="0.00"
+											Color="#666666" />
+										<GradientStop
+											Offset="0.60"
+											Color="#b2b2b2" />
+									</LinearGradientBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseUpFill">
+										<GradientStop
+											Offset="0.00"
+											Color="#757575" />
+										<GradientStop
+											Offset="1.00"
+											Color="#b2b2b2" />
+									</LinearGradientBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseDownFill">
+										<GradientStop
+											Offset="1.00"
+											Color="#757575" />
+										<GradientStop
+											Offset="0.00"
+											Color="#b2b2b2" />
+									</LinearGradientBrush>
+								</ResourceDictionary>
+							</FrameworkElement.Resources>
+							<Control.Template>
+								<ControlTemplate
+									TargetType="{x:Type Button}">
+									<Grid>
+										<Ellipse
+											StrokeThickness="3"
+											Stroke="{StaticResource EllipseDarkStroke}" />
+										<Ellipse
+											Name="btnXRayBorderUp"
+											Height="65"
+											Width="65"
+											StrokeThickness="1"
+											Stroke="{DynamicResource EllipseStroke}"
+											Fill="{DynamicResource EllipseUpFill}" />
+										<Ellipse
+											Name="BorderDown"
+											Height="65"
+											Width="65"
+											StrokeThickness="1"
+											Opacity="0"
+											Stroke="{DynamicResource EllipseStroke}"
+											Fill="{DynamicResource EllipseDownFill}" />
+										<ContentPresenter
+											Name="Contents" />
+									</Grid>
+								</ControlTemplate>
+							</Control.Template>
+						</Button>
+					</Grid>
+					<Grid
+						Row="0"
+						Margin="0 40 0 20">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition
+								Height="Auto" />
+						</Grid.RowDefinitions>
+						<UIElement.Visibility>
+							<MultiBinding
+								Converter="{StaticResource machineStateXrayStarterVisibilityConverter}">
+								<Binding
+									Path="machineState.State" />
+								<Binding
+									Path="ErrorMessages" />
+								<Binding
+									Path="StartXRayNoUser" />
+								<Binding
+									Path="CurrentUser.Rights" />
+							</MultiBinding>
+						</UIElement.Visibility>
+						<TextBlock
+							TextAlignment="Center"
+							FontWeight="Bold"
+							FontSize="10"
+							TextWrapping="Wrap"
+							Margin="3 0 3 0"
+							VerticalAlignment="Bottom"
+							Text="{Binding StrStartXray.LocalizedText}" />
+						<Button
+							Name="btnStartXRay"
+							Grid.Row="1"
+							Height="70"
+							Width="70"
+							Margin="10 5 10 10"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							Command="{Binding StartXrayCommand}">
+							<FrameworkElement.Resources>
+								<ResourceDictionary>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseDarkStroke">
+										<GradientStop
+											Offset="0.00"
+											Color="#666666" />
+										<GradientStop
+											Offset="1.00"
+											Color="#191919" />
+									</LinearGradientBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseStroke">
+										<GradientStop
+											Offset="0.00"
+											Color="#50ca50" />
+										<GradientStop
+											Offset="0.60"
+											Color="#007300" />
+									</LinearGradientBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseUpFill">
+										<GradientStop
+											Offset="0.00"
+											Color="#00dd00" />
+										<GradientStop
+											Offset="1.00"
+											Color="#007700" />
+									</LinearGradientBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1"
+										x:Key="EllipseDownFill">
+										<GradientStop
+											Offset="1.00"
+											Color="#00dd00" />
+										<GradientStop
+											Offset="0.00"
+											Color="#007700" />
+									</LinearGradientBrush>
+								</ResourceDictionary>
+							</FrameworkElement.Resources>
+							<Control.Template>
+								<ControlTemplate
+									TargetType="{x:Type Button}">
+									<Grid>
+										<Ellipse
+											StrokeThickness="3"
+											Stroke="{StaticResource EllipseDarkStroke}" />
+										<Ellipse
+											Name="btnXRayBorderUp"
+											Height="65"
+											Width="65"
+											StrokeThickness="1"
+											Stroke="{DynamicResource EllipseStroke}"
+											Fill="{DynamicResource EllipseUpFill}" />
+										<Ellipse
+											Name="BorderDown"
+											Height="65"
+											Width="65"
+											StrokeThickness="1"
+											Opacity="0"
+											Stroke="{DynamicResource EllipseStroke}"
+											Fill="{DynamicResource EllipseDownFill}" />
+										<ContentPresenter
+											Name="Contents" />
+									</Grid>
+									<ControlTemplate.Triggers>
+										<Trigger
+											Property="IsPressed"
+											Value="True">
+											<Setter
+												TargetName="BorderDown"
+												Property="UIElement.Opacity"
+												Value="1" />
+											<Setter
+												TargetName="Contents"
+												Property="Margin"
+												Value="4,4,2,2" />
+											<TriggerBase.EnterActions>
+												<BeginStoryboard
+													Storyboard="{StaticResource ButtonDownTimeLine}" />
+											</TriggerBase.EnterActions>
+											<TriggerBase.ExitActions>
+												<BeginStoryboard
+													Storyboard="{StaticResource ButtonUpTimeLine}" />
+											</TriggerBase.ExitActions>
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Control.Template>
+						</Button>
+					</Grid>
+					<Grid
+						Row="1"
+						Margin="0 20 0 40"
+						SnapsToDevicePixels="False">
+						<Grid.RowDefinitions>
+							<RowDefinition
+								Height="Auto" />
+							<RowDefinition
+								Height="75" />
+							<RowDefinition
+								Height="75" />
+						</Grid.RowDefinitions>
+						<Canvas
+							Margin="-60 2 0 13"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Bottom">
+							<Ellipse
+								Stroke="#FF000000"
+								Width="20"
+								Height="20"
+								StrokeThickness="2" />
+							<Ellipse
+								Canvas.Left="40"
+								Stroke="#FF000000"
+								Width="20"
+								Height="20"
+								StrokeThickness="2" />
+							<Line
+								Stroke="#FF000000"
+								X1="10"
+								X2="49"
+								Y1="1"
+								Y2="1"
+								StrokeThickness="2" />
+							<Line
+								Stroke="#FF000000"
+								X1="10"
+								X2="49"
+								Y1="19"
+								Y2="19"
+								StrokeThickness="2" />
+							<TextBlock
+								Text="M"
+								Canvas.Left="44"
+								Canvas.Top="2"
+								FontWeight="Bold" />
+						</Canvas>
+						<Button
+							Grid.Row="1"
+							Style="{StaticResource StyleButtonConveyorStart}"
+							VerticalAlignment="Bottom"
+							Command="{Binding ConveyorViewModel.StartConveyorCommand}">
+							<ContentControl.Content>
+								<Border
+									Margin="0 2 0 0">
+									<Line
+										Stroke="#FFFFFFFF"
+										StrokeThickness="3"
+										X1="37"
+										X2="37"
+										Y1="26"
+										Y2="64" />
+								</Border>
+							</ContentControl.Content>
+						</Button>
+						<Button
+							Grid.Row="2"
+							Style="{StaticResource StyleButtonConveyorStop}"
+							VerticalAlignment="Top"
+							Command="{Binding ConveyorViewModel.StopConveyorCommand}">
+							<ContentControl.Content>
+								<Border
+									Margin="0 19 0 0">
+									<Ellipse
+										Stroke="#FFFFFFFF"
+										StrokeThickness="3"
+										Width="40"
+										Height="40" />
+								</Border>
+							</ContentControl.Content>
+						</Button>
+					</Grid>
+				</Grid>
+			</Border>
+			<Border
+				Background="#e7efc5"
+				BorderBrush="#c4c5c5"
+				BorderThickness="1,0,0,0"
+				DockPanel.Dock="Right"
+				Width="{Binding Source={StaticResource MainWindowMainMenuWidth}}">
+				<StackPanel
+					VerticalAlignment="Center">
+					<Button
+						Name="btnLogbook"
+						Style="{StaticResource btnMainMenu}"
+						Height="75"
+						Width="75"
+						Margin="0 10 0 10"
+						Visibility="Collapsed"
+						Command="{Binding ShowLogbookCommand}">
+						<Image
+							Source="..\img\logbook.png"
+							Stretch="None" />
+					</Button>
+					<Button
+						Name="btnLearn"
+						Style="{StaticResource btnMainMenu}"
+						Height="75"
+						Width="75"
+						Margin="0 10 0 10"
+						Visibility="Collapsed"
+						Command="{Binding AutolearnCommand}">
+						<UIElement.IsEnabled>
+							<MultiBinding
+								Converter="{StaticResource autolearnMachineStatesBoolConverter}">
+								<Binding
+									Path="machineState.State" />
+								<Binding
+									Path="DemoMode" />
+							</MultiBinding>
+						</UIElement.IsEnabled>
+						<Grid>
+							<Image
+								Source="../img/learn.png"
+								Stretch="None"
+								Visibility="{Binding ElementName=btnLearn, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+							<Image
+								Source="..\img\learn_disabled 55x55.png"
+								Stretch="None"
+								Visibility="{Binding ElementName=btnLearn, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+						</Grid>
+					</Button>
+					<Button
+						Name="btnProduct"
+						Style="{StaticResource btnMainMenu}"
+						Height="75"
+						Width="75"
+						Margin="12,10"
+						Visibility="Collapsed"
+						Command="{Binding ProductChangeCommand}">
+						<UIElement.IsEnabled>
+							<MultiBinding
+								Converter="{StaticResource standBulkModeProductChangeMachineStatesBoolConverter}">
+								<Binding
+									Path="machineState.State" />
+								<Binding
+									Path="DemoMode" />
+								<Binding
+									Path="StandardMode" />
+								<Binding
+									Path="BulkObjectModeActive" />
+							</MultiBinding>
+						</UIElement.IsEnabled>
+						<Grid>
+							<Image
+								Source="..\img\changeproduct.png"
+								Stretch="None"
+								Visibility="{Binding ElementName=btnProduct, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+							<Image
+								Source="..\img\changeproduct_disabled.png"
+								Stretch="None"
+								Visibility="{Binding ElementName=btnProduct, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+						</Grid>
+					</Button>
+					<Button
+						Name="btnSettings"
+						Style="{StaticResource btnMainMenu}"
+						Height="75"
+						Width="75"
+						Margin="0 10 0 10"
+						Visibility="Collapsed"
+						Command="{Binding ShowSubmenuCommand}">
+						<Image
+							Source="..\img\parameter.png"
+							Stretch="None" />
+					</Button>
+					<Button
+						Name="btnAIStatus"
+						Style="{StaticResource btnMainMenu}"
+						Height="75"
+						Width="75"
+						Margin="0 10 0 10"
+						Command="{Binding ShowAIStatusCommand}"
+						Visibility="{Binding Path=ShowBtnAIStatus, Converter={StaticResource bVisCollapsedConverter}}">
+						<Image
+							Stretch="None"
+							Source="{Binding ImageSourceAIStatus}" />
+					</Button>
+					<Border
+						Margin="0 10 0 5"
+						BorderThickness="0 1 0 0"
+						BorderBrush="#FF808080"
+						Visibility="{Binding DoorLockAvailable, Converter={StaticResource bVisCollapsedConverter}}">
+						<Button
+							Name="btnUnlockBin"
+							Grid.Row="1"
+							Style="{StaticResource defaultButtonBigStyle}"
+							Margin="5 15 5 5"
+							VerticalAlignment="Top"
+							common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+							Command="{Binding UnlockBinCommand}">
+							<FrameworkElement.ContextMenu>
+								<ContextMenu
+									Style="{StaticResource messageSystemContextMenuStyle}"
+									Margin="0 0 100 50"
+									ItemsSource="{Binding Path=UnlockBinItem}"
+									Visibility="{Binding Path=ContextUnlockBinVisibility, Converter={StaticResource bVisConverter}}">
+									<ItemsControl.ItemContainerStyle>
+										<Style
+											BasedOn="{StaticResource contextMenuItemStyle}"
+											TargetType="{x:Type MenuItem}">
+											<Setter
+												Property="MenuItem.Command"
+												Value="{Binding ClickCmd}" />
+											<Setter
+												Property="Header"
+												Value="{Binding Path=LocalizedText}" />
+										</Style>
+									</ItemsControl.ItemContainerStyle>
+								</ContextMenu>
+							</FrameworkElement.ContextMenu>
+							<Image
+								Source="/img/unlock.png"
+								Stretch="Uniform"
+								Height="40"
+								Width="40"
+								Margin="15,0,15,15"
+								VerticalAlignment="Bottom" />
+						</Button>
+					</Border>
+					<Border
+						Margin="0 0 0 0"
+						BorderThickness="0 0 0 0"
+						BorderBrush="#FF808080"
+						Visibility="{Binding HighSpeedMachineActiveVisible1, Converter={StaticResource bVisCollapsedConverter}}">
+						<Button
+							Name="btnHighSpeedImage"
+							Style="{StaticResource defaultButtonBigStyle}"
+							Margin="5 15 5 5"
+							Command="{Binding HighSpeedImageCommand}">
+							<UIElement.IsEnabled>
+								<MultiBinding
+									Converter="{StaticResource autolearnMachineStatesBoolConverter2}">
+									<Binding
+										Path="machineState.State" />
+									<Binding
+										Path="DemoMode" />
+								</MultiBinding>
+							</UIElement.IsEnabled>
+							<Grid>
+								<Image
+									Source="../img/objectxriimage.png"
+									Stretch="Uniform"
+									Height="50"
+									Width="50"
+									VerticalAlignment="Center"
+									Visibility="{Binding ElementName=btnHighSpeedImage2, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Source="..\img\objectxriimage_disabled.png"
+									Stretch="Uniform"
+									Height="40"
+									Width="40"
+									VerticalAlignment="Center"
+									Visibility="{Binding ElementName=btnHighSpeedImage2, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+							</Grid>
+						</Button>
+					</Border>
+					<Border
+						Margin="0 0 0 0"
+						BorderThickness="0 0 0 0"
+						BorderBrush="#FF808080">
+						<Button
+							Name="btnAutoRetrainOnOff"
+							Style="{StaticResource defaultButtonBigStyle}"
+							Margin="5 15 5 5"
+							IsEnabled="True"
+							Command="{Binding RetrainModeCommand}"
+							Visibility="{Binding AutoRetrainVisible, Converter={StaticResource bVisCollapsedConverter}}">
+							<Grid>
+								<Image
+									Source="../img/autoRetrainOn.png"
+									Stretch="Uniform"
+									Height="50"
+									Width="50"
+									VerticalAlignment="Center"
+									Visibility="{Binding Path=RetrainMode, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Source="..\img\autoRetrainOff.png"
+									Stretch="Uniform"
+									Height="50"
+									Width="50"
+									VerticalAlignment="Center"
+									Visibility="{Binding Path=RetrainMode, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+							</Grid>
+						</Button>
+					</Border>
+					<Border
+						Margin="0 0 0 0"
+						BorderThickness="0 0 0 0"
+						BorderBrush="#FF808080">
+						<Button
+							Name="btnAutoRetrainUndo"
+							Style="{StaticResource defaultButtonBigStyleActive}"
+							Margin="5 15 5 5"
+							Command="{Binding UndoRetrainCommand}"
+							IsEnabled="{Binding Path=AutoRetrainUndo}"
+							Visibility="{Binding AutoRetrainVisible, Converter={StaticResource bVisCollapsedConverter}}">
+							<Grid>
+								<Image
+									Source="../img/retrainUndo.png"
+									Stretch="Uniform"
+									Height="50"
+									Width="50"
+									VerticalAlignment="Center"
+									Visibility="{Binding ElementName=btnAutoRetrainUndo, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Source="..\img\retrainUndo_disabled.png"
+									Stretch="Uniform"
+									Height="50"
+									Width="50"
+									VerticalAlignment="Center"
+									Visibility="{Binding ElementName=btnAutoRetrainUndo, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+							</Grid>
+						</Button>
+					</Border>
+					<StackPanel
+						VerticalAlignment="Center"
+						Visibility="{Binding BulkModeActive, Converter={StaticResource bVisCollapsedConverter}}">
+						<Border
+							Margin="0 10 0 0"
+							BorderThickness="0 1 0 0"
+							BorderBrush="#FF808080"
+							Visibility="{Binding BulkModeActive, Converter={StaticResource bVisCollapsedConverter}}">
+							<Button
+								Name="btnStartLiveModeBulk"
+								Style="{StaticResource defaultButtonBigStyle}"
+								Margin="5 15 5 5"
+								Command="{Binding BulkXRIStartLiveModeCommand}">
+								<UIElement.IsEnabled>
+									<MultiBinding
+										Converter="{StaticResource autolearnMachineStatesBoolConverter}">
+										<Binding
+											Path="machineState.State" />
+										<Binding
+											Path="DemoMode" />
+									</MultiBinding>
+								</UIElement.IsEnabled>
+								<Grid>
+									<Image
+										Stretch="Uniform"
+										Height="40"
+										Width="40"
+										VerticalAlignment="Center"
+										Source="{Binding BulkLiveModeSourcePath}"
+										Visibility="{Binding ElementName=btnStartLiveModeBulk, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+									<Image
+										Source="..\img\xriimageBulk_disabled.png"
+										Stretch="Uniform"
+										Height="40"
+										Width="40"
+										VerticalAlignment="Center"
+										Visibility="{Binding ElementName=btnStartLiveModeBulk, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+								</Grid>
+							</Button>
+						</Border>
+						<Border
+							Margin="0 0 0 0"
+							BorderThickness="0 0 0 0"
+							BorderBrush="#FF808080"
+							Visibility="{Binding BulkModeActive, Converter={StaticResource bVisCollapsedConverter}}">
+							<Button
+								Name="btnStartObjectModeBulk"
+								Style="{StaticResource defaultButtonBigStyle}"
+								Margin="5 15 5 5"
+								Command="{Binding BulkXRIStartObjectModeCommand}">
+								<UIElement.IsEnabled>
+									<MultiBinding
+										Converter="{StaticResource autolearnMachineStatesBoolConverter}">
+										<Binding
+											Path="machineState.State" />
+										<Binding
+											Path="DemoMode" />
+									</MultiBinding>
+								</UIElement.IsEnabled>
+								<Grid>
+									<Image
+										Stretch="Uniform"
+										Height="40"
+										Width="40"
+										VerticalAlignment="Center"
+										Source="{Binding BulkObjectModeSourcePath}"
+										Visibility="{Binding ElementName=btnStartObjectModeBulk, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+									<Image
+										Source="..\img\xriimageBulkCont_disabled.png"
+										Stretch="Uniform"
+										Height="40"
+										Width="40"
+										VerticalAlignment="Center"
+										Visibility="{Binding ElementName=btnStartObjectModeBulk, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+								</Grid>
+							</Button>
+						</Border>
+						<Border
+							Margin="0 0 0 0"
+							Grid.Row="3"
+							BorderThickness="0 0 0 0"
+							BorderBrush="#FF808080"
+							Visibility="{Binding BulkModeActive, Converter={StaticResource bVisCollapsedConverter}}">
+							<Button
+								Name="btnBulkSortingOff"
+								Style="{StaticResource defaultButtonBigStyle}"
+								Margin="5 15 5 5"
+								Command="{Binding BulkSwitchSortingOffComand}">
+								<UIElement.IsEnabled>
+									<MultiBinding
+										Converter="{StaticResource autolearnMachineStatesBoolConverter}">
+										<Binding
+											Path="machineState.State" />
+										<Binding
+											Path="DemoMode" />
+									</MultiBinding>
+								</UIElement.IsEnabled>
+								<Grid>
+									<Image
+										Stretch="Uniform"
+										Height="50"
+										Width="50"
+										VerticalAlignment="Center"
+										Source="{Binding BulkSwitchOnOffPath}"
+										Visibility="{Binding ElementName=btnBulkSortingOff, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+									<Image
+										Source="..\img\rejectOff_disabled.png"
+										Stretch="Uniform"
+										Height="40"
+										Width="40"
+										VerticalAlignment="Center"
+										Visibility="{Binding ElementName=btnBulkSortingOff, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+								</Grid>
+							</Button>
+						</Border>
+					</StackPanel>
+				</StackPanel>
+			</Border>
+			<Border
+				Name="SliderBulk"
+				Background="#e7efc5"
+				BorderBrush="#c4c5c5"
+				BorderThickness="1,0,0,0"
+				DockPanel.Dock="Right"
+				Width="{Binding Source={StaticResource MainWindowMainMenuWidth}}"
+				Visibility="{Binding SliderVisibleBulkMode, Converter={StaticResource bVisCollapsedConverter}}">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="28" />
+						<RowDefinition
+							Height="*" />
+						<RowDefinition
+							Height="85" />
+					</Grid.RowDefinitions>
+					<TextBlock
+						Grid.Row="0"
+						Text="Sensitivity [%]"
+						TextAlignment="Center"
+						FontWeight="Bold"
+						FontSize="10"
+						TextWrapping="Wrap"
+						Margin="0 0 0 0"
+						VerticalAlignment="Bottom"
+						Foreground="#383838" />
+					<Slider
+						Grid.Row="1"
+						Orientation="Vertical"
+						Minimum="1"
+						Maximum="150"
+						Margin="0 10 0 0"
+						VerticalAlignment="Stretch"
+						HorizontalAlignment="Center"
+						IsSnapToTickEnabled="True"
+						TickFrequency="1"
+						AutoToolTipPlacement="TopLeft"
+						RenderTransformOrigin="0.5, 0.5"
+						Value="{Binding Path=bulksensitivity.SensitivityPercent, Mode=TwoWay}"
+						common:MouseCommandBehavior.MouseDownCommand="{Binding SliderChangedCommand}">
+						<UIElement.IsEnabled>
+							<MultiBinding
+								Converter="{StaticResource autolearnMachineStatesBoolConverter}">
+								<Binding
+									Path="machineState.State" />
+								<Binding
+									Path="DemoMode" />
+							</MultiBinding>
+						</UIElement.IsEnabled>
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource autolearnMachineStatesSlideStyleConverter}">
+								<Binding
+									RelativeSource="{RelativeSource Self}" />
+								<Binding
+									Path="machineState.State" />
+								<Binding
+									Path="DemoMode" />
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</Slider>
+					<TextBox
+						Name="BulkSensitivity"
+						Grid.Row="2"
+						Margin="5 0 5 0"
+						Text="{Binding Path=bulksensitivity.SensitivityPercent, Mode=TwoWay}"
+						common:MouseCommandBehavior.MouseUpCommand="{Binding ChangeSensitivityCommand}">
+						<UIElement.IsEnabled>
+							<MultiBinding
+								Converter="{StaticResource autolearnMachineStatesBoolConverter}">
+								<Binding
+									Path="machineState.State" />
+								<Binding
+									Path="DemoMode" />
+							</MultiBinding>
+						</UIElement.IsEnabled>
+						<FrameworkElement.Style>
+							<MultiBinding
+								Converter="{StaticResource autolearnMachineStatesTextBoxStyleConverter}">
+								<MultiBinding.Bindings>
+									<Binding
+										RelativeSource="{RelativeSource Self}" />
+									<Binding
+										Path="machineState.State" />
+									<Binding
+										Path="DemoMode" />
+								</MultiBinding.Bindings>
+							</MultiBinding>
+						</FrameworkElement.Style>
+					</TextBox>
+				</Grid>
+			</Border>
+			<Border
+				Name="mainWindowContent"
+				Background="#dddddd">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="105*" />
+						<ColumnDefinition
+							Width="179*" />
+					</Grid.ColumnDefinitions>
+					<TabControl
+						Name="tabCtrl"
+						IsSynchronizedWithCurrentItem="True"
+						Grid.ColumnSpan="2"
+						ItemsSource="{Binding ShownLanes}"
+						SelectedItem="{Binding SelectedXriLane}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<TextBlock
+									Style="{StaticResource txtThresholdStyle}"
+									FontSize="14"
+									Margin="1 1 1 1"
+									Text="{Binding Path=LaneName}" />
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<TabControl.ContentTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition
+											Height="{Binding Source={StaticResource MWCHeaderHeight}}" />
+										<RowDefinition />
+									</Grid.RowDefinitions>
+									<Grid
+										Margin="10 0 0 0"
+										Row="0">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition
+												Width="Auto" />
+											<ColumnDefinition
+												Width="Auto" />
+											<ColumnDefinition
+												Width="Auto" />
+											<ColumnDefinition
+												Width="*" />
+										</Grid.ColumnDefinitions>
+										<Button
+											Grid.Column="0"
+											common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+											Style="{StaticResource counterButton}"
+											Margin="0 0 15 0"
+											Command="{Binding Path=DataContext.BulkDeactivateLiveModeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}">
+											<FrameworkElement.ContextMenu>
+												<ContextMenu
+													Style="{StaticResource messageSystemContextMenuStyle}"
+													Margin="0 0 100 50"
+													ItemsSource="{Binding Path=Counter.ThroughputItems}">
+													<ItemsControl.ItemContainerStyle>
+														<Style
+															BasedOn="{StaticResource contextMenuItemStyle}"
+															TargetType="{x:Type MenuItem}">
+															<Setter
+																Property="MenuItem.Command"
+																Value="{Binding ClickCommand}" />
+															<Setter
+																Property="Header"
+																Value="{Binding Path=LocalizedText}" />
+														</Style>
+													</ItemsControl.ItemContainerStyle>
+												</ContextMenu>
+											</FrameworkElement.ContextMenu>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition />
+													<RowDefinition />
+												</Grid.RowDefinitions>
+												<TextBlock
+													Name="txtThroughput"
+													Grid.Row="0"
+													FontSize="16"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Foreground="#363636"
+													TextAlignment="Center"
+													TextWrapping="WrapWithOverflow"
+													Text="{Binding Path=StrThroughput.LocalizedText, FallbackValue=Durchsatz}" />
+												<TextBlock
+													Name="ThroughputCounter"
+													Grid.Row="1"
+													FontSize="35"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Background="#00FFFFFF"
+													Foreground="#dedede"
+													TextAlignment="Center"
+													VerticalAlignment="Center"
+													Text="{Binding Path=Counter.ThroughputCounter}" />
+											</Grid>
+										</Button>
+										<Button
+											Grid.Column="1"
+											common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+											Style="{StaticResource counterButton}"
+											Margin="0 0 15 0"
+											Visibility="{Binding Path=DataContext.StandardMode, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}">
+											<FrameworkElement.ContextMenu>
+												<ContextMenu
+													Style="{StaticResource messageSystemContextMenuStyle}"
+													Margin="0 0 100 50"
+													ItemsSource="{Binding Path=Counter.RejectItems}">
+													<ItemsControl.ItemContainerStyle>
+														<Style
+															BasedOn="{StaticResource contextMenuItemStyle}"
+															TargetType="{x:Type MenuItem}">
+															<Setter
+																Property="MenuItem.Command"
+																Value="{Binding ClickCommand}" />
+															<Setter
+																Property="Header"
+																Value="{Binding Path=LocalizedText}" />
+														</Style>
+													</ItemsControl.ItemContainerStyle>
+												</ContextMenu>
+											</FrameworkElement.ContextMenu>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition />
+													<RowDefinition />
+												</Grid.RowDefinitions>
+												<TextBlock
+													Name="txtReject"
+													Grid.Row="0"
+													FontSize="16"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Foreground="#363636"
+													TextAlignment="Center"
+													TextWrapping="WrapWithOverflow"
+													Text="{Binding Path=StrReject.LocalizedText, FallbackValue=Ausschuss}" />
+												<TextBlock
+													Name="ErrorCounter"
+													Grid.Row="1"
+													FontSize="35"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Background="#00FFFFFF"
+													Foreground="#dedede"
+													TextAlignment="Center"
+													VerticalAlignment="Center"
+													Text="{Binding Path=Counter.RejectCounter}" />
+											</Grid>
+										</Button>
+										<Button
+											Grid.Column="1"
+											Style="{StaticResource bulkMainButton}"
+											Margin="0 0 15 0"
+											common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+											Visibility="{Binding Path=DataContext.BulkModeActive, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}">
+											<FrameworkElement.ContextMenu>
+												<ContextMenu
+													Style="{StaticResource messageSystemContextMenuStyle}"
+													Margin="0 0 100 50"
+													ItemsSource="{Binding Path=Counter.RejectItems}">
+													<ItemsControl.ItemContainerStyle>
+														<Style
+															BasedOn="{StaticResource contextMenuItemStyle}"
+															TargetType="{x:Type MenuItem}">
+															<Setter
+																Property="MenuItem.Command"
+																Value="{Binding ClickCommand}" />
+															<Setter
+																Property="Header"
+																Value="{Binding Path=LocalizedText}" />
+														</Style>
+													</ItemsControl.ItemContainerStyle>
+												</ContextMenu>
+											</FrameworkElement.ContextMenu>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition
+														Height="Auto" />
+													<RowDefinition />
+												</Grid.RowDefinitions>
+												<Grid
+													Row="0">
+													<TextBlock
+														Name="txtRejectBulk"
+														Grid.Row="0"
+														FontSize="16"
+														FontFamily="Helvetica"
+														FontWeight="Bold"
+														Foreground="#363636"
+														TextAlignment="Center"
+														Text="{Binding Path=DataContext.StrRejectBulk.LocalizedText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												</Grid>
+												<TextBlock
+													Name="ValveActivity"
+													Grid.Row="1"
+													FontSize="35"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Background="#00FFFFFF"
+													Foreground="#dedede"
+													TextAlignment="Center"
+													VerticalAlignment="Center"
+													Text="{Binding Path=DataContext.valveActivity.Activity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+											</Grid>
+										</Button>
+										<Button
+											Grid.Column="2"
+											common:ButtonBehavior.OpenContextMenuWhenClicked="True"
+											Style="{StaticResource counterButton}"
+											Margin="0 0 15 0"
+											Visibility="{Binding Path=DataContext.AutoRetrainVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}">
+											<FrameworkElement.ContextMenu>
+												<ContextMenu
+													Style="{StaticResource messageSystemContextMenuStyle}"
+													Margin="0 0 100 50"
+													ItemsSource="{Binding Path=Counter.GoodSinceRetrainItems}">
+													<ItemsControl.ItemContainerStyle>
+														<Style
+															BasedOn="{StaticResource contextMenuItemStyle}"
+															TargetType="{x:Type MenuItem}">
+															<Setter
+																Property="MenuItem.Command"
+																Value="{Binding ClickCommand}" />
+															<Setter
+																Property="Header"
+																Value="{Binding Path=LocalizedText}" />
+														</Style>
+													</ItemsControl.ItemContainerStyle>
+												</ContextMenu>
+											</FrameworkElement.ContextMenu>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition />
+													<RowDefinition />
+												</Grid.RowDefinitions>
+												<TextBlock
+													Name="txtReject2"
+													Grid.Row="0"
+													FontSize="16"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Foreground="#363636"
+													TextAlignment="Center"
+													Text="Retrain Demo"
+													TextWrapping="WrapWithOverflow" />
+												<TextBlock
+													Name="GoodSinceRetrain"
+													Grid.Row="1"
+													FontSize="35"
+													FontFamily="Helvetica"
+													FontWeight="Bold"
+													Background="#00FFFFFF"
+													Foreground="#dedede"
+													TextAlignment="Center"
+													VerticalAlignment="Center"
+													Text="{Binding Path=Counter.GoodSinceRetrainCounter}" />
+											</Grid>
+										</Button>
+										<Grid
+											Column="3"
+											Margin="10 0 0 0"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Left"
+											common:MouseCommandBehavior.MouseUpCommand="{Binding DataContext.StartNewBatchCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}">
+											<Grid.RowDefinitions>
+												<RowDefinition
+													Height="Auto" />
+												<RowDefinition />
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition
+													Width="Auto" />
+												<ColumnDefinition />
+											</Grid.ColumnDefinitions>
+											<TextBlock
+												FontWeight="Bold"
+												Grid.Column="0"
+												Grid.Row="0"
+												Margin="0 0 20 0"
+												FontSize="22"
+												FontFamily="Helvetica"
+												Text="Debug"
+												TextWrapping="Wrap"
+												Foreground="#FFFF0000"
+												TextAlignment="Left"
+												Visibility="{Binding Path=DataContext.DebugVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+											<TextBlock
+												FontWeight="Bold"
+												Grid.Row="0"
+												Grid.Column="1"
+												FontSize="22"
+												FontFamily="Helvetica"
+												TextWrapping="Wrap"
+												Text="{Binding Path=DataContext.ProductManager.CurrentLoadedProduct.ProductAndBatchName, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+											<Grid
+												Row="1"
+												Column="1"
+												Margin="0 5 0 0"
+												Visibility="{Binding Path=DataContext.TestcardSimVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}">
+												<Grid.RowDefinitions>
+													<RowDefinition />
+													<RowDefinition />
+													<RowDefinition />
+												</Grid.RowDefinitions>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition
+														Width="Auto" />
+													<ColumnDefinition
+														Width="Auto" />
+													<ColumnDefinition
+														Width="Auto" />
+												</Grid.ColumnDefinitions>
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="0"
+													Grid.Column="0"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Text="{Binding Path=DataContext.StrSensTestcardSim.LocalizedText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="1"
+													Grid.Column="0"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="0 0 0 0"
+													Text="{Binding Path=DataContext.StrVATestcardSim.LocalizedText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="2"
+													Grid.Column="0"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Text="{Binding Path=DataContext.StrGlassTestcardSim.LocalizedText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="0"
+													Grid.Column="1"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="15 0 0 0"
+													Text="{Binding Path=DataContext.StrComplTestcardSim.LocalizedText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+													Visibility="{Binding Path=DataContext.ComplSensitivityVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="1"
+													Grid.Column="1"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="15 0 0 0"
+													Text="{Binding Path=DataContext.ComplVASensitivity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+													Visibility="{Binding Path=DataContext.ComplSensitivityVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="2"
+													Grid.Column="1"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="15 0 0 0"
+													Text="{Binding Path=DataContext.ComplGlassSensitivity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+													Visibility="{Binding Path=DataContext.ComplSensitivityVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="0"
+													Grid.Column="2"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="15 0 0 0"
+													Text="{Binding Path=DataContext.StrActTestcardSim.LocalizedText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+													Foreground="{Binding Path=DataContext.ComplTextForeground, Converter={StaticResource complianceBoolToBrushConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="1"
+													Grid.Column="2"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="15 0 0 0"
+													Text="{Binding Path=DataContext.SimulatedVASensitivity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+													Foreground="{Binding Path=DataContext.ComplTextVAForeground, Converter={StaticResource complianceBoolToBrushConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+												<TextBlock
+													FontWeight="Bold"
+													Grid.Row="2"
+													Grid.Column="2"
+													FontSize="14"
+													FontFamily="Helvetica"
+													Margin="15 0 0 0"
+													Text="{Binding Path=DataContext.SimulatedGlassSensitivity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+													Foreground="{Binding Path=DataContext.ComplTextGlassForeground, Converter={StaticResource complianceBoolToBrushConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+											</Grid>
+										</Grid>
+									</Grid>
+									<image:XRSImageBoxBulk
+										Grid.Row="1"
+										UserLoggedIn="{Binding Path=DataContext.CurrentUser.Rights, Converter={StaticResource userRightsBoolConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+										Visibility="{Binding Path=DataContext.IsImageBoxVisibleBigImage, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+										Images="{Binding Path=DataContext.Images, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" />
+									<image:XRSImageBox
+										Grid.Row="1"
+										Image="{Binding Path=DataContext.Image, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+										UserLoggedIn="{Binding Path=DataContext.CurrentUser.Rights, Converter={StaticResource userRightsBoolConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"
+										Visibility="{Binding Path=DataContext.IsImageBoxVisible, Converter={StaticResource bVisCollapsedConverter}, FallbackValue=Collapsed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}" />
+								</Grid>
+							</DataTemplate>
+						</TabControl.ContentTemplate>
+					</TabControl>
+					<Grid
+						ColumnSpan="2">
+						<Grid.RowDefinitions>
+							<RowDefinition>
+								<RowDefinition.Height>
+									<MultiBinding
+										Converter="{StaticResource messHeightConverter}">
+										<Binding
+											Path="ProductManager.CurrentLoadedProduct.ProductType" />
+										<Binding
+											Path="MultiLaneView" />
+										<Binding
+											Path="ProductManager.CurrentLoadedProduct.SubProducts.Count" />
+									</MultiBinding>
+								</RowDefinition.Height>
+							</RowDefinition>
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Grid
+							Row="1"
+							Background="#dddddd">
+							<UIElement.Visibility>
+								<MultiBinding
+									Converter="{StaticResource machineStateBulkConverter}">
+									<Binding
+										Path="machineState.State" />
+									<Binding
+										Path="BulkModeActive" />
+									<Binding
+										Path="IsImageBoxVisible" />
+									<Binding
+										Path="IsImageBoxVisibleBigImage" />
+								</MultiBinding>
+							</UIElement.Visibility>
+							<Label
+								Margin="0 0 0 0"
+								Grid.Row="1"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center">
+								<FrameworkElement.Style>
+									<Style
+										TargetType="{x:Type Label}">
+										<Setter
+											Property="Foreground"
+											Value="#FF000000" />
+										<Style.Triggers>
+											<DataTrigger
+												Value="True">
+												<DataTrigger.Binding>
+													<MultiBinding
+														Converter="{StaticResource machineStatesBoolConverterColorMessage}">
+														<Binding
+															Path="machineState.State" />
+														<Binding
+															Path="BulkModeActive" />
+														<Binding
+															Path="BulkOnOff" />
+													</MultiBinding>
+												</DataTrigger.Binding>
+												<Setter
+													Property="Foreground"
+													Value="#FFFF0000" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</FrameworkElement.Style>
+								<ContentControl.Content>
+									<TextBlock
+										TextWrapping="Wrap"
+										FontSize="30"
+										FontWeight="Bold"
+										Text="{Binding Path=machineState.StartMessage.Message.LocalizedText}" />
+								</ContentControl.Content>
+							</Label>
+						</Grid>
+					</Grid>
+					<Border
+						Grid.Column="2"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Bottom"
+						Margin="0 0 60 15"
+						BorderThickness="0 0 0 0"
+						BorderBrush="#FF808080"
+						Visibility="{Binding HighSpeedMachineActiveVisible2, Converter={StaticResource bVisCollapsedConverter}}">
+						<Button
+							Name="btnHighSpeedImage2"
+							Style="{StaticResource defaultButtonBigStyleActive}"
+							Margin="5 0 5 5"
+							Command="{Binding HighSpeedImageCommand}">
+							<UIElement.IsEnabled>
+								<MultiBinding
+									Converter="{StaticResource autolearnMachineStatesBoolConverter2}">
+									<Binding
+										Path="machineState.State" />
+									<Binding
+										Path="DemoMode" />
+								</MultiBinding>
+							</UIElement.IsEnabled>
+							<Grid>
+								<Image
+									Source="../img/objectxriimage.png"
+									Stretch="Uniform"
+									Height="50"
+									Width="50"
+									VerticalAlignment="Center"
+									Visibility="{Binding ElementName=btnHighSpeedImage2, Path=IsEnabled, Converter={StaticResource bVisConverter}}" />
+								<Image
+									Source="..\img\objectxriimage_disabled.png"
+									Stretch="Uniform"
+									Height="40"
+									Width="40"
+									VerticalAlignment="Center"
+									Visibility="{Binding ElementName=btnHighSpeedImage2, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+							</Grid>
+						</Button>
+					</Border>
+				</Grid>
+			</Border>
+		</DockPanel>
+	</Grid>
+</Window>

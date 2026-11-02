@@ -1,0 +1,3872 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:l="clr-namespace:GUI_XRS">
+	<System:Double
+		x:Key="MainWindowHeaderHeight">50</System:Double>
+	<System:Double
+		x:Key="MainWindowFooterHeight">40</System:Double>
+	<System:Double
+		x:Key="MainWindowMainMenuWidth">100</System:Double>
+	<System:Double
+		x:Key="MWCHeaderHeight">90</System:Double>
+	<System:Double
+		x:Key="MWCSiderRightWidth">0</System:Double>
+	<Storyboard
+		x:Key="ButtonDownTimeLine">
+		<DoubleAnimationUsingKeyFrames
+			BeginTime="00:00:00"
+			Storyboard.TargetName="BorderDown"
+			Storyboard.TargetProperty="Opacity">
+			<SplineDoubleKeyFrame
+				KeyTime="00:00:00.05"
+				Value="1" />
+		</DoubleAnimationUsingKeyFrames>
+		<ThicknessAnimationUsingKeyFrames
+			BeginTime="00:00:00"
+			Storyboard.TargetName="Contents"
+			Storyboard.TargetProperty="Margin">
+			<SplineThicknessKeyFrame
+				KeyTime="00:00:00.025"
+				Value="4,4,2,2" />
+		</ThicknessAnimationUsingKeyFrames>
+	</Storyboard>
+	<Storyboard
+		x:Key="ButtonUpTimeLine">
+		<DoubleAnimationUsingKeyFrames
+			BeginTime="00:00:00"
+			Storyboard.TargetName="BorderDown"
+			Storyboard.TargetProperty="Opacity">
+			<SplineDoubleKeyFrame
+				KeyTime="00:00:00.25"
+				Value="0" />
+		</DoubleAnimationUsingKeyFrames>
+		<ThicknessAnimationUsingKeyFrames
+			BeginTime="00:00:00"
+			Storyboard.TargetName="Contents"
+			Storyboard.TargetProperty="Margin">
+			<SplineThicknessKeyFrame
+				KeyTime="00:00:00.25"
+				Value="3,3,3,3" />
+		</ThicknessAnimationUsingKeyFrames>
+	</Storyboard>
+	<Style
+		TargetType="{x:Type Button}"
+		x:Key="{x:Type Button}">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#828282" />
+					<GradientStop
+						Offset="0.3"
+						Color="#696969" />
+					<GradientStop
+						Offset="0.5"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="1"
+						Color="#494949" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#494949" />
+					<GradientStop
+						Offset="0.3"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="0.5"
+						Color="#696969" />
+					<GradientStop
+						Offset="1"
+						Color="#828282" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Width"
+			Value="Auto" />
+		<Setter
+			Property="FontFamily"
+			Value="Verdana" />
+		<Setter
+			Property="FontSize"
+			Value="13" />
+		<Setter
+			Property="Foreground"
+			Value="#dedede" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Border
+						CornerRadius="3"
+						BorderBrush="#4b4b4b"
+						BorderThickness="1">
+						<Grid>
+							<Border
+								Name="BorderUp"
+								Background="{DynamicResource BorderUpBackground}"
+								CornerRadius="2"
+								BorderBrush="#c5c5c5"
+								BorderThickness="0 1 0 0" />
+							<Border
+								Name="BorderDown"
+								Background="{DynamicResource BorderDownBackground}"
+								CornerRadius="2"
+								BorderBrush="#9b9b9b"
+								BorderThickness="0 1 0 0"
+								Opacity="0" />
+							<ContentPresenter
+								Name="Contents"
+								Margin="3" />
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type Button}"
+		BasedOn="{StaticResource {x:Type Button}}"
+		x:Key="errorButton">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#ff0000" />
+					<GradientStop
+						Offset="1"
+						Color="#aa0000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#aa0000" />
+					<GradientStop
+						Offset="1"
+						Color="#ff0000" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		TargetType="{x:Type Button}"
+		BasedOn="{StaticResource {x:Type Button}}"
+		x:Key="warningButton">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#ffff00" />
+					<GradientStop
+						Offset="1"
+						Color="#aaaa00" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#aaaa00" />
+					<GradientStop
+						Offset="1"
+						Color="#ffff00" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		TargetType="{x:Type Button}"
+		BasedOn="{StaticResource {x:Type Button}}"
+		x:Key="infoButton">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#ffffff" />
+					<GradientStop
+						Offset="1"
+						Color="#ffffff" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#ffffff" />
+					<GradientStop
+						Offset="1"
+						Color="#ffffff" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		TargetType="{x:Type Button}"
+		x:Key="counterButton">
+		<Setter
+			Property="Height"
+			Value="80" />
+		<Setter
+			Property="Width"
+			Value="195" />
+		<Setter
+			Property="HorizontalAlignment"
+			Value="Left" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Border
+							Name="BorderUp"
+							CornerRadius="3"
+							BorderThickness="0 0 0 1"
+							BorderBrush="#f7f7f7">
+							<Border
+								CornerRadius="2.5"
+								BorderThickness="1"
+								BorderBrush="#3f3f3f">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0"
+											Color="#b0b0b0" />
+										<GradientStop
+											Offset="1"
+											Color="#8c8b8b" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+						</Border>
+						<Border
+							Name="BorderDown"
+							CornerRadius="3"
+							BorderThickness="0 0 0 1"
+							BorderBrush="#f7f7f7"
+							Opacity="0">
+							<Border
+								CornerRadius="2.5"
+								BorderThickness="1"
+								BorderBrush="#3f3f3f">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0"
+											Color="#8c8b8b" />
+										<GradientStop
+											Offset="1"
+											Color="#b0b0b0" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+						</Border>
+						<Grid
+							Name="Contents"
+							Margin="3">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition
+									Width="4*" />
+								<ColumnDefinition
+									Width="*" />
+							</Grid.ColumnDefinitions>
+							<ContentPresenter
+								VerticalAlignment="Center"
+								Grid.Column="0" />
+							<Border
+								Grid.Column="1">
+								<Image
+									Source="img\counterarrow.png"
+									Stretch="None" />
+							</Border>
+						</Grid>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type Button}"
+		x:Key="bulkMainButton">
+		<Setter
+			Property="Height"
+			Value="80" />
+		<Setter
+			Property="Width"
+			Value="195" />
+		<Setter
+			Property="HorizontalAlignment"
+			Value="Left" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Border
+							Name="BorderUp"
+							CornerRadius="3"
+							BorderThickness="0 0 0 1"
+							BorderBrush="#f7f7f7">
+							<Border
+								CornerRadius="2.5"
+								BorderThickness="1"
+								BorderBrush="#3f3f3f">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0"
+											Color="#b0b0b0" />
+										<GradientStop
+											Offset="1"
+											Color="#8c8b8b" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+						</Border>
+						<Border
+							Name="BorderDown"
+							CornerRadius="3"
+							BorderThickness="0 0 0 1"
+							BorderBrush="#f7f7f7"
+							Opacity="0">
+							<Border
+								CornerRadius="2.5"
+								BorderThickness="1"
+								BorderBrush="#3f3f3f">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0"
+											Color="#8c8b8b" />
+										<GradientStop
+											Offset="1"
+											Color="#b0b0b0" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+						</Border>
+						<Grid
+							Name="Contents"
+							Margin="3">
+							<ContentPresenter
+								VerticalAlignment="Center"
+								Grid.Column="0" />
+						</Grid>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		x:Key="okButtonStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseDarkStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#666666" />
+					<GradientStop
+						Offset="1.00"
+						Color="#191919" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseGreyStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#999999" />
+					<GradientStop
+						Offset="1.00"
+						Color="#999999" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#98e781" />
+					<GradientStop
+						Offset="0.60"
+						Color="#358a06" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#52d62a" />
+					<GradientStop
+						Offset="1.00"
+						Color="#358a06" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="1.00"
+						Color="#52d62a" />
+					<GradientStop
+						Offset="0.00"
+						Color="#358a06" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="60" />
+		<Setter
+			Property="Width"
+			Value="60" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse
+							Name="EllipseFrame"
+							StrokeThickness="3"
+							Fill="{StaticResource EllipseDarkStroke}" />
+						<Ellipse
+							Name="BorderUp"
+							Height="55"
+							Width="55"
+							StrokeThickness="1"
+							Stroke="{DynamicResource EllipseStroke}"
+							Fill="{DynamicResource EllipseUpFill}" />
+						<Ellipse
+							Name="BorderDown"
+							Height="55"
+							Width="55"
+							StrokeThickness="1"
+							Opacity="0"
+							Stroke="{DynamicResource EllipseStroke}"
+							Fill="{DynamicResource EllipseDownFill}" />
+						<ContentPresenter
+							Name="Contents" />
+						<Ellipse
+							Name="Shape"
+							Fill="#ffffff"
+							Opacity="0.07"
+							Margin="0 0 0 32" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								TargetName="EllipseFrame"
+								Property="Fill"
+								Value="{StaticResource EllipseGreyStroke}" />
+							<Setter
+								TargetName="BorderUp"
+								Property="StrokeThickness"
+								Value="0" />
+							<Setter
+								TargetName="Shape"
+								Property="UIElement.Opacity"
+								Value="0" />
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="True">
+							<Setter
+								TargetName="EllipseFrame"
+								Property="Fill"
+								Value="{StaticResource EllipseDarkStroke}" />
+							<Setter
+								TargetName="BorderUp"
+								Property="StrokeThickness"
+								Value="1" />
+							<Setter
+								TargetName="Shape"
+								Property="UIElement.Opacity"
+								Value="0.07" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		BasedOn="{StaticResource okButtonStyle}"
+		x:Key="cancelButtonStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#ca5050" />
+					<GradientStop
+						Offset="0.60"
+						Color="#730000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#ca2525" />
+					<GradientStop
+						Offset="1.00"
+						Color="#730000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="1.00"
+						Color="#ca2525" />
+					<GradientStop
+						Offset="0.00"
+						Color="#730000" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		BasedOn="{StaticResource okButtonStyle}"
+		x:Key="defaultButtonStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#e4e4e4" />
+					<GradientStop
+						Offset="0.60"
+						Color="#a6a6a6" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#d1d1d1" />
+					<GradientStop
+						Offset="1.00"
+						Color="#969696" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#969696" />
+					<GradientStop
+						Offset="1.00"
+						Color="#d1d1d1" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		TargetType="{x:Type ButtonBase}"
+		x:Key="mainButtonStyle">
+		<Setter
+			Property="Focusable"
+			Value="False" />
+		<Setter
+			Property="FontFamily"
+			Value="Arial" />
+		<Setter
+			Property="FontSize"
+			Value="35px" />
+		<Setter
+			Property="FontWeight"
+			Value="Bold" />
+		<Setter
+			Property="Height"
+			Value="65" />
+		<Setter
+			Property="Width"
+			Value="65" />
+		<Setter
+			Property="Margin"
+			Value="10 0 0 0" />
+		<Setter
+			Property="Foreground"
+			Value="#3d3e40" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type ButtonBase}">
+					<Grid>
+						<Border
+							Name="BorderUp"
+							BorderThickness="1.5"
+							CornerRadius="5"
+							BorderBrush="#5f5f5f">
+							<Border.Background>
+								<LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="0,1">
+									<GradientStop
+										Offset="0.00"
+										Color="#e2e2e2" />
+									<GradientStop
+										Offset="0.10"
+										Color="#c3c4c3" />
+									<GradientStop
+										Offset="1.00"
+										Color="#a5a7a8" />
+								</LinearGradientBrush>
+							</Border.Background>
+							<Border
+								Margin="3"
+								CornerRadius="3">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0.00"
+											Color="#c3c4c3" />
+										<GradientStop
+											Offset="1.00"
+											Color="#a5a7a8" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+						</Border>
+						<Border
+							Name="BorderDown"
+							BorderThickness="1.5"
+							CornerRadius="5"
+							BorderBrush="#5f5f5f"
+							Opacity="0">
+							<Border.Background>
+								<LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="0,1">
+									<GradientStop
+										Offset="0.00"
+										Color="#e2e2e2" />
+									<GradientStop
+										Offset="0.40"
+										Color="#c3c4c3" />
+									<GradientStop
+										Offset="1.00"
+										Color="#898989" />
+								</LinearGradientBrush>
+							</Border.Background>
+						</Border>
+						<ContentPresenter
+							Name="Contents"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type ButtonBase}"
+		x:Key="btnMainMenu">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type ButtonBase}">
+					<Border
+						Name="bBorder"
+						CornerRadius="3"
+						BorderBrush="#605f5f"
+						BorderThickness="1">
+						<Grid>
+							<Border
+								Name="BorderUp"
+								CornerRadius="2"
+								BorderBrush="#f6f6f6"
+								BorderThickness="0 1 0 0">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0"
+											Color="#a2a2a2" />
+										<GradientStop
+											Offset="0.5"
+											Color="#c7c7c7" />
+										<GradientStop
+											Offset="0.7"
+											Color="#c7c7c7" />
+										<GradientStop
+											Offset="1"
+											Color="#9d9d9d" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+							<Border
+								Name="BorderDown"
+								CornerRadius="2"
+								BorderBrush="#bbbbbb"
+								BorderThickness="0 1 0 0"
+								Opacity="0">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientStop
+											Offset="0"
+											Color="#b2b2b2" />
+										<GradientStop
+											Offset="0.1"
+											Color="#c7c7c7" />
+										<GradientStop
+											Offset="0.4"
+											Color="#c7c7c7" />
+										<GradientStop
+											Offset="1"
+											Color="#8c8c8c" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+							<ContentPresenter
+								Name="Contents"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center" />
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								TargetName="bBorder"
+								Property="BorderBrush"
+								Value="#999999" />
+							<Setter
+								TargetName="BorderUp"
+								Property="BorderThickness"
+								Value="0 0 0 0" />
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="True">
+							<Setter
+								TargetName="bBorder"
+								Property="BorderBrush"
+								Value="#605f5f" />
+							<Setter
+								TargetName="BorderUp"
+								Property="BorderThickness"
+								Value="0 1 0 0" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type TextBox}"
+		x:Key="{x:Type TextBox}">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="textBoxBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#cfcfcf" />
+					<GradientStop
+						Offset="0.02"
+						Color="#e9e9e9" />
+					<GradientStop
+						Offset="0.03"
+						Color="#f1f1f1" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="textBoxBorder"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.01"
+						Color="#bebebe" />
+					<GradientStop
+						Offset="0.10"
+						Color="#d8d8d8" />
+					<GradientStop
+						Offset="0.9"
+						Color="#d8d8d8" />
+					<GradientStop
+						Offset="1.00"
+						Color="#e6e6e6" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="Padding"
+			Value="10 5 10 5" />
+		<Setter
+			Property="FontFamily"
+			Value="Arial" />
+		<Setter
+			Property="FontSize"
+			Value="30" />
+		<Setter
+			Property="VerticalAlignment"
+			Value="Center" />
+		<Setter
+			Property="TextBox.TextAlignment"
+			Value="Right" />
+		<Setter
+			Property="Foreground"
+			Value="#5e5e5e" />
+		<Setter
+			Property="Focusable"
+			Value="False" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type TextBox}">
+					<Border
+						CornerRadius="3"
+						BorderThickness="2"
+						Padding="{TemplateBinding Padding}"
+						BorderBrush="{DynamicResource textBoxBorder}"
+						Background="{DynamicResource textBoxBackground}">
+						<ScrollViewer
+							Name="PART_ContentHost"
+							Margin="0" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter
+			Property="TextBox.TextWrapping"
+			Value="Wrap" />
+	</Style>
+	<Style
+		TargetType="{x:Type TextBox}"
+		BasedOn="{StaticResource {x:Type TextBox}}"
+		x:Key="disabledTextBox">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="textBoxBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#adadad" />
+					<GradientStop
+						Offset="0.02"
+						Color="#bababa" />
+					<GradientStop
+						Offset="0.03"
+						Color="#c7c7c7" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="textBoxBorder"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.01"
+						Color="#9f9f9f" />
+					<GradientStop
+						Offset="0.10"
+						Color="#bababa" />
+					<GradientStop
+						Offset="0.9"
+						Color="#bababa" />
+					<GradientStop
+						Offset="1.00"
+						Color="#e6e6e6" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Margin"
+			Value="65 20 65 20" />
+		<Setter
+			Property="TextBox.TextWrapping"
+			Value="Wrap" />
+	</Style>
+	<Style
+		TargetType="{x:Type ContextMenu}"
+		x:Key="messageSystemContextMenuStyle">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type ContextMenu}">
+					<Grid>
+						<Border
+							CornerRadius="3">
+							<Border.Background>
+								<SolidColorBrush
+									Color="#000000"
+									Opacity="0.6" />
+							</Border.Background>
+							<UIElement.BitmapEffect>
+								<DropShadowBitmapEffect
+									Color="#000000"
+									Direction="315"
+									Softness="0.5"
+									Opacity="0.4" />
+							</UIElement.BitmapEffect>
+						</Border>
+						<Border
+							Margin="5"
+							Padding="10 5 10 5"
+							Background="#d1d1d1"
+							CornerRadius="2"
+							BorderThickness="1"
+							BorderBrush="#525252">
+							<ScrollViewer>
+								<StackPanel
+									IsItemsHost="True"
+									KeyboardNavigation.DirectionalNavigation="Cycle" />
+							</ScrollViewer>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type PasswordBox}"
+		x:Key="{x:Type PasswordBox}">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="passwordBoxBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#cfcfcf" />
+					<GradientStop
+						Offset="0.02"
+						Color="#e9e9e9" />
+					<GradientStop
+						Offset="0.03"
+						Color="#f1f1f1" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="passwordBoxBorder"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.01"
+						Color="#bebebe" />
+					<GradientStop
+						Offset="0.10"
+						Color="#d8d8d8" />
+					<GradientStop
+						Offset="0.9"
+						Color="#d8d8d8" />
+					<GradientStop
+						Offset="1.00"
+						Color="#e6e6e6" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="Padding"
+			Value="10 5 10 5" />
+		<Setter
+			Property="FontFamily"
+			Value="Arial" />
+		<Setter
+			Property="FontSize"
+			Value="30" />
+		<Setter
+			Property="VerticalAlignment"
+			Value="Center" />
+		<Setter
+			Property="Foreground"
+			Value="#5e5e5e" />
+		<Setter
+			Property="Focusable"
+			Value="False" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type PasswordBox}">
+					<Border
+						CornerRadius="3"
+						BorderThickness="2"
+						Padding="{TemplateBinding Padding}"
+						BorderBrush="{DynamicResource passwordBoxBorder}"
+						Background="{DynamicResource passwordBoxBackground}">
+						<ScrollViewer
+							Name="PART_ContentHost"
+							Margin="0" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type ComboBox}"
+		x:Key="{x:Type ComboBox}">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="comboBoxBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#cfcfcf" />
+					<GradientStop
+						Offset="0.02"
+						Color="#e9e9e9" />
+					<GradientStop
+						Offset="0.03"
+						Color="#f1f1f1" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="comboBoxBorder"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.01"
+						Color="#bebebe" />
+					<GradientStop
+						Offset="0.10"
+						Color="#d8d8d8" />
+					<GradientStop
+						Offset="0.9"
+						Color="#d8d8d8" />
+					<GradientStop
+						Offset="1.00"
+						Color="#e6e6e6" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="Padding"
+			Value="10 5 10 5" />
+		<Setter
+			Property="FontFamily"
+			Value="Arial" />
+		<Setter
+			Property="FontSize"
+			Value="30" />
+		<Setter
+			Property="VerticalAlignment"
+			Value="Center" />
+		<Setter
+			Property="Foreground"
+			Value="#5e5e5e" />
+		<Setter
+			Property="Focusable"
+			Value="False" />
+		<Setter
+			Property="Background"
+			Value="{DynamicResource comboBoxBackground}" />
+		<Setter
+			Property="BorderBrush"
+			Value="{DynamicResource comboBoxBorder}" />
+	</Style>
+	<Style
+		TargetType="{x:Type Separator}"
+		x:Key="SeparatorStyle">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Separator}">
+					<StackPanel>
+						<Rectangle
+							Height="1"
+							Fill="#9e9e9e" />
+						<Rectangle
+							Height="1"
+							Fill="#e1e1e1" />
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type MenuItem}"
+		x:Key="contextMenuItemStyle">
+		<Setter
+			Property="FontFamily"
+			Value="Arial" />
+		<Setter
+			Property="FontSize"
+			Value="15" />
+		<Setter
+			Property="Foreground"
+			Value="#1f1f1f" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type MenuItem}">
+					<StackPanel>
+						<Border
+							Name="Border"
+							Padding="5"
+							Background="#00FFFFFF">
+							<ContentPresenter
+								ContentSource="Header"
+								VerticalAlignment="Center" />
+						</Border>
+						<Separator
+							Style="{StaticResource SeparatorStyle}" />
+					</StackPanel>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="MenuItem.IsHighlighted"
+							Value="True">
+							<Setter
+								TargetName="Border"
+								Property="Background"
+								Value="#9e9e9e" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type MenuItem}"
+		BasedOn="{StaticResource contextMenuItemStyle}"
+		x:Key="contextErrorMenuItemStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<l:MessageTypeToImageConverter
+					x:Key="messageTypeToImageConverter" />
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type MenuItem}">
+					<StackPanel>
+						<Border
+							Name="Border"
+							Padding="5"
+							Background="#00FFFFFF">
+							<StackPanel
+								Orientation="Horizontal">
+								<Image
+									Stretch="Uniform"
+									Height="22"
+									VerticalAlignment="Center"
+									Margin="0 0 5 0"
+									Source="{Binding Path=LogbookEntry.Type, Converter={StaticResource messageTypeToImageConverter}}" />
+								<ContentPresenter
+									ContentSource="Header"
+									VerticalAlignment="Center" />
+							</StackPanel>
+						</Border>
+						<Separator
+							Style="{StaticResource SeparatorStyle}" />
+					</StackPanel>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="MenuItem.IsHighlighted"
+							Value="True">
+							<Setter
+								TargetName="Border"
+								Property="Background"
+								Value="#9e9e9e" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<SolidColorBrush
+		Color="#888"
+		x:Key="StandardBorderBrush" />
+	<SolidColorBrush
+		Color="#FFF"
+		x:Key="StandardBackgroundBrush" />
+	<SolidColorBrush
+		Color="#DDD"
+		x:Key="HoverBorderBrush" />
+	<SolidColorBrush
+		Color="Gray"
+		x:Key="SelectedBackgroundBrush" />
+	<SolidColorBrush
+		Color="White"
+		x:Key="SelectedForegroundBrush" />
+	<SolidColorBrush
+		Color="#888"
+		x:Key="DisabledForegroundBrush" />
+	<SolidColorBrush
+		Color="#888"
+		x:Key="NormalBrush" />
+	<SolidColorBrush
+		Color="#888"
+		x:Key="NormalBorderBrush" />
+	<SolidColorBrush
+		Color="#888"
+		x:Key="HorizontalNormalBrush" />
+	<SolidColorBrush
+		Color="#888"
+		x:Key="HorizontalNormalBorderBrush" />
+	<LinearGradientBrush
+		StartPoint="0,0"
+		EndPoint="1,0.001"
+		x:Key="ListBoxBackgroundBrush">
+		<GradientBrush.GradientStops>
+			<GradientStopCollection>
+				<GradientStop
+					Color="White"
+					Offset="0.0" />
+				<GradientStop
+					Color="White"
+					Offset="0.6" />
+				<GradientStop
+					Color="#DDDDDD"
+					Offset="1.2" />
+			</GradientStopCollection>
+		</GradientBrush.GradientStops>
+	</LinearGradientBrush>
+	<LinearGradientBrush
+		StartPoint="0,0"
+		EndPoint="0,1"
+		x:Key="StandardBrush">
+		<GradientBrush.GradientStops>
+			<GradientStopCollection>
+				<GradientStop
+					Color="#FFF"
+					Offset="0.0" />
+				<GradientStop
+					Color="#CCC"
+					Offset="1.0" />
+			</GradientStopCollection>
+		</GradientBrush.GradientStops>
+	</LinearGradientBrush>
+	<SolidColorBrush
+		Color="#444"
+		x:Key="GlyphBrush" />
+	<LinearGradientBrush
+		StartPoint="0,0"
+		EndPoint="0,1"
+		x:Key="PressedBrush">
+		<GradientBrush.GradientStops>
+			<GradientStopCollection>
+				<GradientStop
+					Color="#BBB"
+					Offset="0.0" />
+				<GradientStop
+					Color="#EEE"
+					Offset="0.1" />
+				<GradientStop
+					Color="#EEE"
+					Offset="0.9" />
+				<GradientStop
+					Color="#FFF"
+					Offset="1.0" />
+			</GradientStopCollection>
+		</GradientBrush.GradientStops>
+	</LinearGradientBrush>
+	<Style
+		TargetType="{x:Type RepeatButton}"
+		x:Key="ScrollBarPageButton">
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="IsTabStop"
+			Value="False" />
+		<Setter
+			Property="Focusable"
+			Value="False" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type RepeatButton}">
+					<Border
+						Background="#00FFFFFF" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type Thumb}"
+		x:Key="ScrollBarThumb">
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="IsTabStop"
+			Value="False" />
+		<Setter
+			Property="Focusable"
+			Value="False" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Thumb}">
+					<Border
+						CornerRadius="5"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="1" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<ControlTemplate
+		TargetType="{x:Type ScrollBar}"
+		x:Key="VerticalScrollBar">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition
+					MaxHeight="0" />
+				<RowDefinition
+					Height="0.00001*" />
+				<RowDefinition
+					MaxHeight="0" />
+			</Grid.RowDefinitions>
+			<Border
+				Grid.RowSpan="3"
+				Background="#00FFFFFF" />
+			<Track
+				Name="PART_Track"
+				Grid.Row="1"
+				IsDirectionReversed="True">
+				<Track.DecreaseRepeatButton>
+					<RepeatButton
+						Command="ScrollBar.PageUpCommand"
+						Style="{StaticResource ScrollBarPageButton}" />
+				</Track.DecreaseRepeatButton>
+				<Track.Thumb>
+					<Thumb
+						Margin="1 1 2 1"
+						Style="{StaticResource ScrollBarThumb}"
+						Background="{StaticResource HorizontalNormalBrush}"
+						BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+				</Track.Thumb>
+				<Track.IncreaseRepeatButton>
+					<RepeatButton
+						Command="ScrollBar.PageDownCommand"
+						Style="{StaticResource ScrollBarPageButton}" />
+				</Track.IncreaseRepeatButton>
+			</Track>
+		</Grid>
+	</ControlTemplate>
+	<ControlTemplate
+		TargetType="{x:Type ScrollBar}"
+		x:Key="HorizontalScrollBar">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					MaxWidth="0" />
+				<ColumnDefinition
+					Width="0.00001*" />
+				<ColumnDefinition
+					MaxWidth="0" />
+			</Grid.ColumnDefinitions>
+			<Border
+				Grid.ColumnSpan="3"
+				Background="#00FFFFFF" />
+			<Track
+				Name="PART_Track"
+				Grid.Column="1"
+				IsDirectionReversed="False">
+				<Track.DecreaseRepeatButton>
+					<RepeatButton
+						Command="ScrollBar.PageLeftCommand"
+						Style="{StaticResource ScrollBarPageButton}" />
+				</Track.DecreaseRepeatButton>
+				<Track.Thumb>
+					<Thumb
+						Margin="1 1 2 1"
+						Style="{StaticResource ScrollBarThumb}"
+						Background="{StaticResource HorizontalNormalBrush}"
+						BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+				</Track.Thumb>
+				<Track.IncreaseRepeatButton>
+					<RepeatButton
+						Command="ScrollBar.PageRightCommand"
+						Style="{StaticResource ScrollBarPageButton}" />
+				</Track.IncreaseRepeatButton>
+			</Track>
+		</Grid>
+	</ControlTemplate>
+	<Style
+		TargetType="{x:Type ScrollBar}"
+		x:Key="{x:Type ScrollBar}">
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="UIElement.Opacity"
+			Value="0.4" />
+		<Style.Resources>
+			<ResourceDictionary>
+				<Style
+					TargetType="{x:Type ContextMenu}"
+					x:Key="{x:Type ContextMenu}">
+					<Setter
+						Property="Visibility"
+						Value="Collapsed" />
+				</Style>
+				<Storyboard
+					x:Key="ScrollBarFadeIn"
+					AutoReverse="False"
+					RepeatBehavior="1x">
+					<DoubleAnimation
+						Storyboard.TargetProperty="Opacity"
+						BeginTime="0:0:0"
+						Duration="0:0:0.2"
+						From="0.4"
+						To="0.9" />
+				</Storyboard>
+				<Storyboard
+					x:Key="ScrollBarFadeOut"
+					AutoReverse="False"
+					RepeatBehavior="1x">
+					<DoubleAnimation
+						Storyboard.TargetProperty="Opacity"
+						BeginTime="0:0:0"
+						Duration="0:0:0.2"
+						From="0.9"
+						To="0.4" />
+				</Storyboard>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Style.Triggers>
+			<Trigger
+				Property="ScrollBar.Orientation"
+				Value="Horizontal">
+				<Setter
+					Property="Width"
+					Value="Auto" />
+				<Setter
+					Property="Height"
+					Value="40" />
+				<Setter
+					Property="Template"
+					Value="{StaticResource HorizontalScrollBar}" />
+			</Trigger>
+			<Trigger
+				Property="ScrollBar.Orientation"
+				Value="Vertical">
+				<Setter
+					Property="Width"
+					Value="40" />
+				<Setter
+					Property="Height"
+					Value="Auto" />
+				<Setter
+					Property="Template"
+					Value="{StaticResource VerticalScrollBar}" />
+			</Trigger>
+			<EventTrigger
+				RoutedEvent="GotMouseCapture">
+				<BeginStoryboard
+					Storyboard="{StaticResource ScrollBarFadeIn}" />
+			</EventTrigger>
+			<EventTrigger
+				RoutedEvent="LostMouseCapture">
+				<BeginStoryboard
+					Storyboard="{StaticResource ScrollBarFadeOut}" />
+			</EventTrigger>
+		</Style.Triggers>
+	</Style>
+	<Style
+		TargetType="{x:Type ScrollViewer}"
+		x:Key="{x:Type ScrollViewer}">
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type ScrollViewer}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition
+								Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition
+								Height="Auto" />
+						</Grid.RowDefinitions>
+						<ScrollContentPresenter
+							Grid.RowSpan="2"
+							Grid.ColumnSpan="2" />
+						<ScrollBar
+							Name="PART_VerticalScrollBar"
+							Grid.Column="1"
+							HorizontalAlignment="Right"
+							Value="{TemplateBinding VerticalOffset}"
+							Maximum="{TemplateBinding ScrollableHeight}"
+							ViewportSize="{TemplateBinding ViewportHeight}"
+							Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+						<ScrollBar
+							Name="PART_HorizontalScrollBar"
+							Orientation="Horizontal"
+							Grid.Row="1"
+							Grid.Column="1"
+							Value="{TemplateBinding HorizontalOffset}"
+							Maximum="{TemplateBinding ScrollableWidth}"
+							ViewportSize="{TemplateBinding ViewportWidth}"
+							Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Resources>
+			<ResourceDictionary>
+				<Style
+					TargetType="{x:Type ContextMenu}"
+					x:Key="{x:Type ContextMenu}">
+					<Setter
+						Property="Visibility"
+						Value="Collapsed" />
+				</Style>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		TargetType="{x:Type Button}"
+		x:Key="btnStyleNoBorders">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Border
+						Background="#00FFFFFF">
+						<ContentPresenter />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type CheckBox}"
+		x:Key="{x:Type CheckBox}">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#828282" />
+					<GradientStop
+						Offset="0.3"
+						Color="#696969" />
+					<GradientStop
+						Offset="0.5"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="1"
+						Color="#494949" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#494949" />
+					<GradientStop
+						Offset="0.3"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="0.5"
+						Color="#696969" />
+					<GradientStop
+						Offset="1"
+						Color="#828282" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDisabledBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#bbbbbb" />
+					<GradientStop
+						Offset="0.3"
+						Color="#bbbbbb" />
+					<GradientStop
+						Offset="0.5"
+						Color="#aaaaaa" />
+					<GradientStop
+						Offset="1"
+						Color="#aaaaaa" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="50" />
+		<Setter
+			Property="Width"
+			Value="50" />
+		<Setter
+			Property="Margin"
+			Value="0 10 0 10" />
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type CheckBox}">
+					<BulletDecorator
+						Background="#00FFFFFF">
+						<BulletDecorator.Bullet>
+							<Border
+								Name="borderColor"
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}"
+								CornerRadius="3"
+								BorderBrush="#4b4b4b"
+								BorderThickness="1">
+								<Grid>
+									<Border
+										Name="CheckBoxUp"
+										Background="{DynamicResource BorderUpBackground}"
+										CornerRadius="2"
+										BorderBrush="#c5c5c5"
+										BorderThickness="0 1 0 0" />
+									<Border
+										Name="CheckBoxDown"
+										Background="{DynamicResource BorderDownBackground}"
+										CornerRadius="2"
+										BorderBrush="#9b9b9b"
+										BorderThickness="0 1 0 0"
+										Opacity="0" />
+									<Image
+										Name="CheckMarkDisabled"
+										Source="img\checkmark_disabled.png"
+										Stretch="None" />
+									<Image
+										Name="CheckMarkEnabled"
+										Source="img\checkmark_enabled.png"
+										Stretch="None" />
+								</Grid>
+							</Border>
+						</BulletDecorator.Bullet>
+						<ContentPresenter />
+					</BulletDecorator>
+					<FrameworkTemplate.Resources>
+						<ResourceDictionary>
+							<Storyboard
+								x:Key="CheckBoxDownTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.05"
+										Value="1" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard
+								x:Key="CheckBoxUpTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.25"
+										Value="0" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+						</ResourceDictionary>
+					</FrameworkTemplate.Resources>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="false">
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="true">
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="CheckBoxDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								TargetName="CheckBoxUp"
+								Value="{DynamicResource BorderDisabledBackground}"
+								Property="Background" />
+							<Setter
+								TargetName="borderColor"
+								Property="BorderBrush"
+								Value="#aaaaaa" />
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Source"
+								Value="img\checkmark_disabled_lighter2.png" />
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Source"
+								Value="img\checkmark_disabled_lighter.png" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type CheckBox}"
+		BasedOn="{StaticResource {x:Type CheckBox}}"
+		x:Key="styleCheckBox" />
+	<Style
+		TargetType="{x:Type CheckBox}"
+		x:Key="styleCheckBoxDisabled">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#CCCCCC" />
+					<GradientStop
+						Offset="0.3"
+						Color="#B3B3B3" />
+					<GradientStop
+						Offset="0.5"
+						Color="#A9A9A9" />
+					<GradientStop
+						Offset="1"
+						Color="#A9A9A9" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#939393" />
+					<GradientStop
+						Offset="0.3"
+						Color="#A9A9A9" />
+					<GradientStop
+						Offset="0.5"
+						Color="#B3B3B3" />
+					<GradientStop
+						Offset="1"
+						Color="#CCCCCC" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="50" />
+		<Setter
+			Property="Width"
+			Value="50" />
+		<Setter
+			Property="Margin"
+			Value="0 10 0 10" />
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type CheckBox}">
+					<BulletDecorator
+						Background="#00FFFFFF">
+						<BulletDecorator.Bullet>
+							<Border
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}"
+								CornerRadius="3"
+								BorderBrush="#ababab"
+								BorderThickness="1">
+								<Grid>
+									<Border
+										Name="CheckBoxUp"
+										Background="{DynamicResource BorderUpBackground}"
+										CornerRadius="2"
+										BorderBrush="#c5c5c5"
+										BorderThickness="0 1 0 0" />
+									<Border
+										Name="CheckBoxDown"
+										Background="{DynamicResource BorderDownBackground}"
+										CornerRadius="2"
+										BorderBrush="#9b9b9b"
+										BorderThickness="0 1 0 0"
+										Opacity="0" />
+									<Image
+										Name="CheckMarkDisabled"
+										Source="img\checkmark_disabled_lighter.png"
+										Stretch="None" />
+									<Image
+										Name="CheckMarkEnabled"
+										Source="img\checkmark_enabled_darker.png"
+										Stretch="None" />
+								</Grid>
+							</Border>
+						</BulletDecorator.Bullet>
+						<ContentPresenter />
+					</BulletDecorator>
+					<FrameworkTemplate.Resources>
+						<ResourceDictionary>
+							<Storyboard
+								x:Key="CheckBoxDownTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.05"
+										Value="1" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard
+								x:Key="CheckBoxUpTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.25"
+										Value="0" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+						</ResourceDictionary>
+					</FrameworkTemplate.Resources>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="false">
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="true">
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="CheckBoxDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type CheckBox}"
+		x:Key="checkBoxLearnStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#828282" />
+					<GradientStop
+						Offset="0.3"
+						Color="#696969" />
+					<GradientStop
+						Offset="0.5"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="1"
+						Color="#494949" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#494949" />
+					<GradientStop
+						Offset="0.3"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="0.5"
+						Color="#696969" />
+					<GradientStop
+						Offset="1"
+						Color="#828282" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="50" />
+		<Setter
+			Property="Width"
+			Value="50" />
+		<Setter
+			Property="Margin"
+			Value="0 10 0 10" />
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type CheckBox}">
+					<BulletDecorator
+						Background="#00FFFFFF">
+						<BulletDecorator.Bullet>
+							<Border
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}"
+								CornerRadius="3"
+								BorderBrush="#4b4b4b"
+								BorderThickness="1">
+								<Grid>
+									<Border
+										Name="CheckBoxUp"
+										Background="{DynamicResource BorderUpBackground}"
+										CornerRadius="2"
+										BorderBrush="#c5c5c5"
+										BorderThickness="0 1 0 0" />
+									<Border
+										Name="CheckBoxDown"
+										Background="{DynamicResource BorderDownBackground}"
+										CornerRadius="2"
+										BorderBrush="#9b9b9b"
+										BorderThickness="0 1 0 0"
+										Opacity="0" />
+									<Image
+										Name="CheckMarkDisabled"
+										Source="img\learn_disabled.png"
+										Stretch="None" />
+									<Image
+										Name="CheckMarkEnabled"
+										Source="img\learn_enabled.png"
+										Stretch="None" />
+								</Grid>
+							</Border>
+						</BulletDecorator.Bullet>
+						<ContentPresenter />
+					</BulletDecorator>
+					<FrameworkTemplate.Resources>
+						<ResourceDictionary>
+							<Storyboard
+								x:Key="CheckBoxDownTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.05"
+										Value="1" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard
+								x:Key="CheckBoxUpTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.25"
+										Value="0" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+						</ResourceDictionary>
+					</FrameworkTemplate.Resources>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="false">
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="true">
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="CheckBoxDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type CheckBox}"
+		x:Key="StyleCheckBoxArrowRightLeft">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="BorderUpBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#828282" />
+					<GradientStop
+						Offset="0.3"
+						Color="#696969" />
+					<GradientStop
+						Offset="0.5"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="1"
+						Color="#494949" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="BorderDownBackground"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0"
+						Color="#494949" />
+					<GradientStop
+						Offset="0.3"
+						Color="#5f5f5f" />
+					<GradientStop
+						Offset="0.5"
+						Color="#696969" />
+					<GradientStop
+						Offset="1"
+						Color="#828282" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="50" />
+		<Setter
+			Property="Width"
+			Value="100" />
+		<Setter
+			Property="Margin"
+			Value="0 10 0 10" />
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type CheckBox}">
+					<BulletDecorator
+						Background="#00FFFFFF">
+						<BulletDecorator.Bullet>
+							<Border
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}"
+								CornerRadius="3"
+								BorderBrush="#4b4b4b"
+								BorderThickness="1">
+								<Grid>
+									<Border
+										Name="CheckBoxUp"
+										Background="{DynamicResource BorderUpBackground}"
+										CornerRadius="2"
+										BorderBrush="#c5c5c5"
+										BorderThickness="0 1 0 0" />
+									<Border
+										Name="CheckBoxDown"
+										Background="{DynamicResource BorderDownBackground}"
+										CornerRadius="2"
+										BorderBrush="#9b9b9b"
+										BorderThickness="0 1 0 0"
+										Opacity="0" />
+									<Image
+										Name="CheckMarkDisabled"
+										Source="img\arrow-right_long.png"
+										Stretch="None" />
+									<Image
+										Name="CheckMarkEnabled"
+										Source="img\arrow-left_long.png"
+										Stretch="None" />
+								</Grid>
+							</Border>
+						</BulletDecorator.Bullet>
+						<ContentPresenter />
+					</BulletDecorator>
+					<FrameworkTemplate.Resources>
+						<ResourceDictionary>
+							<Storyboard
+								x:Key="CheckBoxDownTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.05"
+										Value="1" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard
+								x:Key="CheckBoxUpTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.25"
+										Value="0" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+						</ResourceDictionary>
+					</FrameworkTemplate.Resources>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="false">
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="true">
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="CheckBoxDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type CheckBox}"
+		x:Key="StyleCheckBoxDisplay">
+		<Setter
+			Property="Height"
+			Value="50" />
+		<Setter
+			Property="Width"
+			Value="50" />
+		<Setter
+			Property="Margin"
+			Value="0 10 0 10" />
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type CheckBox}">
+					<BulletDecorator
+						Background="#00FFFFFF">
+						<BulletDecorator.Bullet>
+							<Grid>
+								<Border
+									Name="CheckBoxUp"
+									Background="{DynamicResource BorderUpBackground}"
+									CornerRadius="2"
+									BorderBrush="#c5c5c5"
+									BorderThickness="0 0 0 0" />
+								<Border
+									Name="CheckBoxDown"
+									Background="{DynamicResource BorderDownBackground}"
+									CornerRadius="2"
+									BorderBrush="#9b9b9b"
+									BorderThickness="0 0 0 0"
+									Opacity="0" />
+								<Image
+									Name="CheckMarkDisabled"
+									Source="img\minus_small.png"
+									Stretch="None"
+									Margin="0 0 0 0 " />
+								<Image
+									Name="CheckMarkEnabled"
+									Source="img\checkmark_enabled.png"
+									Stretch="None" />
+							</Grid>
+						</BulletDecorator.Bullet>
+						<ContentPresenter />
+					</BulletDecorator>
+					<FrameworkTemplate.Resources>
+						<ResourceDictionary>
+							<Storyboard
+								x:Key="CheckBoxDownTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.05"
+										Value="1" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.025"
+										Value="4,4,2,2" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard
+								x:Key="CheckBoxUpTimeLine">
+								<DoubleAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckBoxDown"
+									Storyboard.TargetProperty="Opacity">
+									<SplineDoubleKeyFrame
+										KeyTime="00:00:00.25"
+										Value="0" />
+								</DoubleAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkDisabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+								<ThicknessAnimationUsingKeyFrames
+									BeginTime="00:00:00"
+									Storyboard.TargetName="CheckMarkEnabled"
+									Storyboard.TargetProperty="Margin">
+									<SplineThicknessKeyFrame
+										KeyTime="00:00:00.25"
+										Value="3,3,3,3" />
+								</ThicknessAnimationUsingKeyFrames>
+							</Storyboard>
+						</ResourceDictionary>
+					</FrameworkTemplate.Resources>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="false">
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="true">
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="CheckBoxDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="CheckMarkDisabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<Setter
+								TargetName="CheckMarkEnabled"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource CheckBoxUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type RadioButton}"
+		x:Key="radioButtonStyle">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type RadioButton}">
+					<CheckBox
+						IsChecked="{Binding Path=IsChecked, RelativeSource={RelativeSource TemplatedParent}}">
+						<ContentPresenter />
+					</CheckBox>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<LinearGradientBrush
+		StartPoint="0,0"
+		EndPoint="0,1"
+		x:Key="WindowBackgroundBrushCustom">
+		<GradientBrush.GradientStops>
+			<GradientStopCollection>
+				<GradientStop
+					Color="#FFF"
+					Offset="0.0" />
+				<GradientStop
+					Color="#DDD"
+					Offset="1.0" />
+			</GradientStopCollection>
+		</GradientBrush.GradientStops>
+	</LinearGradientBrush>
+	<SolidColorBrush
+		Color="#888"
+		x:Key="SolidBorderBrush" />
+	<SolidColorBrush
+		Color="#AAA"
+		x:Key="DisabledBorderBrush" />
+	<LinearGradientBrush
+		StartPoint="0,0"
+		EndPoint="0,1"
+		x:Key="LightBrushCustom">
+		<GradientBrush.GradientStops>
+			<GradientStopCollection>
+				<GradientStop
+					Color="#EEE"
+					Offset="0.0" />
+				<GradientStop
+					Color="#BBB"
+					Offset="1.0" />
+			</GradientStopCollection>
+		</GradientBrush.GradientStops>
+	</LinearGradientBrush>
+	<SolidColorBrush
+		Color="#EEE"
+		x:Key="DisabledBackgroundBrush" />
+	<Style
+		TargetType="{x:Type TabControl}"
+		x:Key="{x:Type TabControl}">
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type TabControl}">
+					<Grid
+						KeyboardNavigation.TabNavigation="Local">
+						<Grid.RowDefinitions>
+							<RowDefinition
+								Height="Auto" />
+							<RowDefinition
+								Height="*" />
+						</Grid.RowDefinitions>
+						<TabPanel
+							Name="HeaderPanel"
+							Grid.Row="0"
+							ZIndex="1"
+							Margin="0,0,4,-1"
+							IsItemsHost="True"
+							KeyboardNavigation.TabIndex="1"
+							Background="#00FFFFFF" />
+						<Border
+							Name="Border"
+							Grid.Row="1"
+							Background="#DDD"
+							CornerRadius="2"
+							KeyboardNavigation.TabNavigation="Local"
+							KeyboardNavigation.DirectionalNavigation="Contained"
+							KeyboardNavigation.TabIndex="2"
+							BorderBrush="{StaticResource SolidBorderBrush}"
+							BorderThickness="{Binding TabBorderThickness}">
+							<ContentPresenter
+								Name="PART_SelectedContentHost"
+								Margin="1"
+								ContentSource="SelectedContent" />
+						</Border>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								Property="Foreground"
+								Value="{StaticResource DisabledForegroundBrush}" />
+							<Setter
+								TargetName="Border"
+								Property="BorderBrush"
+								Value="{StaticResource DisabledBorderBrush}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type TabItem}"
+		x:Key="{x:Type TabItem}">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type TabItem}">
+					<Grid>
+						<Border
+							Name="Border"
+							MinWidth="60"
+							Margin="0,0,-4,0"
+							BorderThickness="1,1,1,1"
+							CornerRadius="2,12,0,0"
+							Background="{StaticResource LightBrushCustom}"
+							BorderBrush="{StaticResource SolidBorderBrush}"
+							Height="{Binding TabHeight, FallbackValue=50}">
+							<ContentPresenter
+								Name="ContentSite"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								ContentSource="Header"
+								Margin="8,2,8,2"
+								RecognizesAccessKey="True" />
+						</Border>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="TabItem.IsSelected"
+							Value="True">
+							<Setter
+								Property="Panel.ZIndex"
+								Value="100" />
+							<Setter
+								TargetName="Border"
+								Property="Background"
+								Value="{StaticResource WindowBackgroundBrushCustom}" />
+							<Setter
+								TargetName="Border"
+								Property="BorderThickness"
+								Value="1,1,1,0" />
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								TargetName="Border"
+								Property="Background"
+								Value="{StaticResource DisabledBackgroundBrush}" />
+							<Setter
+								TargetName="Border"
+								Property="BorderBrush"
+								Value="{StaticResource DisabledBorderBrush}" />
+							<Setter
+								Property="Foreground"
+								Value="{StaticResource DisabledForegroundBrush}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		x:Key="RadioButtonFocusVisual">
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Border>
+						<Rectangle
+							Margin="15,0,0,0"
+							StrokeThickness="1"
+							Stroke="#60000000"
+							StrokeDashArray="1 2" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type RadioButton}"
+		x:Key="{x:Type RadioButton}">
+		<Setter
+			Property="UIElement.SnapsToDevicePixels"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.OverridesDefaultStyle"
+			Value="True" />
+		<Setter
+			Property="FrameworkElement.FocusVisualStyle"
+			Value="{StaticResource RadioButtonFocusVisual}" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type RadioButton}">
+					<BulletDecorator
+						Background="#00FFFFFF">
+						<BulletDecorator.Bullet>
+							<Grid
+								Width="45"
+								Height="45">
+								<Ellipse
+									Name="Border">
+									<Shape.Fill>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="0,1">
+											<GradientBrush.GradientStops>
+												<GradientStopCollection>
+													<GradientStop
+														Color="#FFF"
+														Offset="0.0" />
+													<GradientStop
+														Color="#CCC"
+														Offset="1.0" />
+												</GradientStopCollection>
+											</GradientBrush.GradientStops>
+										</LinearGradientBrush>
+									</Shape.Fill>
+									<Shape.Stroke>
+										<LinearGradientBrush
+											StartPoint="0,0"
+											EndPoint="0,1">
+											<GradientBrush.GradientStops>
+												<GradientStopCollection>
+													<GradientStop
+														Color="#CCC"
+														Offset="0.0" />
+													<GradientStop
+														Color="#444"
+														Offset="1.0" />
+												</GradientStopCollection>
+											</GradientBrush.GradientStops>
+										</LinearGradientBrush>
+									</Shape.Stroke>
+								</Ellipse>
+								<Ellipse
+									Name="CheckMark"
+									Margin="4"
+									Fill="#444" />
+							</Grid>
+						</BulletDecorator.Bullet>
+						<ContentPresenter
+							Margin="4,0,0,0"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Left"
+							RecognizesAccessKey="True" />
+					</BulletDecorator>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="ToggleButton.IsChecked"
+							Value="false">
+							<Setter
+								TargetName="CheckMark"
+								Property="Visibility"
+								Value="Collapsed" />
+						</Trigger>
+						<Trigger
+							Property="UIElement.IsMouseOver"
+							Value="True">
+							<Setter
+								TargetName="Border"
+								Property="Fill">
+								<Setter.Value>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientBrush.GradientStops>
+											<GradientStopCollection>
+												<GradientStop
+													Color="#FFF"
+													Offset="0.0" />
+												<GradientStop
+													Color="#AAA"
+													Offset="1.0" />
+											</GradientStopCollection>
+										</GradientBrush.GradientStops>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="Border"
+								Property="Fill">
+								<Setter.Value>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="0,1">
+										<GradientBrush.GradientStops>
+											<GradientStopCollection>
+												<GradientStop
+													Color="#BBB"
+													Offset="0.0" />
+												<GradientStop
+													Color="#EEE"
+													Offset="0.1" />
+												<GradientStop
+													Color="#EEE"
+													Offset="0.9" />
+												<GradientStop
+													Color="#FFF"
+													Offset="1.0" />
+											</GradientStopCollection>
+										</GradientBrush.GradientStops>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+							<Setter
+								TargetName="Border"
+								Property="Stroke"
+								Value="#444" />
+						</Trigger>
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								TargetName="Border"
+								Property="Fill"
+								Value="#EEE" />
+							<Setter
+								TargetName="Border"
+								Property="Stroke"
+								Value="#40000000" />
+							<Setter
+								Property="Foreground"
+								Value="#80000000" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		x:Key="conveyorStartButtonStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseDarkStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#666666" />
+					<GradientStop
+						Offset="1.00"
+						Color="#191919" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#50ca50" />
+					<GradientStop
+						Offset="0.60"
+						Color="#007300" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#00dd00" />
+					<GradientStop
+						Offset="1.00"
+						Color="#007700" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="1.00"
+						Color="#00dd00" />
+					<GradientStop
+						Offset="0.00"
+						Color="#007700" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="70" />
+		<Setter
+			Property="Width"
+			Value="70" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse
+							StrokeThickness="3"
+							Fill="{StaticResource EllipseDarkStroke}" />
+						<Ellipse
+							Name="BorderUp"
+							Height="65"
+							Width="65"
+							StrokeThickness="1"
+							Stroke="{DynamicResource EllipseStroke}"
+							Fill="{DynamicResource EllipseUpFill}" />
+						<Ellipse
+							Name="BorderDown"
+							Height="65"
+							Width="65"
+							StrokeThickness="1"
+							Opacity="0"
+							Stroke="{DynamicResource EllipseStroke}"
+							Fill="{DynamicResource EllipseDownFill}" />
+						<ContentPresenter
+							Name="Contents" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		BasedOn="{StaticResource conveyorStartButtonStyle}"
+		x:Key="defaultButtonBigStyle">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#e4e4e4" />
+					<GradientStop
+						Offset="0.60"
+						Color="#a6a6a6" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#d1d1d1" />
+					<GradientStop
+						Offset="1.00"
+						Color="#969696" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#969696" />
+					<GradientStop
+						Offset="1.00"
+						Color="#d1d1d1" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+	</Style>
+	<Style
+		x:Key="StyleButtonConveyorStart">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseDarkStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#666666" />
+					<GradientStop
+						Offset="0.47"
+						Color="#191919" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00000000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#00dd00" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00aa00" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00000000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="RectangleUpFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#00aa00" />
+					<GradientStop
+						Offset="1.00"
+						Color="#009000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#009900" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00bb00" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00000000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="RectangleDownFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#00bb00" />
+					<GradientStop
+						Offset="1.00"
+						Color="#00dd00" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Width"
+			Value="75" />
+		<Setter
+			Property="Height"
+			Value="75" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse
+							Margin="0 15 0 0"
+							Width="72"
+							Height="73"
+							Fill="{DynamicResource EllipseUpFillGreen}"
+							Stroke="{DynamicResource EllipseDarkStroke}"
+							StrokeThickness="2"
+							SnapsToDevicePixels="True" />
+						<Border
+							Margin="0 49 0 0"
+							BorderBrush="#202020"
+							Width="72"
+							Height="26"
+							BorderThickness="2 0 2 0"
+							Background="{DynamicResource RectangleUpFillGreen}"
+							SnapsToDevicePixels="True"
+							RenderOptions.EdgeMode="Aliased" />
+						<Ellipse
+							Name="EllipseGreenDown"
+							Width="72"
+							Height="73"
+							Fill="{DynamicResource EllipseDownFillGreen}"
+							Stroke="{DynamicResource EllipseDarkStroke}"
+							StrokeThickness="2"
+							Opacity="0"
+							Margin="0 15 0 0"
+							SnapsToDevicePixels="True" />
+						<Border
+							Name="RectangleGreenDown"
+							Margin="0 49 0 0"
+							BorderBrush="#202020"
+							Width="72"
+							Height="26"
+							BorderThickness="2 0 2 0"
+							Background="{DynamicResource RectangleDownFillGreen}"
+							Opacity="0"
+							SnapsToDevicePixels="True"
+							RenderOptions.EdgeMode="Aliased" />
+						<ContentPresenter
+							Name="Contents" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<TriggerBase.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											Storyboard.TargetProperty="Opacity"
+											Storyboard.TargetName="EllipseGreenDown"
+											From="0"
+											To="1"
+											Duration="00:00:0.05" />
+										<DoubleAnimation
+											Storyboard.TargetProperty="Opacity"
+											Storyboard.TargetName="RectangleGreenDown"
+											From="0"
+											To="1"
+											Duration="00:00:0.05" />
+										<ThicknessAnimation
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin"
+											From="0 0 0 0"
+											To="1 1 5 5"
+											Duration="00:00:0.1" />
+									</Storyboard>
+								</BeginStoryboard>
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											Storyboard.TargetProperty="Opacity"
+											Storyboard.TargetName="EllipseGreenDown"
+											From="1"
+											To="0"
+											Duration="00:00:0.25" />
+										<DoubleAnimation
+											Storyboard.TargetProperty="Opacity"
+											Storyboard.TargetName="RectangleGreenDown"
+											From="1"
+											To="0"
+											Duration="00:00:0.25" />
+										<ThicknessAnimation
+											Storyboard.TargetName="Contents"
+											Storyboard.TargetProperty="Margin"
+											From="1 1 5 5"
+											To="0 0 0 0"
+											Duration="00:00:0.1" />
+									</Storyboard>
+								</BeginStoryboard>
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		BasedOn="{StaticResource StyleButtonConveyorStart}"
+		x:Key="StyleButtonConveyorStop">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseDarkStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#666666" />
+					<GradientStop
+						Offset="0.47"
+						Color="#191919" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00000000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#dd0000" />
+					<GradientStop
+						Offset="0.47"
+						Color="#aa0000" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00000000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="RectangleDownFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#aa0000" />
+					<GradientStop
+						Offset="1.00"
+						Color="#990000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#990000" />
+					<GradientStop
+						Offset="0.47"
+						Color="#bb0000" />
+					<GradientStop
+						Offset="0.47"
+						Color="#00000000" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="RectangleUpFillGreen"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#bb0000" />
+					<GradientStop
+						Offset="1.00"
+						Color="#dd0000" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="UIElement.RenderTransformOrigin"
+			Value="0.5 0.5" />
+		<Setter
+			Property="RenderTransform">
+			<Setter.Value>
+				<RotateTransform
+					Angle="180" />
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		TargetType="{x:Type Border}"
+		x:Key="styleBgLines">
+		<Setter
+			Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush
+					MappingMode="Absolute"
+					StartPoint="0,0"
+					EndPoint="1,1"
+					SpreadMethod="Repeat">
+					<GradientStop
+						Offset="0"
+						Color="#191919" />
+					<GradientStop
+						Offset="0.3"
+						Color="#191919" />
+					<GradientStop
+						Offset="0.3"
+						Color="#01ffffff" />
+					<GradientStop
+						Offset="1"
+						Color="#01ffffff" />
+					<Brush.Transform>
+						<ScaleTransform
+							ScaleX="2"
+							ScaleY="2" />
+					</Brush.Transform>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		x:Key="defaultButtonBigStyleActive">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseStrokeActive"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#98bd08" />
+					<GradientStop
+						Offset="0.60"
+						Color="#779307" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#e4e4e4" />
+					<GradientStop
+						Offset="0.60"
+						Color="#a6a6a6" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#d1d1d1" />
+					<GradientStop
+						Offset="1.00"
+						Color="#969696" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#969696" />
+					<GradientStop
+						Offset="1.00"
+						Color="#d1d1d1" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDarkStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#666666" />
+					<GradientStop
+						Offset="1.00"
+						Color="#191919" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseGreyStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#999999" />
+					<GradientStop
+						Offset="1.00"
+						Color="#999999" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="70" />
+		<Setter
+			Property="Width"
+			Value="70" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse
+							StrokeThickness="3"
+							Fill="{StaticResource EllipseStroke}">
+							<FrameworkElement.Style>
+								<Style
+									TargetType="{x:Type Ellipse}">
+									<Style.Triggers>
+										<DataTrigger
+											Value="True"
+											Binding="{Binding ShowNext}">
+											<Setter
+												Property="Stroke"
+												Value="{StaticResource EllipseStrokeActive}" />
+										</DataTrigger>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding ShowNext}">
+											<Setter
+												Property="Stroke"
+												Value="{StaticResource EllipseDarkStroke}" />
+										</DataTrigger>
+										<Trigger
+											Property="IsEnabled"
+											Value="False">
+											<Trigger.Setters>
+												<Setter
+													Property="Stroke"
+													Value="{StaticResource EllipseGreyStroke}" />
+											</Trigger.Setters>
+										</Trigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkElement.Style>
+						</Ellipse>
+						<Ellipse
+							Name="BorderUp"
+							Height="65"
+							Width="65"
+							StrokeThickness="1"
+							Fill="{DynamicResource EllipseUpFill}" />
+						<Ellipse
+							Name="BorderDown"
+							Height="65"
+							Width="65"
+							StrokeThickness="1"
+							Opacity="0"
+							Fill="{DynamicResource EllipseDownFill}" />
+						<ContentPresenter
+							Name="Contents" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style
+		x:Key="defaultButtonStyleActive">
+		<Style.Resources>
+			<ResourceDictionary>
+				<LinearGradientBrush
+					x:Key="EllipseStrokeActive"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#98bd08" />
+					<GradientStop
+						Offset="0.60"
+						Color="#779307" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#e4e4e4" />
+					<GradientStop
+						Offset="0.60"
+						Color="#a6a6a6" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseUpFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#d1d1d1" />
+					<GradientStop
+						Offset="1.00"
+						Color="#969696" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDownFill"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#969696" />
+					<GradientStop
+						Offset="1.00"
+						Color="#d1d1d1" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseDarkStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#666666" />
+					<GradientStop
+						Offset="1.00"
+						Color="#191919" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="EllipseGreyStroke"
+					StartPoint="0,0"
+					EndPoint="0,1">
+					<GradientStop
+						Offset="0.00"
+						Color="#999999" />
+					<GradientStop
+						Offset="1.00"
+						Color="#999999" />
+				</LinearGradientBrush>
+			</ResourceDictionary>
+		</Style.Resources>
+		<Setter
+			Property="Height"
+			Value="60" />
+		<Setter
+			Property="Width"
+			Value="60" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse
+							StrokeThickness="3"
+							Fill="{StaticResource EllipseStroke}">
+							<FrameworkElement.Style>
+								<Style
+									TargetType="{x:Type Ellipse}">
+									<Style.Triggers>
+										<DataTrigger
+											Value="True"
+											Binding="{Binding ShowNext}">
+											<Setter
+												Property="Stroke"
+												Value="{StaticResource EllipseStrokeActive}" />
+										</DataTrigger>
+										<DataTrigger
+											Value="False"
+											Binding="{Binding ShowNext}">
+											<Setter
+												Property="Stroke"
+												Value="{StaticResource EllipseDarkStroke}" />
+										</DataTrigger>
+										<Trigger
+											Property="IsEnabled"
+											Value="False">
+											<Trigger.Setters>
+												<Setter
+													Property="Stroke"
+													Value="{StaticResource EllipseGreyStroke}" />
+											</Trigger.Setters>
+										</Trigger>
+									</Style.Triggers>
+								</Style>
+							</FrameworkElement.Style>
+						</Ellipse>
+						<Ellipse
+							Name="BorderUp"
+							Height="55"
+							Width="55"
+							StrokeThickness="1"
+							Fill="{DynamicResource EllipseUpFill}" />
+						<Ellipse
+							Name="BorderDown"
+							Height="55"
+							Width="55"
+							StrokeThickness="1"
+							Opacity="0"
+							Fill="{DynamicResource EllipseDownFill}" />
+						<ContentPresenter
+							Name="Contents" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger
+							Property="IsPressed"
+							Value="True">
+							<Setter
+								TargetName="BorderDown"
+								Property="UIElement.Opacity"
+								Value="1" />
+							<Setter
+								TargetName="Contents"
+								Property="Margin"
+								Value="4,4,2,2" />
+							<TriggerBase.EnterActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonDownTimeLine}" />
+							</TriggerBase.EnterActions>
+							<TriggerBase.ExitActions>
+								<BeginStoryboard
+									Storyboard="{StaticResource ButtonUpTimeLine}" />
+							</TriggerBase.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

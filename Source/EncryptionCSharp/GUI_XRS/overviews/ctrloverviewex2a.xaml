@@ -1,0 +1,321 @@
+<UserControl
+	x:Class="GUI_XRS.CtrlOverviewEX2A" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:l="clr-namespace:GUI_XRS"
+	Background="#00FFFFFF"
+	Stylus.IsPressAndHoldEnabled="False"
+	Stylus.IsTapFeedbackEnabled="False"
+	Stylus.IsTouchFeedbackEnabled="False">
+	<Grid
+		MinHeight="300"
+		MinWidth="400">
+		<FrameworkElement.Resources>
+			<ResourceDictionary>
+				<Style
+					TargetType="{x:Type Button}"
+					x:Key="overlayButton">
+					<Setter
+						Property="Template">
+						<Setter.Value>
+							<ControlTemplate
+								TargetType="{x:Type Button}">
+								<Border
+									Name="bBorder"
+									BorderBrush="#4F4F4F"
+									BorderThickness="1"
+									CornerRadius="3">
+									<Border.Background>
+										<SolidColorBrush
+											x:Name="BorderUp"
+											Color="Red"
+											Opacity="0" />
+									</Border.Background>
+									<ContentPresenter />
+								</Border>
+								<FrameworkTemplate.Resources>
+									<ResourceDictionary>
+										<Storyboard
+											x:Key="ButtonDownTimeLine">
+											<DoubleAnimationUsingKeyFrames
+												BeginTime="00:00:00"
+												Storyboard.TargetName="BorderUp"
+												Storyboard.TargetProperty="Opacity">
+												<SplineDoubleKeyFrame
+													KeyTime="00:00:00.05"
+													Value="0.1" />
+											</DoubleAnimationUsingKeyFrames>
+										</Storyboard>
+										<Storyboard
+											x:Key="ButtonUpTimeLine">
+											<DoubleAnimationUsingKeyFrames
+												BeginTime="00:00:00"
+												Storyboard.TargetName="BorderUp"
+												Storyboard.TargetProperty="Opacity">
+												<SplineDoubleKeyFrame
+													KeyTime="00:00:00.25"
+													Value="0" />
+											</DoubleAnimationUsingKeyFrames>
+										</Storyboard>
+									</ResourceDictionary>
+								</FrameworkTemplate.Resources>
+								<ControlTemplate.Triggers>
+									<Trigger
+										Property="IsPressed"
+										Value="True">
+										<TriggerBase.EnterActions>
+											<BeginStoryboard
+												Storyboard="{StaticResource ButtonDownTimeLine}" />
+										</TriggerBase.EnterActions>
+										<TriggerBase.ExitActions>
+											<BeginStoryboard
+												Storyboard="{StaticResource ButtonUpTimeLine}" />
+										</TriggerBase.ExitActions>
+									</Trigger>
+									<Trigger
+										Property="IsEnabled"
+										Value="False">
+										<Setter
+											TargetName="bBorder"
+											Property="BorderBrush"
+											Value="#999999" />
+									</Trigger>
+									<Trigger
+										Property="IsEnabled"
+										Value="True">
+										<Setter
+											TargetName="bBorder"
+											Property="BorderBrush"
+											Value="#605f5f" />
+									</Trigger>
+								</ControlTemplate.Triggers>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+				<l:BoolToVisibilityCollapsedConverter
+					x:Key="bVisConverter" />
+				<l:BoolToVisibilityInvertedHiddenConverter
+					x:Key="boolToVisibilityInvertedHiddenConverter" />
+				<l:ProductChangeMachineStatesBoolConverter
+					x:Key="productChangeMachineStatesBoolConverter" />
+			</ResourceDictionary>
+		</FrameworkElement.Resources>
+		<Image
+			Name="overviewImage"
+			Source="..\img\RayconEX2A.png" />
+		<Grid
+			Height="{Binding Path=ActualHeight, ElementName=overviewImage}"
+			Width="{Binding Path=ActualWidth, ElementName=overviewImage}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+				<RowDefinition
+					Height="23*" />
+			</Grid.RowDefinitions>
+			<Button
+				Name="btnDetector"
+				Grid.Row="11"
+				Grid.Column="15"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Style="{StaticResource overlayButton}"
+				Click="btnDetector_Click" />
+			<Image
+				Source="..\img\rejectOff.png"
+				Grid.Column="32"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Grid.Row="32"
+				Margin=" 10,10,10,10" />
+			<Button
+				Name="btnPusher"
+				Grid.Row="32"
+				Grid.Column="32"
+				Grid.ColumnSpan="4"
+				Style="{StaticResource overlayButton}"
+				Grid.RowSpan="4"
+				Visibility="{Binding RejectButtonVisible, Converter={StaticResource bVisConverter}}"
+				Click="btnPusher_Click" />
+			<Button
+				Name="btnSource"
+				Grid.Row="27"
+				Grid.Column="15"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Style="{StaticResource overlayButton}"
+				Click="btnSource_Click" />
+			<Button
+				Name="btnConveyor"
+				Grid.Row="13"
+				Grid.Column="26"
+				Grid.ColumnSpan="4"
+				Style="{StaticResource overlayButton}"
+				Grid.RowSpan="4"
+				Click="btnConveyor_Click">
+				<UIElement.IsEnabled>
+					<MultiBinding
+						Converter="{StaticResource productChangeMachineStatesBoolConverter}">
+						<Binding
+							Path="MachineState.State" />
+						<Binding
+							Path="DemoMode" />
+					</MultiBinding>
+				</UIElement.IsEnabled>
+				<Grid
+					Background="#FFA9A9A9"
+					Opacity="0.6"
+					Visibility="{Binding ElementName=btnConveyor, Path=IsEnabled, Converter={StaticResource boolToVisibilityInvertedHiddenConverter}}" />
+			</Button>
+			<Image
+				Source="..\img\errorcontacts.png"
+				Grid.Row="32"
+				Grid.Column="2"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Margin="13,13,13,13"
+				Visibility="{Binding ErrorOutputVisible, Converter={StaticResource bVisConverter}}" />
+			<Button
+				Name="btnErrorOutput"
+				Grid.Row="32"
+				Grid.Column="2"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Style="{StaticResource overlayButton}"
+				Visibility="{Binding ErrorOutputVisible, Converter={StaticResource bVisConverter}}"
+				Click="btnErrorOutput_Click" />
+			<Image
+				Source="..\img\overview.png"
+				Grid.Column="32"
+				Grid.Row="2"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Margin="10,10,10,10" />
+			<Button
+				Name="btnMachineParameter"
+				Grid.Row="2"
+				Grid.Column="32"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Style="{StaticResource overlayButton}"
+				Click="btnMachineParameter_Click" />
+			<Button
+				Grid.Row="2"
+				Grid.Column="15"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="4"
+				Style="{StaticResource overlayButton}"
+				Visibility="{Binding BuzzerAvailable, Converter={StaticResource bVisConverter}}"
+				Click="btnBuzzer_Click" />
+		</Grid>
+	</Grid>
+</UserControl>
